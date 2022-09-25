@@ -11,6 +11,7 @@
     "Name Name";
   width: 272px;
   height: 208px;
+  position: relative;
 }
 
 .Img {
@@ -39,4 +40,20 @@
   width: 272px;
   height: 48px;
   text-align: center;
+}
+
+.count {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background: #4C4CFF;
+  border-radius: 16px;
 }

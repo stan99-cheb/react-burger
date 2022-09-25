@@ -7,8 +7,10 @@ const BurgerIngredients = ({ data }) => {
   const sauceImage = data.filter((item) => item.type === 'sauce');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '550px' }}>
-      <MyTab />
+    <div style={{ display: 'flex', flexDirection: 'column', width: '600px' }}>
+      <div style={{ marginBottom: '40px' }}>
+        <MyTab />
+      </div>
       <div>
         <h2 className="text text_type_main-medium">Булки</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>

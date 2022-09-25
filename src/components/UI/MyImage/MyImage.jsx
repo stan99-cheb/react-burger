@@ -18,6 +18,9 @@ const MyImage = ({ bun }) => {
           {bun.name}
         </p>
       </div>
+      <div className={classes.count}>
+        <p className="text text_type_digits-default">1</p>
+      </div>
     </div>
   )
 };
