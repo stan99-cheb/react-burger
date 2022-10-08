@@ -1,5 +1,5 @@
 import React from "react";
-import './BurgerConstructor.css';
+import './burger-constructor.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerConstructor = () => {
@@ -16,13 +16,15 @@ const BurgerConstructor = () => {
             thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
           />
         </div>
-        <div className="burger__item">
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={'https://code.s3.yandex.net/react/code/sauce-03.png'}
-          />
+        <div className="burger__container">
+          <div className="burger__item">
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text="Краторная булка N-200i (верх)"
+              price={50}
+              thumbnail={'https://code.s3.yandex.net/react/code/sauce-03.png'}
+            />
+          </div>
         </div>
         <div className="burger__item_bottom">
           <ConstructorElement

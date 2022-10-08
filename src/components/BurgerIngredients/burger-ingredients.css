@@ -1,0 +1,29 @@
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.ingredients__tabs {
+  margin-bottom: 40px;
+}
+
+.ingredients__container {
+  max-height: 640px;
+  overflow-y: auto;
+}
+
+.ingredients__title {
+  margin-bottom: 24px;
+}
+
+.ingredients__type {
+  margin: 0 0 40px;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+
+  list-style-type: none;
+}

@@ -10,3 +10,15 @@
   display: flex;
   gap: 40px;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* цвет дорожки */
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+/* цвет плашки */
+::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
