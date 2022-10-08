@@ -2,10 +2,10 @@ import React from "react";
 import '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './HeaderButton.module.css';
 
-const HeaderButton = ({ text, icon }) => {
+const HeaderButton = ({ text, icon, ...props }) => {
 
   return (
-    <button className={classes.button}>
+    <button {...props} className={classes.button}>
       {icon}
       <p className="text text_type_main-default">
         {text}

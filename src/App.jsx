@@ -1,26 +1,21 @@
-import React, { useState} from 'react';
+import React from 'react';
 import '@ya.praktikum/react-developer-burger-ui-components';
-import AppHeader from './components/AppHeader/AppHeader';
+import './styles/App.css';
+import Header from './components/Header/Header';
 import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients';
 import { data } from './components/utils/data';
 
 function App() {
-  const [choice, setChoice] = useState('');
   
   return (
     <div>
-      <AppHeader />
+      <Header />
       <main>
-        <h1 style={{ maxWidth: '1240px', margin: '0 auto 20px' }} className="text text_type_main-large">Соберите бургер</h1>
-        <section style={{
-          margin: '0 auto',
-          maxWidth: '1240px',
-          display: 'flex',
-          gap: '40px'
-        }} className='wrapper'>
+        <h1 className="main__title text text_type_main-large">Соберите бургер</h1>
+        <section className="main__wrapper">
           <BurgerIngredients data={data} />
-          <BurgerConstructor choice={choice} />
+          <BurgerConstructor />
         </section>
       </main>
     </div>

@@ -1,0 +1,42 @@
+.burger {
+  width: 600px;
+}
+
+.burger__components {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.burger__item {
+  display: flex;
+  column-gap: 14px;
+  align-items: center;
+}
+
+.burger__item_top {
+  margin-left: 46px;
+}
+
+.burger__item_bottom {
+  margin: 0 0 40px 46px;
+}
+
+.burger__result {
+  display: flex;
+  column-gap: 40px;
+  align-items: center;
+  justify-content: end;
+  margin-right: 16px;
+}
+
+.burger__sum {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.burger svg {
+  width: 33px;
+  height: 33px;
+}

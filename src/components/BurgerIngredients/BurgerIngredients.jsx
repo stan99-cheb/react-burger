@@ -1,4 +1,5 @@
 import React from "react";
+import './BurgerIngredients.css';
 import MyImage from "../UI/MyImage/MyImage";
 import MyTab from "../UI/MyTab/MyTab";
 
@@ -7,21 +8,21 @@ const BurgerIngredients = ({ data }) => {
   const sauceImage = data.filter((item) => item.type === 'sauce');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '600px' }}>
-      <div style={{ marginBottom: '40px' }}>
+    <div className="container">
+      <div className="container__tab">
         <MyTab />
       </div>
       <div>
         <h2 className="text text_type_main-medium">Булки</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className="container__bun">
           {
-            bunsImage.map(bun => <MyImage bun={bun} id={bun.id} />)
+            bunsImage.map(bun => <MyImage ingredient={bun} key={bun._id} />)
           }
         </div>
         <h2 className="text text_type_main-medium">Соусы</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className="container__sauce">
           {
-            sauceImage.map(bun => <MyImage bun={bun} id={bun.id} />)
+            sauceImage.map(sauce => <MyImage ingredient={sauce} key={sauce._id} />)
           }
         </div>
       </div>
