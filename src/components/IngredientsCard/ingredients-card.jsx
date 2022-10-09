@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import INGREDIENT_TYPE from '../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './ingredients-card.module.css';
 
@@ -27,11 +27,7 @@ const IngridientsCard = ({ ingredient }) => {
 };
 
 IngridientsCard.propTypes = {
-  ingredient: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.number
-  })
+  ingredient: INGREDIENT_TYPE.isRequired
 }
 
 export default IngridientsCard;

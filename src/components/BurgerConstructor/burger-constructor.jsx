@@ -1,13 +1,13 @@
 import React from "react";
-import './burger-constructor.css';
+import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerConstructor = () => {
 
   return (
-    <div className="burger">
-      <div className="burger__components">
-        <div className="burger__item_top">
+    <div className={classes.burger}>
+      <div className={classes.burger__components}>
+        <div className={classes.burger__item_top}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -16,8 +16,8 @@ const BurgerConstructor = () => {
             thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
           />
         </div>
-        <div className="burger__container">
-          <div className="burger__item">
+        <div className={classes.burger__container}>
+          <div className={classes.burger__item}>
             <DragIcon type="primary" />
             <ConstructorElement
               text="Краторная булка N-200i (верх)"
@@ -26,7 +26,7 @@ const BurgerConstructor = () => {
             />
           </div>
         </div>
-        <div className="burger__item_bottom">
+        <div className={classes.burger__item_bottom}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -36,8 +36,8 @@ const BurgerConstructor = () => {
           />
         </div>
       </div>
-      <div className="burger__result">
-        <div className="burger__sum">
+      <div className={classes.burger__result}>
+        <div className={classes.burger__sum}>
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary" />
         </div>
@@ -46,7 +46,7 @@ const BurgerConstructor = () => {
         </Button>
       </div>
     </div>
-  )
+  );
 };
 
 export default BurgerConstructor;

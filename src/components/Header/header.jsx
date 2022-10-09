@@ -1,25 +1,25 @@
 import React from "react";
-import './header.css';
+import classes from './header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Header = () => {
 
   return (
-    <header className="header">
-      <a className="header__link" href="https://ya.ru">
+    <header className={classes.header}>
+      <a className={classes.header__link} href="#">
         <BurgerIcon type="secondary" />
         <p className="text text_type_main-default">
           Конструктор
         </p>
       </a>
-      <a className="header__link" href="https://ya.ru">
+      <a className={classes.header__link} href="#">
         <ListIcon type="secondary" />
         <p className="text text_type_main-default">
           Лента заказов
         </p>
       </a>
-      <div className="header__logo"><Logo /></div>
-      <a className="header__link" href="https://ya.ru">
+      <div className={classes.header__logo}><Logo /></div>
+      <a className={classes.header__link} href="#">
         <ProfileIcon type="secondary" />
         <p className="text text_type_main-default">
           Личный кабинет
