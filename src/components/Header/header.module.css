@@ -1,0 +1,33 @@
+.header {
+  margin: 0 auto 40px;
+  max-width: 1920px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  background-color: #1c1c21;
+}
+
+.header__link {
+  width: 180px;
+  height: 56px;
+
+  text-decoration: none;
+
+  color: #8585ad;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.header__link:hover {
+  cursor: pointer;
+  color: #f2f2f3;
+}
+
+.header__logo {
+  margin: 0 290px 0 110px;
+}

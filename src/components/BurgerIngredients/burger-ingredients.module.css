@@ -1,0 +1,14 @@
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.ingredients__tabs {
+  margin-bottom: 40px;
+}
+
+.ingredients__container {
+  max-height: 640px;
+  overflow-y: auto;
+}
