@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './burger-ingredients.css';
-import IngridientsCard from "../IngredientsCard/ingredients-card";
 import IngredientTabs from "../IngredientTabs/ingredient-tabs";
+import RenderIngredients from "../RenderIngredients/render-ingredients";
 
 const BurgerIngredients = ({ data }) => {
   const bunsIngredient = data.filter((item) => item.type === 'bun');
@@ -15,30 +15,9 @@ const BurgerIngredients = ({ data }) => {
         <IngredientTabs />
       </div>
       <div className="ingredients__container">
-        <h2 className="ingredients__title text text_type_main-medium">Булки</h2>
-        <ul className="ingredients__type">
-          {bunsIngredient.map(bun =>
-            <li key={bun._id}>
-              <IngridientsCard ingredient={bun} />
-            </li>
-          )}
-        </ul>
-        <h2 className="ingredients__title text text_type_main-medium">Соусы</h2>
-        <ul className="ingredients__type">
-          {saucesIngredient.map(sauce =>
-            <li key={sauce._id}>
-              <IngridientsCard ingredient={sauce} />
-            </li>
-          )}
-        </ul>
-        <h2 className="ingredients__title text text_type_main-medium">Начинки</h2>
-        <ul className="ingredients__type">
-          {mainsIngredient.map(main =>
-            <li key={main._id}>
-              <IngridientsCard ingredient={main} />
-            </li>
-          )}
-        </ul>
+        <RenderIngredients title="Булки" ingredients={bunsIngredient} />
+        <RenderIngredients title="Соусы" ingredients={saucesIngredient} />
+        <RenderIngredients title="Начинки" ingredients={mainsIngredient} />
       </div>
     </div>
   );

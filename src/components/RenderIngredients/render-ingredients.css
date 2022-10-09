@@ -1,0 +1,14 @@
+.render__title {
+  margin-bottom: 24px;
+}
+
+.render__type {
+  margin: 0 0 40px;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+
+  list-style-type: none;
+}

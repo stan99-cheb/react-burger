@@ -12,18 +12,3 @@
   max-height: 640px;
   overflow-y: auto;
 }
-
-.ingredients__title {
-  margin-bottom: 24px;
-}
-
-.ingredients__type {
-  margin: 0 0 40px;
-  padding: 0;
-
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px 24px;
-
-  list-style-type: none;
-}
