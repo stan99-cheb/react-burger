@@ -6,7 +6,7 @@ import classes from './ingredients-card.module.css';
 const IngridientsCard = ({ ingredient }) => {
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} >
       <img className={classes.Img} src={ingredient.image} alt={ingredient.name}></img>
       <div className={classes.Price}>
         <p className="text text_type_digits-default">{ingredient.price}</p>

@@ -23,7 +23,8 @@
   min-width: 720px;
   min-height: 540px;
 
-  outline: 1px solid red;
+  background-color: #1c1c21;
+  border-radius: 40px;
 }
 
 .title-wrapper {
@@ -37,7 +38,9 @@
   align-items: center;
 }
 
-.title {}
+.title {
+  color: #f2f2f3;
+}
 
 .icon-close {
   width: 32px;
@@ -45,12 +48,11 @@
 }
 
 .image {
+  display: block;
   margin: 0 auto 16px;
 
   max-width: 520px;
   min-height: 240px;
-
-  outline: 1px solid red;
 }
 
 .name {
@@ -59,7 +61,8 @@
   max-width: 520px;
   min-height: 30px;
 
-  outline: 1px solid red;
+  text-align: center;
+  color: #f2f2f3;
 }
 
 .caloric-contents {
@@ -71,8 +74,6 @@
 
   max-width: 520px;
   min-height: 56px;
-
-  outline: 1px solid red;
 }
 
 .caloric-contents__item {
@@ -81,7 +82,10 @@
 
   min-width: 20%;
 
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 
-  outline: 1px solid red;
+  text-align: center;
+  color: #8585ad;
 }

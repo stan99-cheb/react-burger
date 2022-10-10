@@ -4,7 +4,7 @@ import INGREDIENT_TYPE from '../utils/prop-types';
 import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
-const RenderIngredients = ({ title, ingredients }) => {
+const IngredientsCategory = ({ title, ingredients }) => {
   const titleClasses = ['text', 'text_type_main-medium'];
   titleClasses.push(classes.render__title);
 
@@ -22,9 +22,9 @@ const RenderIngredients = ({ title, ingredients }) => {
   );
 };
 
-RenderIngredients.propTypes = {
+IngredientsCategory.propTypes = {
   ingredients: PropTypes.arrayOf(INGREDIENT_TYPE).isRequired,
   title: PropTypes.string.isRequired
 };
 
-export default RenderIngredients;
+export default IngredientsCategory;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import INGREDIENT_TYPE from '../utils/prop-types';
 import classes from './burger-ingredients.module.css';
 import IngredientTabs from "../IngredientTabs/ingredient-tabs";
-import RenderIngredients from "../IngredientsCategory/ingredients-category";
+import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 
 const BurgerIngredients = ({ data }) => {
   const bunsIngredient = data.filter((item) => item.type === 'bun');
@@ -16,9 +16,9 @@ const BurgerIngredients = ({ data }) => {
         <IngredientTabs />
       </div>
       <div className={classes.ingredients__container}>
-        <RenderIngredients title="Булки" ingredients={bunsIngredient} />
-        <RenderIngredients title="Соусы" ingredients={saucesIngredient} />
-        <RenderIngredients title="Начинки" ingredients={mainsIngredient} />
+        <IngredientsCategory title="Булки" ingredients={bunsIngredient} />
+        <IngredientsCategory title="Соусы" ingredients={saucesIngredient} />
+        <IngredientsCategory title="Начинки" ingredients={mainsIngredient} />
       </div>
     </div>
   );
