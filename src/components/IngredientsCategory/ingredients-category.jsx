@@ -5,12 +5,10 @@ import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
 const IngredientsCategory = ({ title, ingredients, ...props }) => {
-  const titleClasses = ['text', 'text_type_main-medium'];
-  titleClasses.push(classes.render__title);
 
   return (
     <>
-      <h2 className={titleClasses.join(' ')}>{title}</h2>
+      <h2 className={`${classes.render__title} text text_type_main-medium`}>{title}</h2>
       <ul className={classes.render__type}>
         {ingredients.map(ingredient =>
           <li key={ingredient._id}>

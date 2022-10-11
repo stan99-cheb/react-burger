@@ -12,20 +12,15 @@ const ModalIngredientDetails = ({ active, setActive, ingredient }) => {
     classesActive.push(classes.active);
   }
 
-  const classesTitle = ['text', 'text_type_main-large'];
-  classesTitle.push(classes.title);
-  const classesName = ['text', 'text_type_main-medium'];
-  classesName.push(classes.name);
-
   return ReactDOM.createPortal(
     <div className={classesActive.join(' ')} onClick={() => setActive(false)}>
       <div className={classes.container} onClick={(evt) => evt.stopPropagation()}>
         <div className={classes["title-wrapper"]}>
-          <p className={classesTitle.join(' ')}>Детали ингредиента</p>
+          <p className={`${classes.title} text text_type_main-large`}>Детали ингредиента</p>
           <img className={classes["icon-close"]} src={iconClose} alt="icon-close" onClick={() => setActive(false)}></img>
         </div>
         <img className={classes.image} src={ingredient.image} alt={ingredient.name}></img>
-        <p className={classesName.join(' ')}>{ingredient.name}</p>
+        <p className={`${classes.name} text text_type_main-medium`}>{ingredient.name}</p>
         <div className={classes["caloric-contents"]}>
           <div className={classes["caloric-contents__item"]}>
             <p className="text text_type_main-default">Калории, ккал</p>

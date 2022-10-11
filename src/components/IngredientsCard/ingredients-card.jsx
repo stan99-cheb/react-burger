@@ -5,6 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import classes from './ingredients-card.module.css';
 
 const IngridientsCard = ({ ingredient, setIngredient, setActive }) => {
+  
   const handleOnClick = () => {
     setActive(true);
     setIngredient(ingredient);
