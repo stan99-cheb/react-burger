@@ -4,7 +4,7 @@ import INGREDIENT_TYPE from '../utils/prop-types';
 import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
-const IngredientsCategory = ({ title, ingredients }) => {
+const IngredientsCategory = ({ title, ingredients, ...props }) => {
   const titleClasses = ['text', 'text_type_main-medium'];
   titleClasses.push(classes.render__title);
 
@@ -14,7 +14,7 @@ const IngredientsCategory = ({ title, ingredients }) => {
       <ul className={classes.render__type}>
         {ingredients.map(ingredient =>
           <li key={ingredient._id}>
-            <IngridientsCard ingredient={ingredient} />
+            <IngridientsCard ingredient={ingredient} {...props} />
           </li>
         )}
       </ul>
