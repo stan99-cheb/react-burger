@@ -1,0 +1,75 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, .7);
+
+  visibility: hidden;
+}
+
+.modal.active {
+  visibility: visible;
+}
+
+.container {
+  background-color: #1c1c21;
+  border-radius: 40px;
+
+  position: relative;
+
+  text-align: center;
+}
+
+.close-btn {
+  padding: 0;
+  border: none;
+
+  width: 32px;
+  height: 32px;
+
+  position: absolute;
+  top: 60px;
+  right: 40px;
+
+  background-image: url(../../images/icon-close.svg);
+  background-color: transparent;
+}
+
+.order-id {
+  margin: 0 100px 32px 0;
+  padding: 120px 0 0 100px;
+
+  width: 520px;
+
+  text-align: center;
+}
+
+.title {
+  margin: 0 100px 60px 0;
+  padding: 0 0 0 100px;
+}
+
+.icon-done {
+  display: block;
+  margin: 0 auto 60px;
+}
+
+.text-one {
+  margin: 0 100px 8px 0;
+  padding: 0 0 0 100px;
+}
+
+.text-two {
+  margin: 0 100px 120px 0;
+  padding: 0 0 0 100px;
+
+  color: #8585ad;
+}

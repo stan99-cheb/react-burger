@@ -47,7 +47,7 @@ const ModalIngredientDetails = ({ active, setActive, ingredient }) => {
       </div>
     </div>,
     modalRoot
-  )
+  );
 };
 
 ModalIngredientDetails.propTypes = {

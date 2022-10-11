@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOrderID from "../ModalOrderID/modal-order-id";
 
 const BurgerConstructor = () => {
+  const [isModal, setModal] = useState(false);
 
   return (
     <div className={classes.burger}>
@@ -41,10 +43,11 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={() => setModal(true)}>
           Оформить заказ
         </Button>
       </div>
+      <ModalOrderID active={isModal} setActive={setModal} />
     </div>
   );
 };
