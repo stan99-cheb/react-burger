@@ -13,17 +13,6 @@
   overflow-y: auto;
 }
 
-.modal__title {
-  margin: 0 40px 0 0;
-  padding: 50px 0 0 40px;
-
-  width: 640px;
-  height: 64px;
-
-  text-align: start;
-  color: #f2f2f3;
-}
-
 .modal__image {
   display: block;
   margin: 0 auto 16px;

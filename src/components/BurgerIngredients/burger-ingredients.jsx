@@ -23,8 +23,7 @@ const BurgerIngredients = ({ data }) => {
         <IngredientsCategory title="Соусы" ingredients={saucesIngredient} setIngredient={setIngredient} setActive={setModal} />
         <IngredientsCategory title="Начинки" ingredients={mainsIngredient} setIngredient={setIngredient} setActive={setModal} />
       </div>
-      <Modal active={isModal} setActive={setModal}>
-        <p className={`${classes.modal__title} text text_type_main-large`}>Детали ингредиента</p>
+      <Modal active={isModal} setActive={setModal} title="Детали ингредиента">
         <img className={classes.modal__image} src={isIngredient.image} alt={isIngredient.name}></img>
         <p className={`${classes.modal__name} text text_type_main-medium`}>{isIngredient.name}</p>
         <ul className={classes["modal__caloric-contents"]}>
