@@ -6,6 +6,15 @@ import iconDone from '../../images/icon-done.svg';
 
 const BurgerConstructor = () => {
   const [isModal, setModal] = React.useState(false);
+  const modalContent = (
+    <>
+      <p className={`${classes["modal__order-id"]} text text_type_digits-large`}>034536</p>
+      <p className={`${classes.modal__title} text text_type_main-medium`}>идентификатор заказа</p>
+      <img className={classes["modal__icon-done"]} src={iconDone} alt="Иконка Done"></img>
+      <p className={`${classes["modal__text-one"]} text text_type_main-default`}>Ваш заказ начали готовить</p>
+      <p className={`${classes["modal__text-two"]} text text_type_main-default`}>Дождитесь готовности на орбитальной станции</p>
+    </>
+  );
 
   return (
     <div className={classes.burger}>
@@ -49,11 +58,7 @@ const BurgerConstructor = () => {
         </Button>
       </div>
       <Modal active={isModal} setActive={setModal}>
-        <p className={`${classes["modal__order-id"]} text text_type_digits-large`}>034536</p>
-        <p className={`${classes.modal__title} text text_type_main-medium`}>идентификатор заказа</p>
-        <img className={classes["modal__icon-done"]} src={iconDone} alt="Иконка Done"></img>
-        <p className={`${classes["modal__text-one"]} text text_type_main-default`}>Ваш заказ начали готовить</p>
-        <p className={`${classes["modal__text-two"]} text text_type_main-default`}>Дождитесь готовности на орбитальной станции</p>
+        {modalContent}
       </Modal>
     </div>
   );

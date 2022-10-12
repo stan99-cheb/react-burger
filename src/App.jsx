@@ -4,7 +4,7 @@ import classes from './styles/App.module.css';
 import Header from './components/Header/header';
 import BurgerConstructor from './components/BurgerConstructor/burger-constructor';
 import BurgerIngredients from './components/BurgerIngredients/burger-ingredients';
-import Api from './components/utils/api';
+import * as api from './components/utils/api';
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    Api.getData(url)
+    api.getData(url)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   }, []);

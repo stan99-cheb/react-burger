@@ -12,6 +12,18 @@ const BurgerIngredients = ({ data }) => {
   const mainsIngredient = data.filter((item) => item.type === 'main');
   const [isModal, setModal] = React.useState(false);
   const [isIngredient, setIngredient] = React.useState({});
+  const modalContent = (
+    <>
+      <img className={classes.modal__image} src={isIngredient.image} alt={isIngredient.name}></img>
+      <p className={`${classes.modal__name} text text_type_main-medium`}>{isIngredient.name}</p>
+      <ul className={classes["modal__caloric-contents"]}>
+        <CaloricContentsItem name="Калории, ккал" value={isIngredient.calories} />
+        <CaloricContentsItem name="Белки, г" value={isIngredient.proteins} />
+        <CaloricContentsItem name="Жиры, г" value={isIngredient.fat} />
+        <CaloricContentsItem name="Углеводы, г" value={isIngredient.carbohydrates} />
+      </ul>
+    </>
+  );
 
   return (
     <div className={classes.ingredients}>
@@ -24,14 +36,7 @@ const BurgerIngredients = ({ data }) => {
         <IngredientsCategory title="Начинки" ingredients={mainsIngredient} setIngredient={setIngredient} setActive={setModal} />
       </div>
       <Modal active={isModal} setActive={setModal} title="Детали ингредиента">
-        <img className={classes.modal__image} src={isIngredient.image} alt={isIngredient.name}></img>
-        <p className={`${classes.modal__name} text text_type_main-medium`}>{isIngredient.name}</p>
-        <ul className={classes["modal__caloric-contents"]}>
-          <CaloricContentsItem name="Калории, ккал" value={isIngredient.calories} />
-          <CaloricContentsItem name="Белки, г" value={isIngredient.proteins} />
-          <CaloricContentsItem name="Жиры, г" value={isIngredient.fat} />
-          <CaloricContentsItem name="Углеводы, г" value={isIngredient.carbohydrates} />
-        </ul>
+        {modalContent}
       </Modal>
     </div>
   );
