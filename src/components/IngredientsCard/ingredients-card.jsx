@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from 'prop-types';
 import INGREDIENT_TYPE from '../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

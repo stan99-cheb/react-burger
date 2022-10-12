@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import iconDone from '../../images/icon-done.svg';
 
 const BurgerConstructor = () => {
-  const [isModal, setModal] = useState(false);
+  const [isModal, setModal] = React.useState(false);
 
   return (
     <div className={classes.burger}>

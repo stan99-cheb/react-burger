@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import INGREDIENT_TYPE from '../utils/prop-types';
 import classes from './burger-ingredients.module.css';
@@ -10,8 +10,8 @@ const BurgerIngredients = ({ data }) => {
   const bunsIngredient = data.filter((item) => item.type === 'bun');
   const saucesIngredient = data.filter((item) => item.type === 'sauce');
   const mainsIngredient = data.filter((item) => item.type === 'main');
-  const [isModal, setModal] = useState(false);
-  const [isIngredient, setIngredient] = useState({});
+  const [isModal, setModal] = React.useState(false);
+  const [isIngredient, setIngredient] = React.useState({});
 
   return (
     <div className={classes.ingredients}>

@@ -4,17 +4,24 @@ import classes from './styles/App.module.css';
 import Header from './components/Header/header';
 import BurgerConstructor from './components/BurgerConstructor/burger-constructor';
 import BurgerIngredients from './components/BurgerIngredients/burger-ingredients';
-import { data } from './components/utils/data';
+import Api from './components/utils/api';
+
 
 function App() {
-  const appClasses = ['text', 'text_type_main-large'];
-  appClasses.push(classes.main__title);
-  
+  const url = 'https://norma.nomoreparties.space/api/ingredients';
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    Api.getData(url)
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <Header />
       <main>
-        <h1 className={appClasses.join(' ')}>Соберите бургер</h1>
+        <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
         <section className={classes.main__wrapper}>
           <BurgerIngredients data={data} />
           <BurgerConstructor />
