@@ -2,19 +2,15 @@ import React from "react";
 import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
-import iconDone from '../../images/icon-done.svg';
+import OrderDetails from "../OrderDetails/order-details";
+import { makeOrder } from "../utils/make-order";
 
 const BurgerConstructor = () => {
   const [isModal, setModal] = React.useState(false);
-  const modalContent = (
-    <>
-      <p className={`${classes["modal__order-id"]} text text_type_digits-large`}>034536</p>
-      <p className={`${classes.modal__title} text text_type_main-medium`}>идентификатор заказа</p>
-      <img className={classes["modal__icon-done"]} src={iconDone} alt="Иконка Done"></img>
-      <p className={`${classes["modal__text-one"]} text text_type_main-default`}>Ваш заказ начали готовить</p>
-      <p className={`${classes["modal__text-two"]} text text_type_main-default`}>Дождитесь готовности на орбитальной станции</p>
-    </>
-  );
+
+  const closeModal = () => {
+    setModal(false);
+  }
 
   return (
     <div className={classes.burger}>
@@ -53,13 +49,16 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large" onClick={() => setModal(true)}>
+        <Button type="primary" size="large" onClick={() => makeOrder(setModal)}>
           Оформить заказ
         </Button>
       </div>
-      <Modal active={isModal} setActive={setModal}>
-        {modalContent}
-      </Modal>
+      {isModal && (
+        <Modal closeModal={closeModal}>
+          <OrderDetails />
+        </Modal>
+      )}
+
     </div>
   );
 };

@@ -3,11 +3,10 @@ import INGREDIENT_TYPE from '../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './ingredients-card.module.css';
 
-const IngridientsCard = ({ ingredient, setIngredient, setActive }) => {
+const IngridientsCard = ({ ingredient, setSelectedIngredient }) => {
   
   const handleOnClick = () => {
-    setActive(true);
-    setIngredient(ingredient);
+    setSelectedIngredient(ingredient);
   }
 
   return (
@@ -33,8 +32,7 @@ const IngridientsCard = ({ ingredient, setIngredient, setActive }) => {
 
 IngridientsCard.propTypes = {
   ingredient: INGREDIENT_TYPE.isRequired,
-  setIngredient: PropTypes.func.isRequired,
-  setActive: PropTypes.func.isRequired
+  setSelectedIngredient: PropTypes.func.isRequired
 }
 
 export default IngridientsCard;

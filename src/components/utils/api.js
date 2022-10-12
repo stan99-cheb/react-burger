@@ -1,6 +1,6 @@
-const getData = (url) => {
+const getData = (baseUrl) => {
 
-  return fetch(url)
+  return fetch(`${baseUrl}/ingredients`)
     .then(checkRes);
 };
 

@@ -5,28 +5,36 @@ import Header from './components/Header/header';
 import BurgerConstructor from './components/BurgerConstructor/burger-constructor';
 import BurgerIngredients from './components/BurgerIngredients/burger-ingredients';
 import * as api from './components/utils/api';
-
+import { baseUrl } from './components/utils/constants';
+import Loader from './components/UI/Loader/loader';
 
 function App() {
-  const url = 'https://norma.nomoreparties.space/api/ingredients';
+  const [isDataLoading, setDataLoading] = React.useState(false);
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    api.getData(url)
+    setDataLoading(true);
+    api.getData(baseUrl)
       .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err))
+      .finally(() => setDataLoading(false));
   }, []);
 
   return (
     <>
       <Header />
-      <main>
-        <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
-        <section className={classes.main__wrapper}>
-          <BurgerIngredients data={data} />
-          <BurgerConstructor />
-        </section>
-      </main>
+      {isDataLoading
+        ? <div className={classes.loader}><Loader /></div>
+        : (
+          <main>
+            <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
+            <section className={classes.main__wrapper}>
+              <BurgerIngredients data={data} />
+              <BurgerConstructor />
+            </section>
+          </main>
+        )
+      }
     </>
   );
 }

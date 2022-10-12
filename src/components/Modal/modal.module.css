@@ -1,25 +1,4 @@
 .modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100vw;
-  height: 100vh;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  background-color: rgba(0, 0, 0, .7);
-
-  visibility: hidden;
-}
-
-.modal.active {
-  visibility: visible;
-}
-
-.container {
   background-color: #1c1c21;
   border-radius: 40px;
 
