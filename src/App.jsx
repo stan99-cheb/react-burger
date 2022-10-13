@@ -14,7 +14,7 @@ function App() {
 
   React.useEffect(() => {
     setDataLoading(true);
-    api.getData(baseUrl)
+    api.fetchIngredients(baseUrl)
       .then((res) => setData(res.data))
       .catch((err) => alert(err))
       .finally(() => setDataLoading(false));

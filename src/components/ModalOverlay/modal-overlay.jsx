@@ -1,12 +1,10 @@
 import classes from "./modal-overlay.module.css";
 import PropTypes from 'prop-types';
 
-const ModalOverlay = ({ onClick, children }) => {
+const ModalOverlay = ({ onClick }) => {
 
   return (
-    <div className={classes.overlay} onClick={onClick}>
-      {children}
-    </div>
+    <div className={classes.overlay} onClick={onClick}></div>
   );
 };
 

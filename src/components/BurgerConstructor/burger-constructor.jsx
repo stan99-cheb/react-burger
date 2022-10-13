@@ -3,14 +3,18 @@ import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
-import { makeOrder } from "../utils/make-order";
+// import { makeOrder } from "../utils/make-order";
 
 const BurgerConstructor = () => {
   const [isModal, setModal] = React.useState(false);
 
   const closeModal = () => {
     setModal(false);
-  }
+  };
+
+  const makeOrder = () => {
+    setModal(true);
+  };
 
   return (
     <div className={classes.burger}>
@@ -49,7 +53,7 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large" onClick={() => makeOrder(setModal)}>
+        <Button type="primary" size="large" onClick={makeOrder}>
           Оформить заказ
         </Button>
       </div>

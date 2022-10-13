@@ -22,15 +22,14 @@ const Modal = ({ closeModal, title, children }) => {
 
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay onClick={closeModal}>
-        <div className={classes.modal} onClick={(evt) => evt.stopPropagation()}>
+      <ModalOverlay onClick={closeModal} />
+      <div className={classes.modal}>
           <div className={classes.wrapper}>
             <p className={`${classes.title} text text_type_main-large`}>{title}</p>
             <button className={classes["close-btn"]} type="button" aria-label="close-button" onClick={closeModal}></button>
           </div>
           {children}
-        </div>
-      </ModalOverlay>
+      </div>
     </>,
     modalElement
   );

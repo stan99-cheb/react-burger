@@ -1,4 +1,4 @@
-const getData = (baseUrl) => {
+const fetchIngredients = (baseUrl) => {
 
   return fetch(`${baseUrl}/ingredients`)
     .then(checkRes);
@@ -12,4 +12,4 @@ const checkRes = (res) => {
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-export { getData };
+export { fetchIngredients };
