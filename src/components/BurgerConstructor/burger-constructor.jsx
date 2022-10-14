@@ -3,7 +3,6 @@ import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
-// import { makeOrder } from "../utils/make-order";
 
 const BurgerConstructor = () => {
   const [isModal, setModal] = React.useState(false);
