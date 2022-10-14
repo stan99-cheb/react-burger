@@ -9,9 +9,7 @@ const Modal = ({ closeModal, title, children }) => {
 
   React.useEffect(() => {
     const onEscKeydown = (evt) => {
-      if (evt.code === 'Escape') {
-        closeModal();
-      }
+      evt.code === 'Escape' && closeModal();
     };
     document.addEventListener('keydown', onEscKeydown);
 
