@@ -1,20 +1,21 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import INGREDIENT_TYPE from '../utils/prop-types';
 import classes from './burger-ingredients.module.css';
 import IngredientTabs from "../IngredientTabs/ingredient-tabs";
 import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Modal from "../Modal/modal";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
+import BurgerIngredientsContext from "../../services/burger-ingredients-context";
+import DetailIngredientsContext from "../../services/detail-ingredients-context";
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = () => {
+  const { data } = React.useContext(BurgerIngredientsContext);
   const bunsIngredient = data.filter((item) => item.type === 'bun');
   const saucesIngredient = data.filter((item) => item.type === 'sauce');
   const mainsIngredient = data.filter((item) => item.type === 'main');
-  const [selectedIngredient , setSelectedIngredient ] = React.useState(null);
+  const [detailIngredient, setDetailIngredient] = React.useState(null);
 
   const closeModal = () => {
-    setSelectedIngredient(null);
+    setDetailIngredient(null);
   }
 
   return (
@@ -22,22 +23,20 @@ const BurgerIngredients = ({ data }) => {
       <div className={classes.ingredients__tabs}>
         <IngredientTabs />
       </div>
-      <div className={classes.ingredients__container}>
-        <IngredientsCategory title="Булки" ingredients={bunsIngredient} setSelectedIngredient={setSelectedIngredient} />
-        <IngredientsCategory title="Соусы" ingredients={saucesIngredient} setSelectedIngredient={setSelectedIngredient} />
-        <IngredientsCategory title="Начинки" ingredients={mainsIngredient} setSelectedIngredient={setSelectedIngredient} />
-      </div>
-      {selectedIngredient && (
-        <Modal closeModal={closeModal} title="Детали ингредиента">
-          <IngredientDetails selectedIngredient={selectedIngredient} />
-        </Modal>
-      )}
+      <DetailIngredientsContext.Provider value={{ detailIngredient, setDetailIngredient }}>
+        <div className={classes.ingredients__container}>
+          <IngredientsCategory title="Булки" ingredients={bunsIngredient} />
+          <IngredientsCategory title="Соусы" ingredients={saucesIngredient} />
+          <IngredientsCategory title="Начинки" ingredients={mainsIngredient} />
+        </div>
+        {detailIngredient && (
+          <Modal closeModal={closeModal} title="Детали ингредиента">
+            <IngredientDetails />
+          </Modal>
+        )}
+      </DetailIngredientsContext.Provider>
     </div>
   );
-};
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(INGREDIENT_TYPE).isRequired
 };
 
 export default BurgerIngredients;

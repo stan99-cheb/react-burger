@@ -7,6 +7,7 @@ import BurgerIngredients from './components/BurgerIngredients/burger-ingredients
 import * as api from './components/utils/api';
 import { baseUrl } from './components/utils/constants';
 import Loader from './components/UI/Loader/loader';
+import BurgerIngredientsContext from "./services/burger-ingredients-context";
 
 function App() {
   const [isDataLoading, setDataLoading] = React.useState(false);
@@ -29,8 +30,10 @@ function App() {
           <main>
             <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
             <section className={classes.main__wrapper}>
-              <BurgerIngredients data={data} />
-              <BurgerConstructor />
+              <BurgerIngredientsContext.Provider value={{ data, setData }}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </BurgerIngredientsContext.Provider>
             </section>
           </main>
         )

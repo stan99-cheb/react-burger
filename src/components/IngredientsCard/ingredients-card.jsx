@@ -1,12 +1,14 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import INGREDIENT_TYPE from '../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './ingredients-card.module.css';
+import DetailIngredientsContext from "../../services/detail-ingredients-context";
 
-const IngridientsCard = ({ ingredient, setSelectedIngredient }) => {
+const IngridientsCard = ({ ingredient }) => {
+  const { setDetailIngredient } = React.useContext(DetailIngredientsContext);
   
   const handleOnClick = () => {
-    setSelectedIngredient(ingredient);
+    setDetailIngredient(ingredient);
   }
 
   return (
@@ -31,8 +33,7 @@ const IngridientsCard = ({ ingredient, setSelectedIngredient }) => {
 };
 
 IngridientsCard.propTypes = {
-  ingredient: INGREDIENT_TYPE.isRequired,
-  setSelectedIngredient: PropTypes.func.isRequired
+  ingredient: INGREDIENT_TYPE.isRequired
 }
 
 export default IngridientsCard;
