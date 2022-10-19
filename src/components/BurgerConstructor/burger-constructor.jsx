@@ -3,8 +3,12 @@ import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
+import BurgerIngredientsContext from "../../services/burger-ingredients-context";
+import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 
 const BurgerConstructor = () => {
+  const { data } = React.useContext(BurgerIngredientsContext);
+  // const [ selectedIngredients, setSelectedIngredients ] = React.useState([]);
   const [isModal, setModal] = React.useState(false);
 
   const closeModal = () => {
@@ -13,6 +17,14 @@ const BurgerConstructor = () => {
 
   const makeOrder = () => {
     setModal(true);
+  };
+
+  const filterIngredients = (array) => {
+    return array.reduce((acc, item) => {
+      return acc.find(item => item.type === "bun") && item.type === "bun"
+        ? acc
+        : [...acc, item]
+    }, []);
   };
 
   return (
@@ -31,7 +43,7 @@ const BurgerConstructor = () => {
           <div className={classes.burger__item}>
             <DragIcon type="primary" />
             <ConstructorElement
-              text="Краторная булка N-200i (верх)"
+              text="Соус традиционный галактический"
               price={50}
               thumbnail={'https://code.s3.yandex.net/react/code/sauce-03.png'}
             />
