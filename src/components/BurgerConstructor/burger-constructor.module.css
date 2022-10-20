@@ -8,8 +8,11 @@
 }
 
 .burger__container {
+  margin: 0;
+  padding: 0;
   max-height: 450px;
   overflow-y: auto;
+  list-style-type: none;
 }
 
 .burger__item {

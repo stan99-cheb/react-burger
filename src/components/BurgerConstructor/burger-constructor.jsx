@@ -30,34 +30,43 @@ const BurgerConstructor = () => {
   return (
     <div className={classes.burger}>
       <div className={classes.burger__components}>
-        <div className={classes.burger__item_top}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-          />
-        </div>
-        <div className={classes.burger__container}>
-          <div className={classes.burger__item}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text="Соус традиционный галактический"
-              price={50}
-              thumbnail={'https://code.s3.yandex.net/react/code/sauce-03.png'}
-            />
-          </div>
-        </div>
-        <div className={classes.burger__item_bottom}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-          />
-        </div>
+        {filterIngredients(data).reduce((acc, item) => item.type === "bun" ? [...acc, item] : acc, [])
+          .map(item =>
+            <div className={classes.burger__item_top} key="1">
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={item.name + ' (верх)'}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </div>
+          )}
+        <ul className={classes.burger__container} key="2">
+          {filterIngredients(data).reduce((acc, item) => item.type === "bun" ? acc : [...acc, item], [])
+            .map(item =>
+              <li className={classes.burger__item} key={item._id}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            )}
+        </ul>
+        {filterIngredients(data).reduce((acc, item) => item.type === "bun" ? [...acc, item] : acc, [])
+          .map(item =>
+            <div className={classes.burger__item_top} key="3">
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={item.name + ' (низ)'}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </div>
+          )}
       </div>
       <div className={classes.burger__result}>
         <div className={classes.burger__sum}>
