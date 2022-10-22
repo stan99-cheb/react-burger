@@ -5,8 +5,8 @@ import Header from '../Header/header';
 import BurgerConstructor from '../BurgerConstructor/burger-constructor';
 import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
 import * as api from '../utils/api';
-import { baseUrl } from '../utils/constants';
-import Loader from '../../UI/Loader/loader';
+import { BASE_URL } from '../../utils/constants';
+import Loader from '../UI/Loader/loader';
 import BurgerIngredientsContext from "../../services/burger-ingredients-context";
 import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 
@@ -23,7 +23,7 @@ function App() {
 
   React.useEffect(() => {
     setDataLoading(true);
-    api.fetchIngredients(baseUrl)
+    api.fetchIngredients(BASE_URL)
       .then((res) => {
         setData(res.data);
         return res.data

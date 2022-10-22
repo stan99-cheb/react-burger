@@ -5,7 +5,7 @@ import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 import * as api from '../utils/api';
-import { baseUrl } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 import { costInitialState, costReducer } from "../utils/cost-reduce";
 
 const BurgerConstructor = () => {
@@ -19,7 +19,7 @@ const BurgerConstructor = () => {
   };
 
   const makeOrder = () => {
-    api.fetchOrderNumber(baseUrl, selectedIngredients.map(item => item._id))
+    api.fetchOrderNumber(BASE_URL, selectedIngredients.map(item => item._id))
       .then((res) => setOrderNumber(res.order.number))
       .then(() => setModal(true))
       .catch((err) => alert(err));
