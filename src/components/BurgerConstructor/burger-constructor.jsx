@@ -4,9 +4,9 @@ import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktiku
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import SelectedIngredientsContext from "../../services/selected-ingredients-context";
-import * as api from '../utils/api';
+import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
-import { costInitialState, costReducer } from "../utils/cost-reduce";
+import { costInitialState, costReducer } from "../../utils/cost-reduce";
 
 const BurgerConstructor = () => {
   const { selectedIngredients } = React.useContext(SelectedIngredientsContext);

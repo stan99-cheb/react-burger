@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import INGREDIENT_TYPE from '../utils/prop-types';
+import INGREDIENT_TYPE from '../../utils/prop-types';
 import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 

@@ -4,7 +4,7 @@ import classes from './App.module.css';
 import Header from '../Header/header';
 import BurgerConstructor from '../BurgerConstructor/burger-constructor';
 import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
-import * as api from '../utils/api';
+import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
 import BurgerIngredientsContext from "../../services/burger-ingredients-context";
