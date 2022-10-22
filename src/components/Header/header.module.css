@@ -9,7 +9,7 @@
   background-color: #1c1c21;
 }
 
-.header__link {
+.link {
   width: 180px;
   height: 56px;
 
@@ -23,11 +23,23 @@
   column-gap: 8px;
 }
 
-.header__link:hover {
+.active {
+  color: #f2f2f3;
+}
+
+.active svg {
+  fill: #f2f2f3;
+}
+
+.link:hover {
   cursor: pointer;
   color: #f2f2f3;
 }
 
-.header__logo {
+.link:hover svg {
+  fill: #f2f2f3;
+}
+
+.logo {
   margin: 0 290px 0 110px;
 }

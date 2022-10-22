@@ -30,7 +30,8 @@ function App() {
       })
       .then((data) => {
         const arraySelect = getSelectedArray(data);
-        arraySelect.push(data[Math.floor(Math.random() * 2)]);  //Добавляем случайную булку
+        arraySelect.unshift(data[Math.floor(Math.random() * 2)]);  //Добавляем случайную булку в начало массива
+        arraySelect.push(arraySelect[0]);                          //Добавляем случайную булку в конец массива
         setSelectedIngredients(arraySelect);
       })
       .catch((err) => alert(err))

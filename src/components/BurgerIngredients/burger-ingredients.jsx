@@ -9,9 +9,9 @@ import DetailIngredientsContext from "../../services/detail-ingredients-context"
 
 const BurgerIngredients = () => {
   const { data } = React.useContext(BurgerIngredientsContext);
-  const bunsIngredient = data.filter((item) => item.type === 'bun');
-  const saucesIngredient = data.filter((item) => item.type === 'sauce');
-  const mainsIngredient = data.filter((item) => item.type === 'main');
+  const bunsIngredient = React.useMemo(() => data.filter(item => item.type === 'bun'), [data]);
+  const saucesIngredient = React.useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
+  const mainsIngredient = React.useMemo(() => data.filter(item => item.type === 'main'), [data]);
   const [detailIngredient, setDetailIngredient] = React.useState(null);
 
   const closeModal = () => {

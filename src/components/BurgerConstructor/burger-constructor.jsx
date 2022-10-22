@@ -32,7 +32,7 @@ const BurgerConstructor = () => {
   return (
     <div className={classes.burger}>
       <div className={classes.burger__components}>
-        {selectedIngredients.filter(item => item.type === "bun")
+        {selectedIngredients.filter((item, index) => item.type === "bun" && index === 0)
           .map(item =>
             <div className={classes.burger__item_top} key="1">
               <ConstructorElement
@@ -57,7 +57,7 @@ const BurgerConstructor = () => {
               </li>
             )}
         </ul>
-        {selectedIngredients.filter(item => item.type === "bun")
+        {selectedIngredients.filter((item, index) => item.type === "bun" && index === 0)
           .map(item =>
             <div className={classes.burger__item_top} key="3">
               <ConstructorElement
