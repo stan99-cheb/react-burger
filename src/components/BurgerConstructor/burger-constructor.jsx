@@ -3,53 +3,76 @@ import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
+import SelectedIngredientsContext from "../../services/selected-ingredients-context";
+import * as api from '../../utils/api';
+import { BASE_URL } from "../../utils/constants";
+import { costInitialState, costReducer } from "../../utils/cost-reduce";
 
 const BurgerConstructor = () => {
+  const { selectedIngredients } = React.useContext(SelectedIngredientsContext);
   const [isModal, setModal] = React.useState(false);
+  const [costState, costDispatcher] = React.useReducer(costReducer, costInitialState);
+  const [orderNumber, setOrderNumber] = React.useState(0);
 
   const closeModal = () => {
     setModal(false);
   };
 
   const makeOrder = () => {
-    setModal(true);
+    api.fetchOrderNumber(BASE_URL, selectedIngredients.map(item => item._id))
+      .then((res) => setOrderNumber(res.order.number))
+      .then(() => setModal(true))
+      .catch((err) => alert(err));
   };
+
+  React.useEffect(() => {
+    selectedIngredients.forEach(item => costDispatcher({ type: "increment", payload: item.price }));
+  }, []);
 
   return (
     <div className={classes.burger}>
       <div className={classes.burger__components}>
-        <div className={classes.burger__item_top}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-          />
-        </div>
-        <div className={classes.burger__container}>
-          <div className={classes.burger__item}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={'https://code.s3.yandex.net/react/code/sauce-03.png'}
-            />
-          </div>
-        </div>
-        <div className={classes.burger__item_bottom}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-          />
-        </div>
+        {selectedIngredients.filter((item, index) => item.type === "bun" && index === 0)
+          .map(item =>
+            <div className={classes.burger__item_top} key="1">
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={item.name + ' (верх)'}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </div>
+          )}
+        <ul className={classes.burger__container} key="2">
+          {selectedIngredients.filter(item => item.type !== "bun")
+            .map((item, index) =>
+              <li className={classes.burger__item} key={index}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            )}
+        </ul>
+        {selectedIngredients.filter((item, index) => item.type === "bun" && index === 0)
+          .map(item =>
+            <div className={classes.burger__item_top} key="3">
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={item.name + ' (низ)'}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </div>
+          )}
       </div>
       <div className={classes.burger__result}>
         <div className={classes.burger__sum}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{costState.count}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button type="primary" size="large" onClick={makeOrder}>
@@ -58,10 +81,9 @@ const BurgerConstructor = () => {
       </div>
       {isModal && (
         <Modal closeModal={closeModal}>
-          <OrderDetails />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
-
     </div>
   );
 };

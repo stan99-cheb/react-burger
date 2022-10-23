@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import INGREDIENT_TYPE from '../utils/prop-types';
+import INGREDIENT_TYPE from '../../utils/prop-types';
 import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
-const IngredientsCategory = ({ title, ingredients, ...props }) => {
+const IngredientsCategory = ({ title, ingredients }) => {
 
   return (
     <>
@@ -11,7 +11,7 @@ const IngredientsCategory = ({ title, ingredients, ...props }) => {
       <ul className={classes.render__type}>
         {ingredients.map(ingredient =>
           <li key={ingredient._id}>
-            <IngridientsCard ingredient={ingredient} {...props} />
+            <IngridientsCard ingredient={ingredient} />
           </li>
         )}
       </ul>

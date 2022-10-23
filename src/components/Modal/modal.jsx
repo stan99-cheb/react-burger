@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classes from './modal.module.css';
-import ModalOverlay from '../ModalOverlay/modal-overlay';
+import ModalOverlay from '../UI/ModalOverlay/modal-overlay';
 
 const Modal = ({ closeModal, title, children }) => {
   const modalElement = document.getElementById('modal');

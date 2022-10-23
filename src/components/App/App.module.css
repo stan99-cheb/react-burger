@@ -1,6 +1,5 @@
 .main__title {
   margin: 0 auto 20px;
-
   max-width: 1240px;
 }
 
@@ -15,16 +14,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-/* цвет дорожки */
-::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-/* цвет плашки */
-::-webkit-scrollbar-thumb {
-  background-color: #8585ad;
 }
