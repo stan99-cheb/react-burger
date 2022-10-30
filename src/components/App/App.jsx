@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './App.module.css';
 import Header from '../Header/header';
@@ -7,12 +8,12 @@ import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
 import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
-import BurgerIngredientsContext from "../../services/burger-ingredients-context";
 import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 
 function App() {
+  const dispatch = useDispatch();
+
   const [isDataLoading, setDataLoading] = React.useState(false);
-  const [data, setData] = React.useState([]);
   const [selectedIngredients, setSelectedIngredients] = React.useState([]);
 
   const getSelectedArray = (data) => {
@@ -25,7 +26,7 @@ function App() {
     setDataLoading(true);
     api.fetchIngredients(BASE_URL)
       .then((res) => {
-        setData(res.data);
+        dispatch({ type: "SET_INGREDIENTS", payload: res.data });
         return res.data
       })
       .then((data) => {
@@ -47,12 +48,10 @@ function App() {
           <main>
             <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
             <section className={classes.main__wrapper}>
-              <BurgerIngredientsContext.Provider value={{ data, setData }}>
-                <SelectedIngredientsContext.Provider value={{ selectedIngredients, setSelectedIngredients }}>
-                  <BurgerIngredients />
-                  <BurgerConstructor />
-                </SelectedIngredientsContext.Provider>
-              </BurgerIngredientsContext.Provider>
+              <SelectedIngredientsContext.Provider value={{ selectedIngredients, setSelectedIngredients }}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </SelectedIngredientsContext.Provider>
             </section>
           </main>
         )

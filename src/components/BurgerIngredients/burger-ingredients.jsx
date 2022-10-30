@@ -1,17 +1,18 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import classes from './burger-ingredients.module.css';
 import IngredientTabs from "../IngredientTabs/ingredient-tabs";
 import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Modal from "../Modal/modal";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
-import BurgerIngredientsContext from "../../services/burger-ingredients-context";
 import DetailIngredientsContext from "../../services/detail-ingredients-context";
 
 const BurgerIngredients = () => {
-  const { data } = React.useContext(BurgerIngredientsContext);
-  const bunsIngredient = React.useMemo(() => data.filter(item => item.type === 'bun'), [data]);
-  const saucesIngredient = React.useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
-  const mainsIngredient = React.useMemo(() => data.filter(item => item.type === 'main'), [data]);
+  const ingredients = useSelector(state => state.ingredientsReducer.ingredients);
+
+  const bunsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
+  const saucesIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
+  const mainsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
   const [detailIngredient, setDetailIngredient] = React.useState(null);
 
   const closeModal = () => {

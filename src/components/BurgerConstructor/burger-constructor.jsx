@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
@@ -6,12 +7,13 @@ import OrderDetails from "../OrderDetails/order-details";
 import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
-import { costInitialState, costReducer } from "../../utils/cost-reduce";
 
 const BurgerConstructor = () => {
+  const dispatch = useDispatch();
+  const costBurger = useSelector(state => state.costReducer.cost);
+
   const { selectedIngredients } = React.useContext(SelectedIngredientsContext);
   const [isModal, setModal] = React.useState(false);
-  const [costState, costDispatcher] = React.useReducer(costReducer, costInitialState);
   const [orderNumber, setOrderNumber] = React.useState(0);
 
   const closeModal = () => {
@@ -26,7 +28,7 @@ const BurgerConstructor = () => {
   };
 
   React.useEffect(() => {
-    selectedIngredients.forEach(item => costDispatcher({ type: "increment", payload: item.price }));
+    selectedIngredients.forEach(item => dispatch({ type: "increment", payload: item.price }));
   }, []);
 
   return (
@@ -72,7 +74,7 @@ const BurgerConstructor = () => {
       </div>
       <div className={classes.burger__result}>
         <div className={classes.burger__sum}>
-          <p className="text text_type_digits-medium">{costState.count}</p>
+          <p className="text text_type_digits-medium">{costBurger}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button type="primary" size="large" onClick={makeOrder}>
