@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
-import { costReducer } from '../services/reducers/cost';
+import { costBurgerSlice } from '../services/slices/cost-burger';
 import { ingredientsReducer } from '../services/reducers/ingredients';
 
 const rootReducer = combineReducers({
   ingredientsReducer,
-  costReducer,
+  costReducer: costBurgerSlice.reducer,
 });
 
 export const store = configureStore({

@@ -6,11 +6,12 @@ import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
+import { costBurgerSlice } from '../../services/slices/cost-burger';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const selectedIngredients = useSelector(state => state.ingredientsReducer.selectedIngredients);
-  const costBurger = useSelector(state => state.costReducer.cost);
+  const costBurger = useSelector(state => state.costReducer);
 
   const [isModal, setModal] = React.useState(false);
   const [orderNumber, setOrderNumber] = React.useState(0);
@@ -27,7 +28,7 @@ const BurgerConstructor = () => {
   };
 
   React.useEffect(() => {
-    selectedIngredients.forEach(item => dispatch({ type: "increment", payload: item.price }));
+    selectedIngredients.forEach(item => dispatch(costBurgerSlice.actions.increment(item.price)));
   }, []);
 
   return (
@@ -76,7 +77,7 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium">{costBurger}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large" onClick={makeOrder}>
+        <Button type="primary" size="large" onClick={makeOrder} htmlType="button">
           Оформить заказ
         </Button>
       </div>
