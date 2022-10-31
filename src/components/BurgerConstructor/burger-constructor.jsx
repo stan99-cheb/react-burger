@@ -4,15 +4,14 @@ import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
-import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const selectedIngredients = useSelector(state => state.ingredientsReducer.selectedIngredients);
   const costBurger = useSelector(state => state.costReducer.cost);
 
-  const { selectedIngredients } = React.useContext(SelectedIngredientsContext);
   const [isModal, setModal] = React.useState(false);
   const [orderNumber, setOrderNumber] = React.useState(0);
 

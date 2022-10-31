@@ -8,13 +8,10 @@ import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
 import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
-import SelectedIngredientsContext from "../../services/selected-ingredients-context";
 
 function App() {
   const dispatch = useDispatch();
-
   const [isDataLoading, setDataLoading] = React.useState(false);
-  const [selectedIngredients, setSelectedIngredients] = React.useState([]);
 
   const getSelectedArray = (data) => {
     return [...Array(Math.floor(Math.random() * 13) + 2)]  //Получаем случайное количество ингридиентов
@@ -33,7 +30,7 @@ function App() {
         const arraySelect = getSelectedArray(data);
         arraySelect.unshift(data[Math.floor(Math.random() * 2)]);  //Добавляем случайную булку в начало массива
         arraySelect.push(arraySelect[0]);                          //Добавляем случайную булку в конец массива
-        setSelectedIngredients(arraySelect);
+        dispatch({ type: "SET_SELECTED_INGREDIENTS", payload: arraySelect });
       })
       .catch((err) => alert(err))
       .finally(() => setDataLoading(false));
@@ -48,10 +45,8 @@ function App() {
           <main>
             <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
             <section className={classes.main__wrapper}>
-              <SelectedIngredientsContext.Provider value={{ selectedIngredients, setSelectedIngredients }}>
-                <BurgerIngredients />
-                <BurgerConstructor />
-              </SelectedIngredientsContext.Provider>
+              <BurgerIngredients />
+              <BurgerConstructor />
             </section>
           </main>
         )
