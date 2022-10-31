@@ -1,9 +1,8 @@
-import React from 'react';
+import { useSelector } from "react-redux";
 import classes from './ingredient-details.module.css';
-import DetailIngredientsContext from "../../services/detail-ingredients-context";
 
 const IngredientDetails = () => {
-  const { detailIngredient } = React.useContext(DetailIngredientsContext);
+  const { detailIngredient } = useSelector(state => state.ingredientsReducer);
 
   return (
     <>
