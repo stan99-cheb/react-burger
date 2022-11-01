@@ -1,6 +1,5 @@
 const SET_INGREDIENTS = 'SET_INGREDIENTS';
 const SET_SELECTED_INGREDIENTS = 'SET_SELECTED_INGREDIENTS';
-const SET_DETAIL_INGREDIENTS = 'SET_DETAIL_INGREDIENTS';
 
 const initialState = {
   ingredients: [],
@@ -14,8 +13,6 @@ const ingredientsReducer = (state = initialState, action) => {
       return { ...state, ingredients: [...state.ingredients, ...action.payload] };
     case SET_SELECTED_INGREDIENTS:
       return { ...state, selectedIngredients: [...state.selectedIngredients, ...action.payload] };
-    case SET_DETAIL_INGREDIENTS:
-      return { ...state, detailIngredient: action.payload };
     default:
       return state;
   };

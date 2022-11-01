@@ -5,17 +5,19 @@ import IngredientTabs from "../IngredientTabs/ingredient-tabs";
 import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Modal from "../Modal/modal";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
+import { detailIngredientSlice } from '../../services/slices/detail-ingredient';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const { ingredients, detailIngredient } = useSelector(state => state.ingredientsReducer);
+  const { ingredients } = useSelector(state => state.ingredientsReducer);
+  const detailIngredient = useSelector(state => state.detailIngredientReducer);
 
   const bunsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
   const saucesIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
   const mainsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
 
   const closeModal = () => {
-    dispatch({ type: "SET_DETAIL_INGREDIENTS", payload: null });
+    dispatch(detailIngredientSlice.actions.setDetailIngredient(null));
   }
 
   return (

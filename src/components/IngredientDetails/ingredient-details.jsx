@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import classes from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
-  const { detailIngredient } = useSelector(state => state.ingredientsReducer);
+  const detailIngredient = useSelector(state => state.detailIngredientReducer);
 
   return (
     <>

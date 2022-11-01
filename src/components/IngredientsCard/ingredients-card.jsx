@@ -2,12 +2,13 @@ import { useDispatch } from "react-redux";
 import INGREDIENT_TYPE from '../../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './ingredients-card.module.css';
+import { detailIngredientSlice } from '../../services/slices/detail-ingredient';
 
 const IngridientsCard = ({ ingredient }) => {
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
-    dispatch({ type: "SET_DETAIL_INGREDIENTS", payload: ingredient });
+    dispatch(detailIngredientSlice.actions.setDetailIngredient(ingredient));
   }
 
   return (
