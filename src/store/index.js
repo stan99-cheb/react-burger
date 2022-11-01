@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
 import { costBurgerSlice } from '../services/slices/cost-burger';
-import { ingredientsReducer } from '../services/reducers/ingredients';
 import { detailIngredientSlice } from '../services/slices/detail-ingredient';
+import { ingredientsSlice } from '../services/slices/ingredients';
 import { selectedsIngredientsSlice } from '../services/slices/selected-ingredients';
 
 const rootReducer = combineReducers({
-  ingredientsReducer,
+  ingredientsReducer: ingredientsSlice.reducer,
   selectedsIngredientsReducer: selectedsIngredientsSlice.reducer,
   detailIngredientReducer: detailIngredientSlice.reducer,
   costReducer: costBurgerSlice.reducer,

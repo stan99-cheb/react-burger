@@ -9,7 +9,7 @@ import { detailIngredientSlice } from '../../services/slices/detail-ingredient';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector(state => state.ingredientsReducer);
+  const ingredients = useSelector(state => state.ingredientsReducer);
   const detailIngredient = useSelector(state => state.detailIngredientReducer);
 
   const bunsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);

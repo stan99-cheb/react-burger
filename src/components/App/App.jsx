@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './App.module.css';
 import Header from '../Header/header';
@@ -8,6 +8,7 @@ import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
 import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
+import { ingredientsSlice } from '../../services/slices/ingredients';
 import { selectedsIngredientsSlice } from '../../services/slices/selected-ingredients';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
     setDataLoading(true);
     api.fetchIngredients(BASE_URL)
       .then((res) => {
-        dispatch({ type: "SET_INGREDIENTS", payload: res.data });
+        dispatch(ingredientsSlice.actions.setIngredients(res.data));
         return res.data
       })
       .then((data) => {
