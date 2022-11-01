@@ -10,7 +10,7 @@ import { costBurgerSlice } from '../../services/slices/cost-burger';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const selectedIngredients = useSelector(state => state.ingredientsReducer.selectedIngredients);
+  const selectedIngredients = useSelector(state => state.selectedsIngredientsReducer);
   const costBurger = useSelector(state => state.costReducer);
 
   const [isModal, setModal] = React.useState(false);

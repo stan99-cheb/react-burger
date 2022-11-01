@@ -8,6 +8,7 @@ import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
 import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
+import { selectedsIngredientsSlice } from '../../services/slices/selected-ingredients';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function App() {
         const arraySelect = getSelectedArray(data);
         arraySelect.unshift(data[Math.floor(Math.random() * 2)]);  //Добавляем случайную булку в начало массива
         arraySelect.push(arraySelect[0]);                          //Добавляем случайную булку в конец массива
-        dispatch({ type: "SET_SELECTED_INGREDIENTS", payload: arraySelect });
+        dispatch(selectedsIngredientsSlice.actions.setSelectedIngredients(arraySelect));
       })
       .catch((err) => alert(err))
       .finally(() => setDataLoading(false));
