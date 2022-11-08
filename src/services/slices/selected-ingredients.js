@@ -4,7 +4,7 @@ const selectedsIngredientsSlice = createSlice({
   name: 'selectedsIngredients',
   initialState: [],
   reducers: {
-    setSelectedIngredients: (state, action) => [...action.payload],
+    setSelectedIngredients: (state, action) => [...state, action.payload],
   },
 });
 

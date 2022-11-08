@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from "react-redux";
 import classes from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,12 +7,17 @@ import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
-import { costBurgerSlice } from '../../services/slices/cost-burger';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const selectedIngredients = useSelector(state => state.selectedsIngredientsReducer);
-  const costBurger = useSelector(state => state.costReducer);
+  const selectedIngredients = useSelector(state => state.selectedIngredientsReducer);
+
+  const [, dropRef] = useDrop({
+    accept: 'ingredient',
+    drop: (ingredient) => {
+      dispatch({ type: 'ADD_SELECTED_INGREDIENTS', payload: ingredient });
+    },
+  });
 
   const [isModal, setModal] = React.useState(false);
   const [orderNumber, setOrderNumber] = React.useState(0);
@@ -21,60 +27,59 @@ const BurgerConstructor = () => {
   };
 
   const makeOrder = () => {
-    api.fetchOrderNumber(BASE_URL, selectedIngredients.map(item => item._id))
+    api.fetchOrderNumber(BASE_URL, [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id])
       .then((res) => setOrderNumber(res.order.number))
       .then(() => setModal(true))
       .catch((err) => alert(err));
   };
 
-  React.useEffect(() => {
-    selectedIngredients.forEach(item => dispatch(costBurgerSlice.actions.increment(item.price)));
-  }, []);
+  const costBurger = React.useMemo(() => {
+    return (
+      (selectedIngredients.bun ? selectedIngredients.bun.price * 2 : 0) +
+      selectedIngredients.otherIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
+    );
+  }, [selectedIngredients]);
 
   return (
-    <div className={classes.burger}>
-      <div className={classes.burger__components}>
-        {selectedIngredients.filter((item, index) => item.type === "bun" && index === 0)
-          .map(item =>
-            <div className={classes.burger__item_top} key="1">
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={item.name + ' (верх)'}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </div>
-          )}
-        <ul className={classes.burger__container} key="2">
-          {selectedIngredients.filter(item => item.type !== "bun")
-            .map((item, index) =>
-              <li className={classes.burger__item} key={index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
-              </li>
-            )}
-        </ul>
-        {selectedIngredients.filter((item, index) => item.type === "bun" && index === 0)
-          .map(item =>
-            <div className={classes.burger__item_top} key="3">
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={item.name + ' (низ)'}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </div>
-          )}
-      </div>
+    <div className={classes.burger} ref={dropRef}>
+      {selectedIngredients.bun &&
+        <div className={classes.burger__components}>
+          <div className={classes.burger__item_top} key="1">
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={selectedIngredients.bun.name + ' (верх)'}
+              price={selectedIngredients.bun.price}
+              thumbnail={selectedIngredients.bun.image}
+            />
+          </div>
+          <ul className={classes.burger__container} key="2">
+            {selectedIngredients.otherIngredients
+              .map((ingredient, index) =>
+                <li className={classes.burger__item} key={index}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    text={ingredient.name}
+                    price={ingredient.price}
+                    thumbnail={ingredient.image}
+                  />
+                </li>
+              )}
+          </ul>
+          <div className={classes.burger__item_top} key="3">
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={selectedIngredients.bun.name + ' (низ)'}
+              price={selectedIngredients.bun.price}
+              thumbnail={selectedIngredients.bun.image}
+            />
+          </div>
+        </div>
+      }
       <div className={classes.burger__result}>
         <div className={classes.burger__sum}>
-          <p className="text text_type_digits-medium">{costBurger}</p>
+          <p className="text text_type_digits-medium">{costBurger ? costBurger : 0}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button type="primary" size="large" onClick={makeOrder} htmlType="button">
