@@ -44,16 +44,15 @@ const BurgerConstructor = () => {
     <div className={classes.burger} ref={dropRef}>
       {selectedIngredients.bun &&
         <div className={classes.burger__components}>
-          <div className={classes.burger__item_top} key="1">
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={selectedIngredients.bun.name + ' (верх)'}
-              price={selectedIngredients.bun.price}
-              thumbnail={selectedIngredients.bun.image}
-            />
-          </div>
-          <ul className={classes.burger__container} key="2">
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={selectedIngredients.bun.name + ' (верх)'}
+            price={selectedIngredients.bun.price}
+            thumbnail={selectedIngredients.bun.image}
+            extraClass={classes.burger__item_top}
+          />
+          <ul className={classes.burger__container}>
             {selectedIngredients.otherIngredients
               .map((ingredient, index) =>
                 <li className={classes.burger__item} key={index}>
@@ -66,15 +65,14 @@ const BurgerConstructor = () => {
                 </li>
               )}
           </ul>
-          <div className={classes.burger__item_top} key="3">
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={selectedIngredients.bun.name + ' (низ)'}
-              price={selectedIngredients.bun.price}
-              thumbnail={selectedIngredients.bun.image}
-            />
-          </div>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={selectedIngredients.bun.name + ' (низ)'}
+            price={selectedIngredients.bun.price}
+            thumbnail={selectedIngredients.bun.image}
+            extraClass={classes.burger__item_bottom}
+          />
         </div>
       }
       <div className={classes.burger__result}>

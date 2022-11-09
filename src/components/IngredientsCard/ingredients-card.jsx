@@ -14,31 +14,25 @@ const IngridientsCard = ({ ingredient }) => {
 
   const handleOnClick = () => {
     dispatch(detailIngredientSlice.actions.setDetailIngredient(ingredient));
-  }
+  };
 
   return (
     <div className={classes.container} onClick={handleOnClick} ref={dragRef}>
       <img className={classes.Img} src={ingredient.image} alt={ingredient.name}></img>
-      <div className={classes.Price}>
-        <p className="text text_type_digits-default">{ingredient.price}</p>
-      </div>
-      <div className={classes.Icon}>
+      <p className={`${classes.Price} text text_type_digits-default`}>{ingredient.price}</p>
+      <span className={classes.Icon}>
         <CurrencyIcon type="primary" />
-      </div>
-      <div className={classes.Name}>
-        <p className="text text_type_main-small">
-          {ingredient.name}
-        </p>
-      </div>
-      <div className={classes.count}>
-        <p className="text text_type_digits-default">1</p>
-      </div>
+      </span>
+      <p className={`${classes.Name} text text_type_main-small`}>
+        {ingredient.name}
+      </p>
+      <p className={`${classes.count} text text_type_digits-default`}>1</p>
     </div>
-  )
+  );
 };
 
 IngridientsCard.propTypes = {
   ingredient: INGREDIENT_TYPE.isRequired
-}
+};
 
 export default IngridientsCard;
