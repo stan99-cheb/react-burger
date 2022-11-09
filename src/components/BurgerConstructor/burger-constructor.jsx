@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from "react-redux";
 import classes from './burger-constructor.module.css';
-import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
+import { IngredientConstructor } from '../IngredientConstructor/ingredient-constructor';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,22 @@ const BurgerConstructor = () => {
     );
   }, [selectedIngredients]);
 
+  const movePetListItem = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragItem = selectedIngredients.otherIngredients[dragIndex]
+      const hoverItem = selectedIngredients.otherIngredients[hoverIndex]
+      const updatedFunc = function (selectedIngredients) {
+        const updatedArray = [...selectedIngredients.otherIngredients]
+        updatedArray[dragIndex] = hoverItem
+        updatedArray[hoverIndex] = dragItem
+        return updatedArray;
+      };
+
+      dispatch({ type: 'UPDATE', payload: updatedFunc(selectedIngredients) });
+    },
+    [selectedIngredients, dispatch],
+  )
+
   return (
     <div className={classes.burger} ref={dropRef}>
       {selectedIngredients.bun &&
@@ -55,14 +72,12 @@ const BurgerConstructor = () => {
           <ul className={classes.burger__container}>
             {selectedIngredients.otherIngredients
               .map((ingredient, index) =>
-                <li className={classes.burger__item} key={index}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={ingredient.name}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image}
-                  />
-                </li>
+                <IngredientConstructor
+                  ingredient={ingredient}
+                  key={ingredient._id}
+                  index={index}
+                  moveListItem={movePetListItem}
+                />
               )}
           </ul>
           <ConstructorElement

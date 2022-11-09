@@ -18,6 +18,8 @@ const selectedIngredientsReducer = (state = defaultState, action) => {
         ...state,
         otherIngredients: state.bun ? [...state.otherIngredients, action.payload] : [...state.otherIngredients],
       };
+    case 'UPDATE':
+      return { ...state, otherIngredients: [...action.payload] };
     default:
       return state;
   };
