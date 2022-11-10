@@ -6,29 +6,42 @@ import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Modal from "../Modal/modal";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
 import { detailIngredientSlice } from '../../services/slices/detail-ingredient';
+import { TABS } from "../../utils/constants";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const ingredients = useSelector(state => state.ingredientsReducer);
   const detailIngredient = useSelector(state => state.detailIngredientReducer);
 
-  const bunsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
-  const saucesIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
-  const mainsIngredient = React.useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
+  TABS.forEach(tab =>
+    tab.ingredients = ingredients.filter(ingredient => ingredient.type === tab.value)
+  );
+
+  const refs = TABS.reduce((acc, tab) => {
+    acc[tab.name] = React.createRef();
+    return acc;
+  }, {});
+
+  const handleClickScroll = (name) =>
+    refs[name].current.scrollIntoView({
+      behavior: 'smooth',
+    });
 
   const closeModal = () => {
     dispatch(detailIngredientSlice.actions.setDetailIngredient(null));
-  }
+  };
 
   return (
     <div className={classes.ingredients}>
       <div className={classes.ingredients__tabs}>
-        <IngredientTabs />
+        <IngredientTabs tabs={TABS} handleClickScroll={handleClickScroll} />
       </div>
       <div className={classes.ingredients__container}>
-        <IngredientsCategory title="Булки" ingredients={bunsIngredient} />
-        <IngredientsCategory title="Соусы" ingredients={saucesIngredient} />
-        <IngredientsCategory title="Начинки" ingredients={mainsIngredient} />
+        {
+          TABS.map(tab =>
+            <IngredientsCategory title={tab.name} ingredients={tab.ingredients} ref={refs} key={tab.name} />
+          )
+        }
       </div>
       {detailIngredient && (
         <Modal closeModal={closeModal} title="Детали ингредиента">
