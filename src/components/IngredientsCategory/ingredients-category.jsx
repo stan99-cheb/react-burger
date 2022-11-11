@@ -4,13 +4,14 @@ import INGREDIENT_TYPE from '../../utils/prop-types';
 import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
-const IngredientsCategory = React.forwardRef(({ title, ingredients }, refs) => {
+const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, refs) => {
 
   return (
     <>
       <h2
         className={`${classes.render__title} text text_type_main-medium`}
-        ref={refs[title]}
+        ref={refs[value]}
+        data-tab={value}
       >
         {title}
       </h2>

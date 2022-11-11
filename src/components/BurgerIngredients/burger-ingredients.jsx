@@ -12,20 +12,43 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const ingredients = useSelector(state => state.ingredientsReducer);
   const detailIngredient = useSelector(state => state.detailIngredientReducer);
-
-  TABS.forEach(tab =>
-    tab.ingredients = ingredients.filter(ingredient => ingredient.type === tab.value)
-  );
+  const [activeTab, setActiveTab] = React.useState('');
 
   const refs = TABS.reduce((acc, tab) => {
-    acc[tab.name] = React.createRef();
+    acc[tab.value] = React.createRef();
     return acc;
   }, {});
 
-  const handleClickScroll = (name) =>
-    refs[name].current.scrollIntoView({
+  React.useEffect(() => {
+    const options = {
+      rootMargin: '0px 0px -600px 0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const value = entry.target.getAttribute("data-tab");
+          setActiveTab(value);
+        }
+      });
+    }, options);
+
+    TABS.forEach(tab =>
+      observer.observe(refs[tab.value].current)
+    );
+  }, []);
+
+  const handleClickScroll = (value) => {
+    refs[value].current.scrollIntoView({
       behavior: 'smooth',
     });
+    setActiveTab(value);
+  };
+
+  const getIngredients = (value) => {
+    return ingredients.filter(ingredient => ingredient.type === value);
+  };
 
   const closeModal = () => {
     dispatch(detailIngredientSlice.actions.setDetailIngredient(null));
@@ -34,12 +57,22 @@ const BurgerIngredients = () => {
   return (
     <div className={classes.ingredients}>
       <div className={classes.ingredients__tabs}>
-        <IngredientTabs tabs={TABS} handleClickScroll={handleClickScroll} />
+        <IngredientTabs
+          tabs={TABS}
+          handleClickScroll={handleClickScroll}
+          activeTab={activeTab}
+        />
       </div>
       <div className={classes.ingredients__container}>
         {
           TABS.map(tab =>
-            <IngredientsCategory title={tab.name} ingredients={tab.ingredients} ref={refs} key={tab.name} />
+            <IngredientsCategory
+              title={tab.name}
+              value={tab.value}
+              ingredients={getIngredients(tab.value)}
+              ref={refs}
+              key={tab.value}
+            />
           )
         }
       </div>

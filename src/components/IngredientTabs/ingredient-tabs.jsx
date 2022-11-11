@@ -1,22 +1,19 @@
-import React from "react";
 import classes from './ingredient-tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientTabs = ({ tabs, handleClickScroll }) => {
-  const [current, setCurrent] = React.useState('bun');
+const IngredientTabs = ({ tabs, handleClickScroll, activeTab }) => {
 
   return (
     <div className={classes.tabs}>
       {
-        tabs.map((tab, index) =>
+        tabs.map((tab) =>
           <Tab
             value={tab.value}
-            active={current === tab.value}
+            active={activeTab === tab.value}
             onClick={() => {
-              setCurrent(tab.value);
-              handleClickScroll(tab.name)
+              handleClickScroll(tab.value)
             }}
-            key={index}
+            key={tab.value}
           >
             {tab.name}
           </Tab>
