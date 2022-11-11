@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import classes from './ingredient-constructor.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientConstructor = ({ ingredient, index, moveListItem }) => {
+const IngredientConstructor = ({ ingredient, index, moveIngredient }) => {
   const [, dragRef] = useDrag({
     type: 'item',
     item: { index },
@@ -21,7 +21,7 @@ const IngredientConstructor = ({ ingredient, index, moveListItem }) => {
       if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
       if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
 
-      moveListItem(dragIndex, hoverIndex)
+      moveIngredient(dragIndex, hoverIndex)
       item.index = hoverIndex
     },
   });

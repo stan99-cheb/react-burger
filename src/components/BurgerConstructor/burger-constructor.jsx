@@ -41,18 +41,12 @@ const BurgerConstructor = () => {
     );
   }, [selectedIngredients]);
 
-  const movePetListItem = useCallback(
+  const moveIngredient = useCallback(
     (dragIndex, hoverIndex) => {
-      const dragItem = selectedIngredients.otherIngredients[dragIndex]
-      const hoverItem = selectedIngredients.otherIngredients[hoverIndex]
-      const updatedFunc = function (selectedIngredients) {
-        const updatedArray = [...selectedIngredients.otherIngredients]
-        updatedArray[dragIndex] = hoverItem
-        updatedArray[hoverIndex] = dragItem
-        return updatedArray;
-      };
+      [selectedIngredients.otherIngredients[dragIndex], selectedIngredients.otherIngredients[hoverIndex]] =
+        [selectedIngredients.otherIngredients[hoverIndex], selectedIngredients.otherIngredients[dragIndex]]
 
-      dispatch({ type: 'UPDATE', payload: updatedFunc(selectedIngredients) });
+      dispatch({ type: 'UPDATE', payload: selectedIngredients.otherIngredients });
     },
     [selectedIngredients, dispatch],
   )
@@ -76,7 +70,7 @@ const BurgerConstructor = () => {
                   ingredient={ingredient}
                   key={ingredient._id}
                   index={index}
-                  moveListItem={movePetListItem}
+                  moveIngredient={moveIngredient}
                 />
               )}
           </ul>
