@@ -47,9 +47,19 @@ const BurgerConstructor = () => {
         [selectedIngredients.otherIngredients[hoverIndex], selectedIngredients.otherIngredients[dragIndex]]
 
       dispatch({ type: 'UPDATE', payload: selectedIngredients.otherIngredients });
-    },
-    [selectedIngredients, dispatch],
-  )
+    }, [selectedIngredients]);
+
+  const renderIngredients = useCallback((ingredient, index) => {
+
+    return (
+      <IngredientConstructor
+        ingredient={ingredient}
+        key={index}
+        index={index}
+        moveIngredient={moveIngredient}
+      />
+    )
+  }, [moveIngredient]);
 
   return (
     <div className={classes.burger} ref={dropRef}>
@@ -66,12 +76,7 @@ const BurgerConstructor = () => {
           <ul className={classes.burger__container}>
             {selectedIngredients.otherIngredients
               .map((ingredient, index) =>
-                <IngredientConstructor
-                  ingredient={ingredient}
-                  key={ingredient._id}
-                  index={index}
-                  moveIngredient={moveIngredient}
-                />
+                renderIngredients(ingredient, index)
               )}
           </ul>
           <ConstructorElement
