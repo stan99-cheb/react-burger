@@ -10,7 +10,7 @@ import { TABS } from "../../utils/constants";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.ingredientsReducer);
+  const ingredients = useSelector(state => state.ingredientsReducer.value);
   const detailIngredient = useSelector(state => state.detailIngredientReducer);
   const [activeTab, setActiveTab] = React.useState('');
 

@@ -10,7 +10,7 @@ import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
 import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
-import { ingredientsSlice } from '../../services/slices/ingredients';
+import { setIngredients } from '../../services/slices/ingredients';
 // import { selectedsIngredientsSlice } from '../../services/slices/selected-ingredients';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
     setDataLoading(true);
     api.fetchIngredients(BASE_URL)
       .then((res) => {
-        dispatch(ingredientsSlice.actions.setIngredients(res.data));
+        dispatch(setIngredients(res.data));
       })
       .catch((err) => alert(err))
       .finally(() => setDataLoading(false));
