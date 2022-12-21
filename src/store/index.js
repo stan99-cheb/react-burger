@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { detailIngredientSlice } from '../services/slices/detail-ingredient';
+import detailIngredientSlice from '../services/slices/detail-ingredient';
 import ingredientsSlice from '../services/slices/ingredients';
-import { selectedIngredientsReducer } from '../services/reducers/selected-ingredients';
+import selectedsIngredientsSlice from '../services/slices/selected-ingredients';
 
 export const store = configureStore({
     reducer: {
-        ingredientsReducer: ingredientsSlice,
-        detailIngredientReducer: detailIngredientSlice.reducer,
-        selectedIngredientsReducer: selectedIngredientsReducer,
+        ingredients: ingredientsSlice,
+        detailIngredient: detailIngredientSlice,
+        selectedIngredients: selectedsIngredientsSlice,
     },
 });

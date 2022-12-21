@@ -4,11 +4,11 @@ import { useDrag } from 'react-dnd';
 import INGREDIENT_TYPE from '../../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './ingredients-card.module.css';
-import { detailIngredientSlice } from '../../services/slices/detail-ingredient';
+import { setDetailIngredient } from '../../services/slices/detail-ingredient';
 
 const IngridientsCard = ({ ingredient }) => {
   const [count, setCount] = React.useState(0);
-  const selectedIngredients = useSelector(state => state.selectedIngredientsReducer);
+  const selectedIngredients = useSelector(state => state.selectedIngredients);
   const dispatch = useDispatch();
   const [, dragRef] = useDrag({
     type: 'ingredient',
@@ -16,7 +16,7 @@ const IngridientsCard = ({ ingredient }) => {
   });
 
   const handleOnClick = () => {
-    dispatch(detailIngredientSlice.actions.setDetailIngredient(ingredient));
+    dispatch(setDetailIngredient(ingredient));
   };
 
   React.useEffect(() => {

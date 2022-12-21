@@ -5,13 +5,13 @@ import IngredientTabs from "../IngredientTabs/ingredient-tabs";
 import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Modal from "../Modal/modal";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
-import { detailIngredientSlice } from '../../services/slices/detail-ingredient';
+import { setDetailIngredient } from '../../services/slices/detail-ingredient';
 import { TABS } from "../../utils/constants";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.ingredientsReducer.value);
-  const detailIngredient = useSelector(state => state.detailIngredientReducer);
+  const ingredients = useSelector(state => state.ingredients.value);
+  const detailIngredient = useSelector(state => state.detailIngredient.value);
   const [activeTab, setActiveTab] = React.useState('');
 
   const refs = TABS.reduce((acc, tab) => {
@@ -51,7 +51,7 @@ const BurgerIngredients = () => {
   };
 
   const closeModal = () => {
-    dispatch(detailIngredientSlice.actions.setDetailIngredient(null));
+    dispatch(setDetailIngredient(null));
   };
 
   return (
@@ -78,7 +78,7 @@ const BurgerIngredients = () => {
       </div>
       {detailIngredient && (
         <Modal closeModal={closeModal} title="Детали ингредиента">
-          <IngredientDetails />
+          <IngredientDetails ingredient={detailIngredient} />
         </Modal>
       )}
     </div>
