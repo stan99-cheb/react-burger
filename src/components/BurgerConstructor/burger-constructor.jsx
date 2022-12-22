@@ -9,10 +9,14 @@ import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
 import { IngredientConstructor } from '../IngredientConstructor/ingredient-constructor';
 import { add, update } from '../../services/slices/selected-ingredients';
+import { getOrderNumber } from '../../services/slices/order-number';
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
     const selectedIngredients = useSelector(state => state.selectedIngredients);
+    const orderNumber = useSelector(state => state.orderNumber.value);
+    const status = useSelector(state => state.orderNumber.status);
+    const [isModal, setModal] = React.useState(false);
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
@@ -21,18 +25,14 @@ const BurgerConstructor = () => {
         },
     });
 
-    const [isModal, setModal] = React.useState(false);
-    const [orderNumber, setOrderNumber] = React.useState(0);
-
     const closeModal = () => {
         setModal(false);
     };
 
     const makeOrder = () => {
-        api.fetchOrderNumber(BASE_URL, [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id])
-            .then((res) => setOrderNumber(res.order.number))
-            .then(() => setModal(true))
-            .catch((err) => alert(err));
+        const array = [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id];
+        dispatch(getOrderNumber({ url: BASE_URL, array }));
+        setModal(true);
     };
 
     const costBurger = React.useMemo(() => {
@@ -48,7 +48,7 @@ const BurgerConstructor = () => {
             [array[dragIndex], array[hoverIndex]] =
                 [array[hoverIndex], array[dragIndex]];
             dispatch(update(array));
-        }, [selectedIngredients]);
+        }, [selectedIngredients, dispatch]);
 
     const renderIngredients = useCallback((ingredient, index) => {
         return (
@@ -98,9 +98,9 @@ const BurgerConstructor = () => {
                     Оформить заказ
                 </Button>
             </div>
-            {isModal && (
+            {isModal && status === 'idle' && (
                 <Modal closeModal={closeModal}>
-                    <OrderDetails orderNumber={orderNumber} />
+                    <OrderDetails orderNumber={orderNumber.at(-1)} />
                 </Modal>
             )}
         </div>
