@@ -8,7 +8,7 @@ import OrderDetails from "../OrderDetails/order-details";
 import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
 import { IngredientConstructor } from '../IngredientConstructor/ingredient-constructor';
-import { add, update } from '../../services/slices/selected-ingredients';
+import { add, update, reset } from '../../services/slices/selected-ingredients';
 import { getOrderNumber } from '../../services/slices/order-number';
 
 const BurgerConstructor = () => {
@@ -25,13 +25,19 @@ const BurgerConstructor = () => {
         },
     });
 
+    console.log(orderNumber);
+
     const closeModal = () => {
         setModal(false);
+        dispatch(reset());
     };
 
     const makeOrder = () => {
+        if (selectedIngredients.bun === null) {
+            return;
+        };
         const array = [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id];
-        dispatch(getOrderNumber({ url: BASE_URL, array }));
+        dispatch(getOrderNumber({ url: BASE_URL, array, selectedIngredients }));
         setModal(true);
     };
 
@@ -100,7 +106,7 @@ const BurgerConstructor = () => {
             </div>
             {isModal && status === 'idle' && (
                 <Modal closeModal={closeModal}>
-                    <OrderDetails orderNumber={orderNumber.at(-1)} />
+                    <OrderDetails orderNumber={orderNumber.at(-1).number} />
                 </Modal>
             )}
         </div>

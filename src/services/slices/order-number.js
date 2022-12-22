@@ -8,9 +8,13 @@ const initialState = {
 
 export const getOrderNumber = createAsyncThunk(
     'orderNumber/fetch',
-    async ({ url, array }) => {
+    async ({ url, array, selectedIngredients }) => {
         const response = await api.fetchOrderNumber(url, array);
-        return response.order.number;
+        return {
+            number: response.order.number,
+            ingredients: selectedIngredients,
+            date: new Date().toLocaleString(),
+        };
     }
 );
 

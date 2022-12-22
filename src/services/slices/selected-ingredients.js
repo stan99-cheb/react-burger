@@ -19,8 +19,12 @@ const selectedsIngredientsSlice = createSlice({
         update(state, actions) {
             state.otherIngredients = [...actions.payload];
         },
+        reset(state) {
+            state.bun = null;
+            state.otherIngredients = [];
+        },
     },
 });
 
-export const { add, update } = selectedsIngredientsSlice.actions;
+export const { add, update, reset } = selectedsIngredientsSlice.actions;
 export default selectedsIngredientsSlice.reducer;
