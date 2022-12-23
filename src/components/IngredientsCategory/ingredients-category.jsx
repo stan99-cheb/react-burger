@@ -7,7 +7,6 @@ import IngridientsCard from "../IngredientsCard/ingredients-card";
 const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, refs) => {
 
   const renderIngridientsCard = useCallback((ingredient, index) => {
-
     return (
       <li key={index}>
         <IngridientsCard ingredient={ingredient} />

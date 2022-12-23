@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import classes from './ingredient-constructor.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientConstructor = ({ ingredient, index, moveIngredient }) => {
+const IngredientConstructor = ({ ingredient, index, moveIngredient, delIngredient }) => {
   const ref = useRef(null);
   const [, dragRef] = useDrag({
     type: 'item',
@@ -37,6 +37,7 @@ const IngredientConstructor = ({ ingredient, index, moveIngredient }) => {
       item.index = hoverIndex
     },
   });
+
   dragRef(dropRef(ref));
 
   return (
@@ -46,6 +47,7 @@ const IngredientConstructor = ({ ingredient, index, moveIngredient }) => {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
+        handleClose={() => delIngredient(ingredient)}
       />
     </li>
   );

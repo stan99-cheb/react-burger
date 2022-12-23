@@ -5,7 +5,6 @@ import classes from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
-import * as api from '../../utils/api';
 import { BASE_URL } from "../../utils/constants";
 import { IngredientConstructor } from '../IngredientConstructor/ingredient-constructor';
 import { add, update, reset } from '../../services/slices/selected-ingredients';
@@ -24,8 +23,6 @@ const BurgerConstructor = () => {
             dispatch(add(ingredient));
         },
     });
-
-    console.log(orderNumber);
 
     const closeModal = () => {
         setModal(false);
@@ -57,15 +54,21 @@ const BurgerConstructor = () => {
         }, [selectedIngredients, dispatch]);
 
     const renderIngredients = useCallback((ingredient, index) => {
+        const delIngredient = (ingredient) => {
+            const array = [...selectedIngredients.otherIngredients
+                .filter(item => item._id !== ingredient._id)];
+            dispatch(update(array));
+        };
         return (
             <IngredientConstructor
                 ingredient={ingredient}
                 key={index}
                 index={index}
                 moveIngredient={moveIngredient}
+                delIngredient={delIngredient}
             />
         )
-    }, [moveIngredient]);
+    }, [moveIngredient, dispatch, selectedIngredients.otherIngredients]);
 
     return (
         <div className={classes.burger} ref={dropRef}>
@@ -97,7 +100,7 @@ const BurgerConstructor = () => {
             }
             <div className={classes.burger__result}>
                 <div className={classes.burger__sum}>
-                    <p className="text text_type_digits-medium">{costBurger ? costBurger : 0}</p>
+                    <p className="text text_type_digits-medium">{costBurger || 0}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button type="primary" size="large" onClick={makeOrder} htmlType="button">
