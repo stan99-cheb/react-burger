@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    bun: null,
+    bun: {},
     otherIngredients: []
 };
 
@@ -20,7 +20,7 @@ const selectedsIngredientsSlice = createSlice({
             state.otherIngredients = [...actions.payload];
         },
         reset(state) {
-            state.bun = null;
+            state.bun = {};
             state.otherIngredients = [];
         },
     },

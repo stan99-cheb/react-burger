@@ -30,7 +30,7 @@ const BurgerConstructor = () => {
     };
 
     const makeOrder = () => {
-        if (selectedIngredients.bun === null) {
+        if (Object.entries(selectedIngredients.bun).length === 0) {
             return;
         };
         const array = [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id];
@@ -54,9 +54,10 @@ const BurgerConstructor = () => {
         }, [selectedIngredients, dispatch]);
 
     const renderIngredients = useCallback((ingredient, index) => {
-        const delIngredient = (ingredient) => {
-            const array = [...selectedIngredients.otherIngredients
-                .filter(item => item._id !== ingredient._id)];
+        const delIngredient = (e) => {
+            const index = e.target.closest('li').getAttribute('data-index');
+            const array = [...selectedIngredients.otherIngredients]
+            array.splice(index, 1);
             dispatch(update(array));
         };
         return (
@@ -72,7 +73,7 @@ const BurgerConstructor = () => {
 
     return (
         <div className={classes.burger} ref={dropRef}>
-            {selectedIngredients.bun &&
+            {Object.entries(selectedIngredients.bun).length !== 0 &&
                 <div className={classes.burger__components}>
                     <ConstructorElement
                         type="top"

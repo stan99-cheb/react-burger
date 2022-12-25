@@ -41,13 +41,13 @@ const IngredientConstructor = ({ ingredient, index, moveIngredient, delIngredien
   dragRef(dropRef(ref));
 
   return (
-    <li className={classes.item} ref={ref} data-handler-id={handlerId}>
+    <li className={classes.item} ref={ref} data-handler-id={handlerId} data-index={index}>
       <DragIcon type="primary" />
       <ConstructorElement
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        handleClose={() => delIngredient(ingredient)}
+        handleClose={delIngredient}
       />
     </li>
   );
