@@ -1,8 +1,8 @@
 import classes from './ingredient-tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 const IngredientTabs = ({ tabs, handleClickScroll, activeTab }) => {
-
   return (
     <div className={classes.tabs}>
       {
@@ -21,6 +21,12 @@ const IngredientTabs = ({ tabs, handleClickScroll, activeTab }) => {
       }
     </div>
   );
+};
+
+IngredientTabs.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleClickScroll: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default IngredientTabs;

@@ -10,7 +10,7 @@ const IngridientsCard = ({ ingredient }) => {
   const [count, setCount] = React.useState(0);
   const selectedIngredients = useSelector(state => state.selectedIngredients);
   const dispatch = useDispatch();
-  
+
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: ingredient,

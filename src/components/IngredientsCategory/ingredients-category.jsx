@@ -5,7 +5,6 @@ import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
 const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, refs) => {
-
   const renderIngridientsCard = useCallback((ingredient, index) => {
     return (
       <li key={index}>
@@ -34,7 +33,9 @@ const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, ref
 
 IngredientsCategory.propTypes = {
   ingredients: PropTypes.arrayOf(INGREDIENT_TYPE).isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  refs: PropTypes.object,
 };
 
 export default IngredientsCategory;

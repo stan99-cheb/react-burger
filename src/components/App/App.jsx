@@ -12,32 +12,32 @@ import Loader from '../UI/Loader/loader';
 import { getIngredients } from '../../services/slices/ingredients';
 
 function App() {
-    const status = useSelector(state => state.ingredients.status);
-    const dispatch = useDispatch();
+  const status = useSelector(state => state.ingredients.status);
+  const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        dispatch(getIngredients(BASE_URL));
-    }, []);
+  React.useEffect(() => {
+    dispatch(getIngredients(BASE_URL));
+  }, []);
 
-    return (
-        <>
-            <Header />
-            {status === 'loading'
-                ? <div className={classes.loader}><Loader /></div>
-                : (
-                    <main>
-                        <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
-                        <section className={classes.main__wrapper}>
-                            <DndProvider backend={HTML5Backend}>
-                                <BurgerIngredients />
-                                <BurgerConstructor />
-                            </DndProvider>
-                        </section>
-                    </main>
-                )
-            }
-        </>
-    );
+  return (
+    <>
+      <Header />
+      {status === 'loading'
+        ? <div className={classes.loader}><Loader /></div>
+        : (
+          <main>
+            <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
+            <section className={classes.main__wrapper}>
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
+            </section>
+          </main>
+        )
+      }
+    </>
+  );
 }
 
 export default App;
