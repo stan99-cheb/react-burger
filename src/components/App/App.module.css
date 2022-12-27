@@ -9,9 +9,3 @@
   display: flex;
   gap: 40px;
 }
-
-.loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

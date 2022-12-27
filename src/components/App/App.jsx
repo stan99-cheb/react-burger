@@ -23,7 +23,7 @@ function App() {
     <>
       <Header />
       {status === 'loading'
-        ? <div className={classes.loader}><Loader /></div>
+        ? <Loader />
         : (
           <main>
             <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>

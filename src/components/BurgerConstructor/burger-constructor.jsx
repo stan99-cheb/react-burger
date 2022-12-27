@@ -9,6 +9,7 @@ import { BASE_URL } from "../../utils/constants";
 import { IngredientConstructor } from '../IngredientConstructor/ingredient-constructor';
 import { add, update, reset } from '../../services/slices/selected-ingredients';
 import { getOrderNumber } from '../../services/slices/order-number';
+import Loader from '../UI/Loader/loader';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const BurgerConstructor = () => {
     return (
       <IngredientConstructor
         ingredient={ingredient}
-        key={index}
+        key={ingredient._id}
         index={index}
         moveIngredient={moveIngredient}
         delIngredient={delIngredient}
@@ -111,11 +112,13 @@ const BurgerConstructor = () => {
           Оформить заказ
         </Button>
       </div>
-      {isModal && status === 'idle' && (
-        <Modal closeModal={closeModal}>
-          <OrderDetails orderNumber={orderNumber.at(-1).number} />
-        </Modal>
-      )}
+      {status === 'loading'
+        ? <Loader />
+        : isModal && (
+          <Modal closeModal={closeModal}>
+            <OrderDetails orderNumber={orderNumber.at(-1).number} />
+          </Modal>
+        )}
     </div>
   );
 };

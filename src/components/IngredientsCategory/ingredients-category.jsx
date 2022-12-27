@@ -5,9 +5,9 @@ import classes from './ingredients-category.module.css';
 import IngridientsCard from "../IngredientsCard/ingredients-card";
 
 const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, refs) => {
-  const renderIngridientsCard = useCallback((ingredient, index) => {
+  const renderIngridientsCard = useCallback((ingredient) => {
     return (
-      <li key={index}>
+      <li key={ingredient._id}>
         <IngridientsCard ingredient={ingredient} />
       </li>
     );
@@ -23,8 +23,8 @@ const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, ref
         {title}
       </h2>
       <ul className={classes.render__type}>
-        {ingredients.map((ingredient, index) =>
-          renderIngridientsCard(ingredient, index)
+        {ingredients.map((ingredient) =>
+          renderIngridientsCard(ingredient)
         )}
       </ul>
     </>
