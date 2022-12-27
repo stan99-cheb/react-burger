@@ -20,6 +20,10 @@ const BurgerConstructor = () => {
   const [, dropRef] = useDrop({
     accept: 'ingredient',
     drop: (ingredient) => {
+      if (ingredient.type !== 'bun' &&
+        Object.entries(selectedIngredients.bun).length === 0) {
+        return;
+      };
       dispatch(add(ingredient));
     },
   });
