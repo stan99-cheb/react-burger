@@ -10,6 +10,7 @@ import { IngredientConstructor } from '../IngredientConstructor/ingredient-const
 import { add, update, reset } from '../../services/slices/selected-ingredients';
 import { getOrderNumber } from '../../services/slices/order-number';
 import Loader from '../UI/Loader/loader';
+import { v4 as uuidv4 } from 'uuid';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const BurgerConstructor = () => {
     return (
       <IngredientConstructor
         ingredient={ingredient}
-        key={ingredient._id}
+        key={uuidv4()}
         index={index}
         moveIngredient={moveIngredient}
         delIngredient={delIngredient}
