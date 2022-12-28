@@ -26,7 +26,7 @@ const BurgerConstructor = () => {
         Object.entries(selectedIngredients.bun).length === 0) {
         return;
       };
-      dispatch(add(ingredient));
+      dispatch(add({ ingredient, uuid: uuidv4() }));
     },
   });
 
@@ -68,7 +68,7 @@ const BurgerConstructor = () => {
     return (
       <IngredientConstructor
         ingredient={ingredient}
-        key={uuidv4()}
+        key={ingredient.uuid}
         index={index}
         moveIngredient={moveIngredient}
         delIngredient={delIngredient}
