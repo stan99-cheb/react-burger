@@ -1,40 +1,86 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import classes from './burger-ingredients.module.css';
 import IngredientTabs from "../IngredientTabs/ingredient-tabs";
 import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Modal from "../Modal/modal";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
-import BurgerIngredientsContext from "../../services/burger-ingredients-context";
-import DetailIngredientsContext from "../../services/detail-ingredients-context";
+import { setDetailIngredient } from '../../services/slices/detail-ingredient';
+import { TABS } from "../../utils/constants";
 
 const BurgerIngredients = () => {
-  const { data } = React.useContext(BurgerIngredientsContext);
-  const bunsIngredient = React.useMemo(() => data.filter(item => item.type === 'bun'), [data]);
-  const saucesIngredient = React.useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
-  const mainsIngredient = React.useMemo(() => data.filter(item => item.type === 'main'), [data]);
-  const [detailIngredient, setDetailIngredient] = React.useState(null);
+  const dispatch = useDispatch();
+  const ingredients = useSelector(state => state.ingredients.value);
+  const detailIngredient = useSelector(state => state.detailIngredient.value);
+  const [activeTab, setActiveTab] = React.useState('');
+
+  const refs = TABS.reduce((acc, tab) => {
+    acc[tab.value] = React.createRef();
+    return acc;
+  }, {});
+
+  React.useEffect(() => {
+    const options = {
+      rootMargin: '0px 0px -600px 0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const value = entry.target.getAttribute("data-tab");
+          setActiveTab(value);
+        }
+      });
+    }, options);
+
+    TABS.forEach(tab =>
+      observer.observe(refs[tab.value].current)
+    );
+  }, []);
+
+  const handleClickScroll = (value) => {
+    refs[value].current.scrollIntoView({
+      behavior: 'smooth',
+    });
+    setActiveTab(value);
+  };
+
+  const getIngredients = (value) => {
+    return ingredients.filter(ingredient => ingredient.type === value);
+  };
 
   const closeModal = () => {
-    setDetailIngredient(null);
-  }
+    dispatch(setDetailIngredient(null));
+  };
 
   return (
     <div className={classes.ingredients}>
       <div className={classes.ingredients__tabs}>
-        <IngredientTabs />
+        <IngredientTabs
+          tabs={TABS}
+          handleClickScroll={handleClickScroll}
+          activeTab={activeTab}
+        />
       </div>
-      <DetailIngredientsContext.Provider value={{ detailIngredient, setDetailIngredient }}>
-        <div className={classes.ingredients__container}>
-          <IngredientsCategory title="Булки" ingredients={bunsIngredient} />
-          <IngredientsCategory title="Соусы" ingredients={saucesIngredient} />
-          <IngredientsCategory title="Начинки" ingredients={mainsIngredient} />
-        </div>
-        {detailIngredient && (
-          <Modal closeModal={closeModal} title="Детали ингредиента">
-            <IngredientDetails />
-          </Modal>
-        )}
-      </DetailIngredientsContext.Provider>
+      <div className={classes.ingredients__container}>
+        {
+          TABS.map(tab =>
+            <IngredientsCategory
+              title={tab.name}
+              value={tab.value}
+              ingredients={getIngredients(tab.value)}
+              ref={refs}
+              key={tab.value}
+            />
+          )
+        }
+      </div>
+      {detailIngredient && (
+        <Modal closeModal={closeModal} title="Детали ингредиента">
+          <IngredientDetails ingredient={detailIngredient} />
+        </Modal>
+      )}
     </div>
   );
 };

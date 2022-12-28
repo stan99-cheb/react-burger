@@ -1,9 +1,15 @@
 import classes from './loader.module.css';
 
 const Loader = () => {
-
   return (
-    <div className={classes.loader}>
+    <div className={classes.container}>
+      <div className={classes.loader}>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   );
 };

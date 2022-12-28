@@ -1,58 +1,37 @@
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDispatch, useSelector } from 'react-redux';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import classes from './App.module.css';
 import Header from '../Header/header';
 import BurgerConstructor from '../BurgerConstructor/burger-constructor';
 import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
-import * as api from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
 import Loader from '../UI/Loader/loader';
-import BurgerIngredientsContext from "../../services/burger-ingredients-context";
-import SelectedIngredientsContext from "../../services/selected-ingredients-context";
+import { getIngredients } from '../../services/slices/ingredients';
 
 function App() {
-  const [isDataLoading, setDataLoading] = React.useState(false);
-  const [data, setData] = React.useState([]);
-  const [selectedIngredients, setSelectedIngredients] = React.useState([]);
-
-  const getSelectedArray = (data) => {
-    return [...Array(Math.floor(Math.random() * 13) + 2)]  //Получаем случайное количество ингридиентов
-      .map(() => Math.floor(Math.random() * 13) + 2)       //Получаем массив случайных индексов
-      .map(item => data[item]);                            //Получаем массив выбранных ингредиентов
-  }
+  const status = useSelector(state => state.ingredients.status);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    setDataLoading(true);
-    api.fetchIngredients(BASE_URL)
-      .then((res) => {
-        setData(res.data);
-        return res.data
-      })
-      .then((data) => {
-        const arraySelect = getSelectedArray(data);
-        arraySelect.unshift(data[Math.floor(Math.random() * 2)]);  //Добавляем случайную булку в начало массива
-        arraySelect.push(arraySelect[0]);                          //Добавляем случайную булку в конец массива
-        setSelectedIngredients(arraySelect);
-      })
-      .catch((err) => alert(err))
-      .finally(() => setDataLoading(false));
+    dispatch(getIngredients(BASE_URL));
   }, []);
 
   return (
     <>
       <Header />
-      {isDataLoading
-        ? <div className={classes.loader}><Loader /></div>
+      {status === 'loading'
+        ? <Loader />
         : (
           <main>
             <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
             <section className={classes.main__wrapper}>
-              <BurgerIngredientsContext.Provider value={{ data, setData }}>
-                <SelectedIngredientsContext.Provider value={{ selectedIngredients, setSelectedIngredients }}>
-                  <BurgerIngredients />
-                  <BurgerConstructor />
-                </SelectedIngredientsContext.Provider>
-              </BurgerIngredientsContext.Provider>
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
             </section>
           </main>
         )

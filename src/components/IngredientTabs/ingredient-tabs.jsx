@@ -1,23 +1,32 @@
-import React from "react";
 import classes from './ingredient-tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
-const IngredientTabs = () => {
-  const [current, setCurrent] = React.useState('bun');
-
+const IngredientTabs = ({ tabs, handleClickScroll, activeTab }) => {
   return (
     <div className={classes.tabs}>
-      <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
-        Булки
-      </Tab>
-      <Tab value="sauces" active={current === 'sauces'} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="fillings" active={current === 'fillings'} onClick={setCurrent}>
-        Начинки
-      </Tab>
+      {
+        tabs.map((tab) =>
+          <Tab
+            value={tab.value}
+            active={activeTab === tab.value}
+            onClick={() => {
+              handleClickScroll(tab.value)
+            }}
+            key={tab.value}
+          >
+            {tab.name}
+          </Tab>
+        )
+      }
     </div>
   );
+};
+
+IngredientTabs.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleClickScroll: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default IngredientTabs;

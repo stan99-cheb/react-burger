@@ -15,13 +15,6 @@
   list-style-type: none;
 }
 
-.burger__item {
-  margin-bottom: 10px;
-  display: flex;
-  column-gap: 14px;
-  align-items: center;
-}
-
 .burger__item_top {
   margin-bottom: 10px;
   margin-left: 46px;
