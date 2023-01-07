@@ -35,21 +35,21 @@ const BurgerConstructor = () => {
     dispatch(reset());
   };
 
-  const makeOrder = () => {
-    if (Object.entries(selectedIngredients.bun).length === 0) {
-      return;
-    };
-    const array = [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id];
-    dispatch(getOrderNumber({ url: BASE_URL, array, selectedIngredients }));
-    setModal(true);
-  };
-
   const costBurger = React.useMemo(() => {
     return (
       (selectedIngredients.bun ? selectedIngredients.bun.price * 2 : 0) +
       selectedIngredients.otherIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
     );
   }, [selectedIngredients]);
+
+  const makeOrder = () => {
+    if (Object.entries(selectedIngredients.bun).length === 0) {
+      return;
+    };
+    const array = [...selectedIngredients.otherIngredients.map(item => item._id), selectedIngredients.bun._id];
+    dispatch(getOrderNumber({ url: BASE_URL, array, selectedIngredients, costBurger }));
+    setModal(true);
+  };
 
   const moveIngredient = useCallback(
     (dragIndex, hoverIndex) => {

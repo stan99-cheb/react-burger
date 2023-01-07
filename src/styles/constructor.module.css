@@ -1,0 +1,11 @@
+.main__title {
+  margin: 0 auto 20px;
+  max-width: 1240px;
+}
+
+.main__wrapper {
+  margin: 0 auto;
+  max-width: 1240px;
+  display: flex;
+  gap: 40px;
+}
