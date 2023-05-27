@@ -16,7 +16,6 @@ export const getOrderNumber = createAsyncThunk(
       });
       return response;
     } catch (err) {
-      console.log(err)
       return rejectWithValue(err);
     };
   },

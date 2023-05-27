@@ -1,5 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { userState } from "../../services/slices/user-slice";
 import Order from "../Order/order";
 import { CurrencyIcon } from "../UI/Icons";
 import { burgerComponentState, resetBurgerComponents } from "../../services/slices/burger-components";
@@ -12,6 +14,9 @@ import styles from "./burger-constructor-info.module.css";
 
 const BurgerConstructorInfo = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuth } = useSelector(userState);
   const burgerComponents = useSelector(burgerComponentState);
   const { status } = useSelector(orderState);
   const number = useSelector(state => {
@@ -33,10 +38,13 @@ const BurgerConstructorInfo = () => {
   const makeOrder = () => {
     const idIngredients = [...burgerComponents.ingredients.map(ingredient =>
       ingredient._id), burgerComponents.bun._id];
-    dispatch(getOrderNumber(idIngredients))
-      .then(result =>
-        result?.payload?.success && setModal(true)
-      );
+    if (isAuth) {
+      dispatch(getOrderNumber(idIngredients));
+      setModal(true);
+    } else {
+      alert('Авторизуйтесь');
+      navigate('/login', { state: { from: location } });
+    };
   };
 
   const closeModal = () => {
