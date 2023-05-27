@@ -1,0 +1,52 @@
+.page {}
+
+.container {
+  width: 480px;
+  height: 430px;
+
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  color: var(--text-primary-color);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.button {
+  margin-bottom: 56px;
+}
+
+.footer {
+  text-align: center;
+  color: var(--text-secondary-color);
+}
+
+.footer > * {
+  margin-bottom: 16px;
+}
+
+.link {
+  color: var(--active);
+  cursor: pointer;
+  text-decoration: none;
+}

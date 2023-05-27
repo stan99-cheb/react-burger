@@ -1,0 +1,8 @@
+.main {
+  height: calc(100vh - var(--header-height));
+  color: var(--text-primary-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

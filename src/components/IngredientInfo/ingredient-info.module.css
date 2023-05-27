@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  display: block;
+  margin: 0 auto 16px;
+}
+
+.name {
+  margin-bottom: 32px;
+
+  font-family: var(--font-text);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+
+  color: #f2f2f3;
+}
+
+.caloric-contents {
+  margin-bottom: 60px;
+
+  list-style-type: none;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.caloric-contents__item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  text-align: center;
+  color: #8585ad;
+  white-space: nowrap;
+}
+
+.text {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.digital {
+  font-family: var(--font-digital);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.5;
+}

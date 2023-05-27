@@ -1,30 +1,109 @@
-const fetchIngredients = (baseUrl) => {
-
-  return fetch(`${baseUrl}/ingredients`)
-    .then(checkRes);
+export const getIngredients = (url) => {
+  return fetch(`${url}/ingredients`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 };
 
-const fetchOrderNumber = (baseUrl, ingredientsId) => {
-
-  return fetch(`${baseUrl}/orders`, {
-    method: "POST",
+export const getOrderNumber = (url, idIngredients) => {
+  return fetch(`${url}/orders`, {
+    method: 'POST',
     headers: {
-      // authorization: '5743d2b2-8d60-4e50-9a9c-7a3ab60b2c12',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      "ingredients": ingredientsId
-    })
-  })
-    .then(checkRes);
-}
-
-const checkRes = (res) => {
-  if (res.ok) {
-    return res.json();
-  };
-
-  return Promise.reject(`Ошибка: ${res.status}`);
+      ingredients: idIngredients
+    }),
+  });
 };
 
-export { fetchIngredients, fetchOrderNumber };
+export const loginUser = (url, formField) => {
+  return fetch(`${url}/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "email": formField.email,
+      "password": formField.password,
+    }),
+  });
+};
+
+export const updateTokens = (url, refreshToken) => {
+  return fetch(`${url}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "token": refreshToken
+    }),
+  });
+};
+
+export const getUser = (url, accessToken) => {
+  return fetch(`${url}/auth/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    },
+  });
+};
+
+export const updateUser = (url, accessToken, formField) => {
+  return fetch(`${url}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    },
+    body: JSON.stringify({
+      "email": formField.email,
+      "password": formField.password,
+      "name": formField.name,
+    }),
+  });
+};
+
+export const registrationUser = (url, formField) => {
+  return fetch(`${url}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "email": formField.email,
+      "password": formField.password,
+      "name": formField.name,
+    }),
+  });
+};
+
+export const forgotPassword = (url, formField) => {
+  return fetch(`${url}/password-reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "email": formField.email,
+    }),
+  });
+};
+
+export const resetPassword = (url, formField) => {
+  return fetch(`${url}/password-reset/reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "password": formField.password,
+      "token": formField.token,
+    }),
+  });
+};

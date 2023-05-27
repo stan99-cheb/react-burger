@@ -1,0 +1,33 @@
+.container {
+  margin: 0 0 40px;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.bun {
+  padding-left: 32px;
+}
+
+.list {
+  max-height: 464px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+
+  overflow-y: auto;
+}
+
+.dragIcon:hover {
+  cursor: grab;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
