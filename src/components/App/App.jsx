@@ -5,7 +5,6 @@ import { getIngredients } from '../../services/thunk/get-ingredients';
 import AppRoutes from '../AppRoutes/app-routes';
 import Loader from '../UI/Loader/loader';
 import { useAuth } from '../../hooks/use-auth';
-import './App.css';
 
 function App() {
   const dispatch = useDispatch();
