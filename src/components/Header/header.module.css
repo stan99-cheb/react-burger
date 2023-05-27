@@ -19,6 +19,7 @@
 
 .logo {
   margin: 0 288px 0 112px;
+  cursor: pointer;
 }
 
 .link {
