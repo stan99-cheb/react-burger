@@ -21,10 +21,9 @@ const getUserSlice = createSlice({
       .addCase(getUserThunk.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getUserThunk.fulfilled, (state, { payload }) => {
+      .addCase(getUserThunk.fulfilled, (state) => {
         state.status = 'idle';
         state.success = true;
-        state.message = payload;
       })
       .addCase(getUserThunk.rejected, (state, { payload }) => {
         state.status = 'failed';

@@ -1,20 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../utils/api";
-import { BASE_URL } from "../../utils/constants";
 
 export const forgotPasswordThunk = createAsyncThunk(
   'user/forgotPassword',
-  async (formField, { rejectWithValue }) => {
+  async ({ email }, { rejectWithValue }) => {
     try {
-      const result = await api.forgotPassword(BASE_URL, formField);
-      const data = await result.json();
-      if (result.ok) {
-        return data.message;
-      } else {
-        return rejectWithValue(data.message);
-      }
+      const result = await api.request('/password-reset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "email": email,
+        }),
+      });
+      return result;
     } catch (err) {
-      return rejectWithValue(err.message);
-    }
+      return rejectWithValue(err);
+    };
   }
 );

@@ -1,21 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../utils/api";
-import { BASE_URL } from "../../utils/constants";
 import { loginUser } from "../slices/user-slice";
 
 export const updateUserThunk = createAsyncThunk(
   'user/updateUser',
   async ({ accessToken, formField }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await api.updateUser(BASE_URL, accessToken, formField);
-      const data = await response.json();
-      if (data.success) {
-        dispatch(loginUser(data));
-      } else {
-        return rejectWithValue(data.message);
-      }
+      const response = await api.request('/auth/user', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + accessToken
+        },
+        body: JSON.stringify({
+          "email": formField.email,
+          "password": formField.password,
+          "name": formField.name,
+        }),
+      });
+      dispatch(loginUser(response));
     } catch (error) {
       return rejectWithValue(error.message);
-    }
+    };
   }
 );

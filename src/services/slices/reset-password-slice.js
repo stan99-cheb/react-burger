@@ -24,7 +24,7 @@ const resetPasswordSlice = createSlice({
       .addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
         state.status = 'idle';
         state.success = true;
-        state.message = payload;
+        state.message = payload.message;
       })
       .addCase(resetPasswordThunk.rejected, (state, { payload }) => {
         state.status = 'failed';

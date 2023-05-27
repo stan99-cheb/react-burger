@@ -29,6 +29,6 @@ const orderSlice = createSlice({
   },
 });
 
-export const { clearError } = orderSlice.actions;
+// export const {} = orderSlice.actions;
 export const orderState = state => state.order;
 export default orderSlice.reducer;
