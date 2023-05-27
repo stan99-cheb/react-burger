@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import AppLayout from "../App/AppLayout";
 import ModalIngredients from "../ModalIngredient/modal-ingredients";
-import ProtectedRouteElement from "../../hoc/ProtectedRouteElement";
+import ProtectedRoute from "../../hoc/ProtectedRoute";
 import {
   Account,
   ConstructorPage,
@@ -28,7 +28,9 @@ const AppRoutes = () => {
           <Route index element={<ConstructorPage />} />
           <Route path='ingredients/:id' element={<Ingredients />} />
           <Route path='feed' element={<OrderFeed />} />
-          <Route path="profile" element={<ProtectedRouteElement element={<Account />} />}>
+          <Route path="profile" element={<ProtectedRoute>
+            <Account />
+          </ProtectedRoute>}>
             <Route index element={<ProfilePage />} />
             <Route path="order-history" element={<OrderHistory />} />
             <Route path="logout" element={<Logout />} />

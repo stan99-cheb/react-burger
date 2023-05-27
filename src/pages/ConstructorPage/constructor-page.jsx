@@ -3,16 +3,13 @@ import BurgerIngredients from "../../components/BurgerIngredients/burger-ingredi
 import styles from './constructor-page.module.css';
 
 const ConstructorPage = () => {
-
   return (
     <main className={styles.main}>
-      <>
-        <h1 className={styles.title}>Соберите бургер</h1>
-        <div className={styles.wrapper}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </div>
-      </>
+      <h1 className={styles.title}>Соберите бургер</h1>
+      <div className={styles.wrapper}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </div>
     </main>
   );
 };
