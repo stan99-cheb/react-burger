@@ -1,14 +1,20 @@
-.ingredients {
+.main {
+  width: 600px;
+
   display: flex;
   flex-direction: column;
-  width: 600px;
 }
 
-.ingredients__tabs {
-  margin-bottom: 40px;
+.tabs {
+  margin: 0 0 40px 0;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.ingredients__container {
-  max-height: 640px;
+.ingredients {
+  flex: 1 1 auto;
+
   overflow-y: auto;
 }

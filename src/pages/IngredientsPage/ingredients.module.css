@@ -1,0 +1,21 @@
+.main {
+  height: calc(100vh - var(--header-height));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 640px;
+}
+
+.title {
+  font-family: var(--font-text);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+
+  color: var(--text-primary-color);
+}

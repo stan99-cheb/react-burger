@@ -1,11 +1,44 @@
+@import url(./vendor/normalize.css);
+@import url(./fonts/JetBrainsMono/JetBrainsMono.css);
+@import url(./fonts/IcelandRegular/IcelandRegular.css);
+
+:root {
+  box-sizing: border-box;
+
+  font-family: 'JetBrains Mono', monospace;
+
+  background-color: #131316;
+
+  --font-text: 'JetBrains Mono';
+  --font-digital: 'Iceland';
+
+  --header-height: 88px;
+  --text-primary-color: #f2f2f3;
+  --text-secondary-color: #8585ad;
+  --text-inactive-color: #8585AD;
+  --input-background: #2f2f37;
+  --active: #4c4cff;
+  --modal-background: #1c1c21;
+}
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 /* цвет дорожки */
 ::-webkit-scrollbar-track {
-  background: #2f2f37;
+  background: var(--input-background);
 }
+
 /* цвет плашки */
 ::-webkit-scrollbar-thumb {
-  background-color: #8585ad;
+  background-color: var(--text-secondary-color);
 }

@@ -15,4 +15,4 @@ const INGREDIENT_TYPE = PropTypes.shape({
   __v: PropTypes.number
 });
 
-export default INGREDIENT_TYPE;
+export { INGREDIENT_TYPE };

@@ -1,30 +1,21 @@
-const fetchIngredients = (baseUrl) => {
+import { BASE_URL } from "./constants";
 
-  return fetch(`${baseUrl}/ingredients`)
-    .then(checkRes);
-};
-
-const fetchOrderNumber = (baseUrl, ingredientsId) => {
-
-  return fetch(`${baseUrl}/orders`, {
-    method: "POST",
-    headers: {
-      authorization: '5743d2b2-8d60-4e50-9a9c-7a3ab60b2c12',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "ingredients": ingredientsId
-    })
-  })
-    .then(checkRes);
-}
-
-const checkRes = (res) => {
+const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
-  };
-
-  return Promise.reject(`Ошибка: ${res.status}`);
+  }
+  return Promise.reject(`Ошибка ${res.status}`);
 };
 
-export { fetchIngredients, fetchOrderNumber };
+const checkSuccess = (res) => {
+  if (res && res.success) {
+    return res;
+  }
+  return Promise.reject(`Ответ не success: ${res}`);
+};
+
+export const request = (endpoint, options) => {
+  return fetch(`${BASE_URL}${endpoint}`, options)
+    .then(checkResponse)
+    .then(checkSuccess);
+};

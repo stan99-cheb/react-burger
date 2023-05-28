@@ -1,40 +1,71 @@
-import React, { useCallback } from 'react';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import IngredientsCard from "../IngredientsCard/ingredients-card";
 import PropTypes from 'prop-types';
-import INGREDIENT_TYPE from '../../utils/prop-types';
-import classes from './ingredients-category.module.css';
-import IngridientsCard from "../IngredientsCard/ingredients-card";
+import { INGREDIENT_TYPE } from "../../utils/prop-types";
+import styles from './ingredients-category.module.css';
 
-const IngredientsCategory = React.forwardRef(({ title, value, ingredients }, refs) => {
-  const renderIngridientsCard = useCallback((ingredient) => {
-    return (
-      <li key={ingredient._id}>
-        <IngridientsCard ingredient={ingredient} />
-      </li>
-    );
-  }, []);
+const IngredientsCategory = React.forwardRef((
+  { name, value, ingredients, setActiveTab },
+  refs
+) => {
+  const location = useLocation();
+  const [rootRef, tabsRef] = refs;
+
+  React.useEffect(() => {
+    const observerOptions = {
+      root: rootRef.current,
+      rootMargin: "0px 0px -95% 0px",
+      threshold: [0.0, 1.0],
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        entry.isIntersecting && setActiveTab(value);
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    observer.observe(tabsRef[value].current);
+
+    return () => {
+      observer.disconnect()
+    };
+  }, [rootRef, tabsRef, value, setActiveTab]);
 
   return (
-    <>
+    <div
+      className={styles.main}
+    >
       <h2
-        className={`${classes.render__title} text text_type_main-medium`}
-        ref={refs[value]}
-        data-tab={value}
+        className={styles.title}
+        ref={tabsRef[value]}
       >
-        {title}
+        {name}
       </h2>
-      <ul className={classes.render__type}>
-        {ingredients.map((ingredient) =>
-          renderIngridientsCard(ingredient)
+      <div
+        className={styles.cards}
+      >
+        {ingredients.map(ingredient =>
+          <Link
+            to={`ingredients/${ingredient._id}`}
+            state={{ background: location }}
+            className={styles.link}
+            key={ingredient._id}
+          >
+            <IngredientsCard ingredient={ingredient} />
+          </Link>
         )}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 });
 
 IngredientsCategory.propTypes = {
-  ingredients: PropTypes.arrayOf(INGREDIENT_TYPE).isRequired,
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(INGREDIENT_TYPE).isRequired,
+  setActiveTab: PropTypes.func.isRequired,
   refs: PropTypes.object,
 };
 

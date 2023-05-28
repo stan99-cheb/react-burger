@@ -1,0 +1,40 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, .7);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 40px;
+
+  width: 720px;
+
+  border: 2px solid #4C4CFF;
+  border-radius: 40px;
+
+  background-color: #1C1C21;
+}
+
+.title {
+  font-family: var(--font-text);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+
+  color: var(--text-primary-color);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

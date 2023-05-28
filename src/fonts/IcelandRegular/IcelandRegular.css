@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Iceland';
+    src: url('Iceland-Regular.eot');
+    src: local('Iceland'), local('Iceland-Regular'),
+        url('Iceland-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Iceland-Regular.woff2') format('woff2'),
+        url('Iceland-Regular.woff') format('woff'),
+        url('Iceland-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+

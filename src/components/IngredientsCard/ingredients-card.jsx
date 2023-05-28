@@ -1,55 +1,60 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useDrag } from 'react-dnd';
-import INGREDIENT_TYPE from '../../utils/prop-types';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import classes from './ingredients-card.module.css';
-import { setDetailIngredient } from '../../services/slices/detail-ingredient';
+import { useDispatch, useSelector } from "react-redux";
+import { setIngredientInfo } from "../../services/slices/ingredients-info";
+import CurrencyIcon from "../UI/Icons/currency-icon";
+import { INGREDIENT_TYPE } from "../../utils/prop-types";
+import { burgerComponentState } from "../../services/slices/burger-components";
+import styles from './ingredients-card.module.css';
 
-const IngridientsCard = ({ ingredient }) => {
-  const [count, setCount] = React.useState(0);
-  const selectedIngredients = useSelector(state => state.selectedIngredients);
+const IngredientsCard = ({ ingredient }) => {
   const dispatch = useDispatch();
+  const burgerComponents = useSelector(burgerComponentState);
 
-  const [, dragRef] = useDrag({
-    type: 'ingredient',
-    item: ingredient,
-  });
+  const count = burgerComponents.bun
+    ? ingredient.type === 'bun'
+      ? ingredient._id === burgerComponents.bun._id
+        ? 1
+        : 0
+      : burgerComponents.ingredients.reduce((acc, item) => item._id === ingredient._id ? acc + 1 : acc, 0)
+    : 0
 
-  const handleOnClick = () => {
-    dispatch(setDetailIngredient(ingredient));
+  const onClickHandler = () => {
+    dispatch(setIngredientInfo(ingredient));
   };
 
-  React.useEffect(() => {
-    const getCount = selectedIngredients.otherIngredients.reduce((acc, item) =>
-      item._id === ingredient._id ? acc + 1 : acc, 0);
+  const dragStartHandler = (e, id) => {
+    const data = { type: 'add', payload: { id: id } };
+    e.dataTransfer.setData("text/plain", JSON.stringify(data));
+  };
 
-    if (selectedIngredients.bun) {
-      ingredient.type === 'bun'
-        ? ingredient._id === selectedIngredients.bun._id
-          ? setCount(1)
-          : setCount(0)
-        : setCount(getCount ? getCount : 0);
-    };
-  }, [selectedIngredients]);
+  const dragEndHandler = (e) => {
+    e.dataTransfer.clearData();
+  };
 
   return (
-    <div className={classes.container} onClick={handleOnClick} ref={dragRef}>
-      <img className={classes.Img} src={ingredient.image} alt={ingredient.name}></img>
-      <p className={`${classes.Price} text text_type_digits-default`}>{ingredient.price}</p>
-      <span className={classes.Icon}>
-        <CurrencyIcon type="primary" />
+    <article
+      className={styles.container}
+      onClick={onClickHandler}
+      draggable={true}
+      onDragStart={e => dragStartHandler(e, ingredient._id)}
+      onDragEnd={(e) => dragEndHandler(e)}
+    >
+      <img className={styles.img} src={ingredient.image} alt={ingredient.name}></img>
+      <p className={styles.price}>{ingredient.price}</p>
+      <span className={styles.icon}>
+        <CurrencyIcon type='primary' />
       </span>
-      <p className={`${classes.Name} text text_type_main-small`}>
+      <p className={styles.name}>
         {ingredient.name}
       </p>
-      <p className={`${classes.count} text text_type_digits-default`}>{count}</p>
-    </div>
+      {count !== 0 &&
+        <p className={styles.count}>{count}</p>
+      }
+    </article>
   );
 };
 
-IngridientsCard.propTypes = {
-  ingredient: INGREDIENT_TYPE.isRequired
+IngredientsCard.propTypes = {
+  ingredient: INGREDIENT_TYPE,
 };
 
-export default IngridientsCard;
+export default IngredientsCard;

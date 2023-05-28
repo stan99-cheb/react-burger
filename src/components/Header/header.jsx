@@ -1,31 +1,57 @@
-import classes from './header.module.css';
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useNavigate } from 'react-router-dom';
+import headerLogo from '../../images/header-logo.svg';
+import CustomLink from "../UI/CustomLink/custom-link";
+import styles from './header.module.css';
 
 const Header = () => {
+  const navigate = useNavigate()
+  const activeLink = ({ isActive }) =>
+    isActive
+      ? `${styles.link} ${styles.active}`
+      : `${styles.link}`
+
+  const onClickLogo = () => {
+    navigate('/');
+  };
 
   return (
-    <header className={classes.header}>
-      <a className={`${classes.link} ${classes.active}`} href="#">
-        <BurgerIcon type="secondary" />
-        <p className="text text_type_main-default">
-          Конструктор
-        </p>
-      </a>
-      <a className={classes.link} href="#">
-        <ListIcon type="secondary" />
-        <p className="text text_type_main-default">
-          Лента заказов
-        </p>
-      </a>
-      <div className={classes.logo}><Logo /></div>
-      <a className={classes.link} href="#">
-        <ProfileIcon type="secondary" />
-        <p className="text text_type_main-default">
-          Личный кабинет
-        </p>
-      </a>
-    </header >
-  )
+    <header className={styles.header}>
+      <nav>
+        <ul className={styles.list}>
+          <li>
+            <CustomLink
+              path='/'
+              icon='BurgerIcon'
+              extraStyle={activeLink}
+            >
+              Конструктор
+            </CustomLink>
+          </li>
+          <li>
+            <CustomLink
+              path='/feed'
+              icon='ListIcon'
+              extraStyle={activeLink}
+            >
+              Лента заказов
+            </CustomLink>
+          </li>
+          <li>
+            <img className={styles.logo} src={headerLogo} alt="Header Logo" onClick={onClickLogo} />
+          </li>
+          <li>
+            <CustomLink
+              path='/profile'
+              icon='ProfileIcon'
+              extraStyle={activeLink}
+            >
+              Личный кабинет
+            </CustomLink>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
 };
 
 export default Header;

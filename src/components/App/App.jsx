@@ -1,43 +1,27 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
-import '@ya.praktikum/react-developer-burger-ui-components';
-import classes from './App.module.css';
-import Header from '../Header/header';
-import BurgerConstructor from '../BurgerConstructor/burger-constructor';
-import BurgerIngredients from '../BurgerIngredients/burger-ingredients';
-import { BASE_URL } from '../../utils/constants';
+import { ingredientsState } from '../../services/slices/ingredients';
+import { getIngredients } from '../../services/thunk/get-ingredients';
+import AppRoutes from '../AppRoutes/app-routes';
 import Loader from '../UI/Loader/loader';
-import { getIngredients } from '../../services/slices/ingredients';
+import { useAuth } from '../../hooks/use-auth';
 
 function App() {
-  const status = useSelector(state => state.ingredients.status);
   const dispatch = useDispatch();
+  const { status } = useSelector(ingredientsState);
+  const { checkUser } = useAuth();
 
   React.useEffect(() => {
-    dispatch(getIngredients(BASE_URL));
+    const refreshToken = localStorage.getItem('refreshToken');
+    refreshToken && checkUser(refreshToken);
+    dispatch(getIngredients());
   }, []);
 
+  if (status === 'loading') return (<Loader />)
+
   return (
-    <>
-      <Header />
-      {status === 'loading'
-        ? <Loader />
-        : (
-          <main>
-            <h1 className={`${classes.main__title} text text_type_main-large`}>Соберите бургер</h1>
-            <section className={classes.main__wrapper}>
-              <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients />
-                <BurgerConstructor />
-              </DndProvider>
-            </section>
-          </main>
-        )
-      }
-    </>
+    <AppRoutes />
   );
-}
+};
 
 export default App;

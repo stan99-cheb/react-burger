@@ -1,16 +1,10 @@
-import classes from './loader.module.css';
+import styles from './loader.module.css';
 
 const Loader = () => {
   return (
-    <div className={classes.container}>
-      <div className={classes.loader}>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+    <article className={styles.main}>
+      <div className={styles.ldsDualRing}></div>
+    </article>
   );
 };
 

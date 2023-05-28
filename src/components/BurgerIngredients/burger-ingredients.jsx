@@ -1,87 +1,61 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import classes from './burger-ingredients.module.css';
-import IngredientTabs from "../IngredientTabs/ingredient-tabs";
-import IngredientsCategory from "../IngredientsCategory/ingredients-category";
-import Modal from "../Modal/modal";
-import IngredientDetails from "../IngredientDetails/ingredient-details";
-import { setDetailIngredient } from '../../services/slices/detail-ingredient';
+import { useSelector } from "react-redux";
 import { TABS } from "../../utils/constants";
+import IngredientsCategory from "../IngredientsCategory/ingredients-category";
+import Tab from "../UI/Tab/tab";
+import { ingredientsState } from "../../services/slices/ingredients";
+import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.ingredients.value);
-  const detailIngredient = useSelector(state => state.detailIngredient.value);
-  const [activeTab, setActiveTab] = React.useState('');
-
-  const refs = TABS.reduce((acc, tab) => {
+  const { data } = useSelector(ingredientsState);
+  const [activeTab, setActiveTab] = React.useState('bun');
+  const rootRef = React.createRef(null);
+  const tabsRef = TABS.reduce((acc, tab) => {
     acc[tab.value] = React.createRef();
     return acc;
   }, {});
+  const refs = [rootRef, tabsRef];
 
-  React.useEffect(() => {
-    const options = {
-      rootMargin: '0px 0px -600px 0px',
-      threshold: 0,
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const value = entry.target.getAttribute("data-tab");
-          setActiveTab(value);
-        }
-      });
-    }, options);
-
-    TABS.forEach(tab =>
-      observer.observe(refs[tab.value].current)
-    );
-  }, []);
-
-  const handleClickScroll = (value) => {
-    refs[value].current.scrollIntoView({
+  const scrollClickHandler = (value) => {
+    tabsRef[value].current.scrollIntoView({
       behavior: 'smooth',
     });
-    setActiveTab(value);
   };
 
-  const getIngredients = (value) => {
-    return ingredients.filter(ingredient => ingredient.type === value);
-  };
-
-  const closeModal = () => {
-    dispatch(setDetailIngredient(null));
+  const getTabIngredients = (value) => {
+    return data.filter(ingredient => ingredient.type === value);
   };
 
   return (
-    <div className={classes.ingredients}>
-      <div className={classes.ingredients__tabs}>
-        <IngredientTabs
-          tabs={TABS}
-          handleClickScroll={handleClickScroll}
-          activeTab={activeTab}
-        />
-      </div>
-      <div className={classes.ingredients__container}>
-        {
-          TABS.map(tab =>
-            <IngredientsCategory
-              title={tab.name}
-              value={tab.value}
-              ingredients={getIngredients(tab.value)}
-              ref={refs}
-              key={tab.value}
-            />
-          )
-        }
-      </div>
-      {detailIngredient && (
-        <Modal closeModal={closeModal} title="Детали ингредиента">
-          <IngredientDetails ingredient={detailIngredient} />
-        </Modal>
-      )}
-    </div>
+    <section className={styles.main}>
+      <article className={styles.tabs}>
+        {TABS.map(tab =>
+          <Tab
+            active={activeTab === tab.value}
+            value={tab.value}
+            scrollClickHandler={scrollClickHandler}
+            key={tab.value}
+          >
+            {tab.name}
+          </Tab>
+        )}
+      </article>
+      <article
+        className={styles.ingredients}
+        ref={rootRef}
+      >
+        {TABS.map(tab =>
+          <IngredientsCategory
+            name={tab.name}
+            value={tab.value}
+            ingredients={getTabIngredients(tab.value)}
+            setActiveTab={setActiveTab}
+            ref={refs}
+            key={tab.value}
+          />
+        )}
+      </article>
+    </section>
   );
 };
 

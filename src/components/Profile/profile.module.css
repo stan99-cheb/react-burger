@@ -1,0 +1,11 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.wrapper_buttons {
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+}

@@ -1,0 +1,29 @@
+.info {
+  margin: 0 auto;
+
+  width: 538px;
+
+  display: inline-flex;
+  justify-content: flex-end;
+  column-gap: 40px;
+}
+
+.price {
+  font-family: var(--font-digital);
+  font-size: 48px;
+  line-height: 36px;
+  color: var(--text-primary-color);
+
+  display: inline-flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.price svg {
+  width: 33px;
+  height: 33px;
+}
+
+.button {
+  width: 217px;
+}

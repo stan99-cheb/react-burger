@@ -1,14 +1,30 @@
-.render__title {
-  margin-bottom: 24px;
+.main {
+  margin: 0 auto 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.render__type {
-  margin: 0 0 40px;
-  padding: 0;
+.title {
+  margin: 0 0 24px 0;
 
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+
+  color: var(--text-primary-color);
+
+  display: flex;
+  align-items: center;
+}
+
+.cards {
   display: flex;
   flex-wrap: wrap;
   gap: 32px 24px;
+}
 
-  list-style-type: none;
+.link {
+  text-decoration: none;
 }
