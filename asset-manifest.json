@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/my-burger/static/css/main.66d98e96.css",
-    "main.js": "/my-burger/static/js/main.3f70fa13.js",
-    "static/media/JetBrainsMono-Bold.woff2": "/my-burger/static/media/JetBrainsMono-Bold.75885bf04057d4697ae5.woff2",
-    "static/media/JetBrainsMono-Medium.woff2": "/my-burger/static/media/JetBrainsMono-Medium.065ee491488865d52b60.woff2",
-    "static/media/JetBrainsMono-Regular.woff2": "/my-burger/static/media/JetBrainsMono-Regular.1d9e47ce7f6576ce7bae.woff2",
-    "static/media/done.svg": "/my-burger/static/media/done.40b4a7541de9441d7b874556697e31fb.svg",
-    "static/media/Iceland-Regular.eot": "/my-burger/static/media/Iceland-Regular.1ed06a19a0cff86b83bf.eot",
-    "static/media/Iceland-Regular.ttf": "/my-burger/static/media/Iceland-Regular.52d6f681d5513457c336.ttf",
-    "static/media/header-logo.svg": "/my-burger/static/media/header-logo.9a6e94b10ec36fc5b20c015ae4c9dd73.svg",
-    "static/media/Iceland-Regular.woff": "/my-burger/static/media/Iceland-Regular.a2827df643179f3bd2ad.woff",
-    "static/media/Iceland-Regular.woff2": "/my-burger/static/media/Iceland-Regular.8720559cc9cfecae0074.woff2",
-    "index.html": "/my-burger/index.html",
-    "main.66d98e96.css.map": "/my-burger/static/css/main.66d98e96.css.map",
-    "main.3f70fa13.js.map": "/my-burger/static/js/main.3f70fa13.js.map"
+    "main.css": "/react-burger/static/css/main.802186d1.css",
+    "main.js": "/react-burger/static/js/main.0836a3fc.js",
+    "static/media/JetBrainsMono-Bold.woff2": "/react-burger/static/media/JetBrainsMono-Bold.75885bf04057d4697ae5.woff2",
+    "static/media/JetBrainsMono-Medium.woff2": "/react-burger/static/media/JetBrainsMono-Medium.065ee491488865d52b60.woff2",
+    "static/media/JetBrainsMono-Regular.woff2": "/react-burger/static/media/JetBrainsMono-Regular.1d9e47ce7f6576ce7bae.woff2",
+    "static/media/done.svg": "/react-burger/static/media/done.40b4a7541de9441d7b874556697e31fb.svg",
+    "static/media/Iceland-Regular.eot": "/react-burger/static/media/Iceland-Regular.1ed06a19a0cff86b83bf.eot",
+    "static/media/Iceland-Regular.ttf": "/react-burger/static/media/Iceland-Regular.52d6f681d5513457c336.ttf",
+    "static/media/header-logo.svg": "/react-burger/static/media/header-logo.9a6e94b10ec36fc5b20c015ae4c9dd73.svg",
+    "static/media/Iceland-Regular.woff": "/react-burger/static/media/Iceland-Regular.a2827df643179f3bd2ad.woff",
+    "static/media/Iceland-Regular.woff2": "/react-burger/static/media/Iceland-Regular.8720559cc9cfecae0074.woff2",
+    "index.html": "/react-burger/index.html",
+    "main.802186d1.css.map": "/react-burger/static/css/main.802186d1.css.map",
+    "main.0836a3fc.js.map": "/react-burger/static/js/main.0836a3fc.js.map"
   },
   "entrypoints": [
-    "static/css/main.66d98e96.css",
-    "static/js/main.3f70fa13.js"
+    "static/css/main.802186d1.css",
+    "static/js/main.0836a3fc.js"
   ]
 }
