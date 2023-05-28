@@ -27,7 +27,9 @@ const AppRoutes = () => {
         <Route path='/' element={<AppLayout />}>
           <Route index element={<ConstructorPage />} />
           <Route path='ingredients/:id' element={<Ingredients />} />
-          <Route path='feed' element={<OrderFeed />} />
+          <Route path='feed' element={<OrderFeed />}>
+            <Route path=':id' element={<></>} />
+          </Route>
           <Route path="profile" element={<ProtectedRoute>
             <Account />
           </ProtectedRoute>}>

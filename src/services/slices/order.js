@@ -16,6 +16,7 @@ const orderSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(getOrderNumber.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.status = 'idle';
         state.value = [...state.value, {
           number: payload.order.number,
