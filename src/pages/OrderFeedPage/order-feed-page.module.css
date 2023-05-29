@@ -71,12 +71,16 @@
 }
 
 .orderIngredients {
-
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-.orderPrice {
-
+.img {
+  margin-right: -16px;
+  z-index: 1;
 }
+
+.orderPrice {}
 
 .stats {
   width: 600px;

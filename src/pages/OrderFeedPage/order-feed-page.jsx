@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./order-feed-page.module.css";
 import { CurrencyIcon } from "../../components/UI/Icons";
+import { icons } from "../../utils/icons";
 
 const OrderFeed = () => {
   const array = useSelector(state => {
@@ -45,6 +46,10 @@ const OrderFeed = () => {
     }, 0);
   };
 
+  const getIngredients = () => {
+
+  };
+
   if (!data) return null;
 
   console.log(array);
@@ -71,7 +76,9 @@ const OrderFeed = () => {
                   </div>
                   <div className={styles.orderComponents}>
                     <div className={styles.orderIngredients}>
-
+                      {icons.map((icon, i) =>
+                        <img className={styles.img} src={icon.path} alt="icon" />
+                      )}
                     </div>
                     <div className={styles.orderPrice}>
                       {getPrice(order.ingredients)}
