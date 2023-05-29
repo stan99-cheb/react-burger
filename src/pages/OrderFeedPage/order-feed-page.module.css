@@ -65,6 +65,19 @@
   text-overflow: ellipsis;
 }
 
+.orderComponents {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderIngredients {
+
+}
+
+.orderPrice {
+
+}
+
 .stats {
   width: 600px;
 

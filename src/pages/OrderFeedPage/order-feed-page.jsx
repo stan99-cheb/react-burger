@@ -1,8 +1,18 @@
 import React from "react";
-import styles from './order-feed-page.module.css';
+import { useSelector } from "react-redux";
+import styles from "./order-feed-page.module.css";
+import { CurrencyIcon } from "../../components/UI/Icons";
 
 const OrderFeed = () => {
-  const [data, setData] = React.useState({});
+  const array = useSelector(state => {
+    return state.ingredients.data.map(ingredient => {
+      return {
+        id: ingredient._id,
+        price: ingredient.price,
+      };
+    })
+  });
+  const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
     const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
@@ -29,7 +39,15 @@ const OrderFeed = () => {
     };
   }, []);
 
-  console.log(data);
+  const getPrice = (ingredients) => {
+    return ingredients.reduce((acc, ingredient) => {
+      return acc + array.find(item => item.id === ingredient).price;
+    }, 0);
+  };
+
+  if (!data) return null;
+
+  console.log(array);
 
   return (
     <div className={styles.main}>
@@ -51,7 +69,15 @@ const OrderFeed = () => {
                   <div className={styles.orderName}>
                     {order.name}
                   </div>
-                  <div></div>
+                  <div className={styles.orderComponents}>
+                    <div className={styles.orderIngredients}>
+
+                    </div>
+                    <div className={styles.orderPrice}>
+                      {getPrice(order.ingredients)}
+                      <CurrencyIcon type="primary" />
+                    </div>
+                  </div>
                 </article>
               </li>
             )}
