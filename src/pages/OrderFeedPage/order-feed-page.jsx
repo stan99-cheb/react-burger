@@ -46,13 +46,25 @@ const OrderFeed = () => {
     }, 0);
   };
 
-  const getIngredients = () => {
-
+  const getIngredients = (ingredients) => {
+    const count = ingredients.length - 6;
+    const array = ingredients.map(ingredient =>
+      icons.find(item => item._id === ingredient));
+    return (
+      <div className={styles.orderIngredients}>
+        {count > 0 &&
+          <div className={styles.overlay}>+{count}</div>
+        }
+        {array.slice(0, 6).map((icon, i) =>
+          <img className={styles.img} src={icon.path} alt="icon" key={i}></img>
+        )}
+      </div>
+    );
   };
 
   if (!data) return null;
 
-  console.log(array);
+  // console.log(array);
 
   return (
     <div className={styles.main}>
@@ -75,11 +87,7 @@ const OrderFeed = () => {
                     {order.name}
                   </div>
                   <div className={styles.orderComponents}>
-                    <div className={styles.orderIngredients}>
-                      {icons.map((icon, i) =>
-                        <img className={styles.img} src={icon.path} alt="icon" />
-                      )}
-                    </div>
+                    {getIngredients(order.ingredients)}
                     <div className={styles.orderPrice}>
                       {getPrice(order.ingredients)}
                       <CurrencyIcon type="primary" />
