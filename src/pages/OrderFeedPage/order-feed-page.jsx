@@ -15,7 +15,8 @@ const OrderFeed = () => {
     })
   });
   const [data, setData] = React.useState(null);
-  const [ordersDone, setOrdersDone] = React.useState(null);
+  const [ordersDone, setOrdersDone] = React.useState([]);
+  const [ordersPending, setOrdersPending] = React.useState(null);
 
   React.useEffect(() => {
     const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
@@ -43,10 +44,16 @@ const OrderFeed = () => {
   }, []);
 
   React.useEffect(() => {
-    data && setOrdersDone(data.orders.map(item => {
-      if (item.status !== 'done') return item.number;
-      return '';
-    }));
+    if (data) {
+      setOrdersDone(data.orders.map(item => {
+        if (item.status === 'done') return item.number;
+        return '';
+      }).filter(item => item))
+      setOrdersPending(data.orders.map(item => {
+        if (item.status === 'pending') return item.number;
+        return '';
+      }).filter(item => item))
+    };
   }, [data]);
 
   const getPrice = (ingredients) => {
@@ -76,8 +83,6 @@ const OrderFeed = () => {
   };
 
   if (!data) return null;
-
-  console.log(ordersDone);
 
   return (
     <div className={styles.main}>
@@ -118,7 +123,7 @@ const OrderFeed = () => {
                 Готовы
               </p>
               <ul className={styles.list}>
-                {Array(11).fill('000000').map((item, i) =>
+                {ordersDone && ordersDone.reverse().slice(0, 20).map((item, i) =>
                   <li
                     key={i}
                     className={`${styles.item} ${styles.itemDone}`}
@@ -133,7 +138,7 @@ const OrderFeed = () => {
                 В работе
               </p>
               <ul className={styles.list}>
-                {Array(9).fill('000000').map((item, i) =>
+                {ordersPending && ordersPending.slice(0, 20).map((item, i) =>
                   <li
                     key={i}
                     className={styles.item}
