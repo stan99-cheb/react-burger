@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import styles from "./order-feed-page.module.css";
 import { CurrencyIcon } from "../../components/UI/Icons";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
+import styles from "./order-feed-page.module.css";
 
 const OrderFeed = () => {
   const array = useSelector(state => {
@@ -14,6 +15,7 @@ const OrderFeed = () => {
     })
   });
   const [data, setData] = React.useState(null);
+  const [ordersDone, setOrdersDone] = React.useState(null);
 
   React.useEffect(() => {
     const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
@@ -40,23 +42,34 @@ const OrderFeed = () => {
     };
   }, []);
 
+  React.useEffect(() => {
+    data && setOrdersDone(data.orders.map(item => {
+      if (item.status !== 'done') return item.number;
+      return '';
+    }));
+  }, [data]);
+
   const getPrice = (ingredients) => {
-    return ingredients.reduce((acc, ingredient) => {
-      return acc + array.find(item => item.id === ingredient).price;
+    const filterArray = ingredients.filter(ingredient => ingredient);
+    return filterArray.reduce((acc, ingredient) => {
+      return acc + array.find(item => {
+        return item.id === ingredient;
+      }).price;
     }, 0);
   };
 
   const getIngredients = (ingredients) => {
+    const filterArray = ingredients.filter(ingredient => ingredient);
     const count = ingredients.length - 6;
-    const array = ingredients.map(ingredient =>
+    const arrayRender = filterArray.map(ingredient =>
       icons.find(item => item._id === ingredient));
     return (
       <div className={styles.orderIngredients}>
         {count > 0 &&
           <div className={styles.overlay}>+{count}</div>
         }
-        {array.slice(0, 6).map((icon, i) =>
-          <img className={styles.img} src={icon.path} alt="icon" key={i}></img>
+        {arrayRender.slice(0, 6).map((icon, i) =>
+          <img className={styles.img} src={icon.path} alt="icon" key={i} />
         )}
       </div>
     );
@@ -64,11 +77,11 @@ const OrderFeed = () => {
 
   if (!data) return null;
 
-  // console.log(array);
+  console.log(ordersDone);
 
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}      >
+      <h1 className={styles.title}>
         Лента заказов
       </h1>
       <div className={styles.container}>
@@ -81,7 +94,7 @@ const OrderFeed = () => {
                 <article className={styles.orderCard}>
                   <div className={styles.orderId}>
                     <div>#{order.number}</div>
-                    <div>{order.createdAt}</div>
+                    <FormattedDate date={new Date(`${order.createdAt}`)} />
                   </div>
                   <div className={styles.orderName}>
                     {order.name}
@@ -105,12 +118,12 @@ const OrderFeed = () => {
                 Готовы
               </p>
               <ul className={styles.list}>
-                {Array(11).fill(0).map((item, i) =>
+                {Array(11).fill('000000').map((item, i) =>
                   <li
                     key={i}
                     className={`${styles.item} ${styles.itemDone}`}
                   >
-                    123456
+                    {item}
                   </li>
                 )}
               </ul>
@@ -120,12 +133,12 @@ const OrderFeed = () => {
                 В работе
               </p>
               <ul className={styles.list}>
-                {Array(9).fill(0).map((item, i) =>
+                {Array(9).fill('000000').map((item, i) =>
                   <li
                     key={i}
                     className={styles.item}
                   >
-                    123456
+                    {item}
                   </li>
                 )}
               </ul>
