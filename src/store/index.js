@@ -11,6 +11,9 @@ import registrationSlice from "../services/slices/registration-slice";
 import forgotPasswordSlice from "../services/slices/forgot-password-slice";
 import resetPasswordSlice from "../services/slices/reset-password-slice";
 import updateTokensSlice from "../services/slices/update-tokens-slice";
+import socketMiddleware from "./middleware/socket-middleware";
+import loggerMiddleware from "./middleware/logger-middleware";
+import socketSlice from "./slice/socket-slice";
 
 const store = configureStore({
   reducer: {
@@ -26,6 +29,10 @@ const store = configureStore({
     forgotPassword: forgotPasswordSlice,
     resetPassword: resetPasswordSlice,
     updateTokens: updateTokensSlice,
+    socket: socketSlice,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat([loggerMiddleware, socketMiddleware]);
   },
 });
 

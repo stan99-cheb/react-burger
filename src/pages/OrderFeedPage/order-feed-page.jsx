@@ -1,12 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CurrencyIcon } from "../../components/UI/Icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
 import styles from "./order-feed-page.module.css";
+import { socketState, wsConnectionClosing, wsConnectionStart } from "../../store/slice/socket-slice";
 
 const OrderFeed = () => {
+  const dispatch = useDispatch();
   const array = useSelector(state => {
     return state.ingredients.data.map(ingredient => {
       return {
@@ -15,50 +17,31 @@ const OrderFeed = () => {
       };
     })
   });
-  const [data, setData] = React.useState(null);
+  const { data } = useSelector(socketState);
   const ordersStatusDone = React.useRef(null);
   const ordersStatusPending = React.useRef(null);
 
   React.useEffect(() => {
-    const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
-
-    ws.onopen = (event) => {
-      console.log('Соединение установлено');
-    };
-
-    ws.onmessage = (event) => {
-      console.log('Получено сообщение');
-      setData(JSON.parse(event.data));
-    };
-
-    ws.onclose = (event) => {
-      console.log(event);
-    };
-
-    ws.onerror = (event) => {
-      console.log('Получена ошибка');
-    };
+    dispatch(wsConnectionStart("wss://norma.nomoreparties.space/orders/all"));
 
     return () => {
-      ws && ws.close(1000, "Работа закончена");
+      dispatch(wsConnectionClosing());
     };
   }, []);
 
   React.useEffect(() => {
-    if (data) {
-      ordersStatusDone.current = [
-        ...data.orders.map(item => {
-          if (item.status === 'done') return item.number;
-          return null;
-        }).filter(item => item)
-      ];
-      ordersStatusPending.current = [
-        ...data.orders.map(item => {
-          if (item.status === 'pending') return item.number;
-          return null;
-        }).filter(item => item)
-      ];
-    };
+    ordersStatusDone.current = [
+      ...data.orders.map(item => {
+        if (item.status === 'done') return item.number;
+        return null;
+      }).filter(item => item)
+    ];
+    ordersStatusPending.current = [
+      ...data.orders.map(item => {
+        if (item.status === 'pending') return item.number;
+        return null;
+      }).filter(item => item)
+    ];
   }, [data]);
 
   const getPrice = (ingredients) => {
@@ -87,7 +70,7 @@ const OrderFeed = () => {
     );
   };
 
-  if (!data) return null;
+  if (!data.success) return null;
 
   return (
     <div className={styles.main}>
@@ -129,7 +112,6 @@ const OrderFeed = () => {
             )}
           </ul>
         </div>
-
         <div className={styles.stats}>
           <div className={styles.board}>
             <div className={styles.panel}>
