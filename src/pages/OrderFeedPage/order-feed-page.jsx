@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { CurrencyIcon } from "../../components/UI/Icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
@@ -94,34 +95,41 @@ const OrderFeed = () => {
         Лента заказов
       </h1>
       <div className={styles.container}>
+
         <div className={styles.orders}>
           <ul className={styles.ordersList}>
             {data.orders.map((order, i) =>
               <li
                 key={i}
               >
-                <article className={styles.orderCard}>
-                  <p className={styles.orderId}>
-                    #{order.number}
-                    <span className={styles.orderDate}>
-                      <FormattedDate date={new Date(`${order.createdAt}`)} />
-                    </span>
-                  </p>
-                  <div className={styles.orderName}>
-                    {order.name}
-                  </div>
-                  <div className={styles.orderComponents}>
-                    {getIngredients(order.ingredients)}
-                    <div className={styles.orderPrice}>
-                      {getPrice(order.ingredients)}
-                      <CurrencyIcon type="primary" />
+                <Link
+                  to={`/feed/${order.number}`}
+                  className={styles.link}
+                >
+                  <article className={styles.orderCard}>
+                    <p className={styles.orderId}>
+                      #{order.number}
+                      <span className={styles.orderDate}>
+                        <FormattedDate date={new Date(`${order.createdAt}`)} />
+                      </span>
+                    </p>
+                    <div className={styles.orderName}>
+                      {order.name}
                     </div>
-                  </div>
-                </article>
+                    <div className={styles.orderComponents}>
+                      {getIngredients(order.ingredients)}
+                      <div className={styles.orderPrice}>
+                        {getPrice(order.ingredients)}
+                        <CurrencyIcon type="primary" />
+                      </div>
+                    </div>
+                  </article>
+                </Link>
               </li>
             )}
           </ul>
         </div>
+
         <div className={styles.stats}>
           <div className={styles.board}>
             <div className={styles.panel}>
@@ -169,7 +177,7 @@ const OrderFeed = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import AppLayout from "../App/AppLayout";
+import OrderInfo from "../OrderInfo/order-info";
 import ModalIngredients from "../ModalIngredient/modal-ingredients";
 import ProtectedRoute from "../../hoc/ProtectedRoute";
 import {
@@ -27,9 +28,8 @@ const AppRoutes = () => {
         <Route path='/' element={<AppLayout />}>
           <Route index element={<ConstructorPage />} />
           <Route path='ingredients/:id' element={<Ingredients />} />
-          <Route path='feed' element={<OrderFeed />}>
-            <Route path=':id' element={<></>} />
-          </Route>
+          <Route path='feed' element={<OrderFeed />}></Route>
+          <Route path='feed/:id' element={<OrderInfo />} />
           <Route path="profile" element={<ProtectedRoute>
             <Account />
           </ProtectedRoute>}>

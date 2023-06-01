@@ -1,10 +1,10 @@
-
+import styles from "./order-history-page.module.css";
 
 const OrderHistory = () => {
   return (
-    <div>
+    <section className={styles.section}>
       Order history page
-    </div>
+    </section>
   );
 };
 

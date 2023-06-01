@@ -23,6 +23,11 @@
   column-gap: 40px;
 }
 
+.link {
+  text-decoration: none;
+  color: var(--text-primary-color);
+}
+
 .orders {
   width: 600px;
 
