@@ -15,8 +15,8 @@ const OrderFeed = () => {
     })
   });
   const [data, setData] = React.useState(null);
-  const [ordersDone, setOrdersDone] = React.useState([]);
-  const [ordersPending, setOrdersPending] = React.useState(null);
+  const ordersStatusDone = React.useRef(null);
+  const ordersStatusPending = React.useRef(null);
 
   React.useEffect(() => {
     const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
@@ -45,14 +45,18 @@ const OrderFeed = () => {
 
   React.useEffect(() => {
     if (data) {
-      setOrdersDone(data.orders.map(item => {
-        if (item.status === 'done') return item.number;
-        return '';
-      }).filter(item => item))
-      setOrdersPending(data.orders.map(item => {
-        if (item.status === 'pending') return item.number;
-        return '';
-      }).filter(item => item))
+      ordersStatusDone.current = [
+        ...data.orders.map(item => {
+          if (item.status === 'done') return item.number;
+          return null;
+        }).filter(item => item)
+      ];
+      ordersStatusPending.current = [
+        ...data.orders.map(item => {
+          if (item.status === 'pending') return item.number;
+          return null;
+        }).filter(item => item)
+      ];
     };
   }, [data]);
 
@@ -97,10 +101,12 @@ const OrderFeed = () => {
                 key={i}
               >
                 <article className={styles.orderCard}>
-                  <div className={styles.orderId}>
-                    <div>#{order.number}</div>
-                    <FormattedDate date={new Date(`${order.createdAt}`)} />
-                  </div>
+                  <p className={styles.orderId}>
+                    #{order.number}
+                    <span className={styles.orderDate}>
+                      <FormattedDate date={new Date(`${order.createdAt}`)} />
+                    </span>
+                  </p>
                   <div className={styles.orderName}>
                     {order.name}
                   </div>
@@ -123,7 +129,7 @@ const OrderFeed = () => {
                 Готовы
               </p>
               <ul className={styles.list}>
-                {ordersDone && ordersDone.reverse().slice(0, 20).map((item, i) =>
+                {ordersStatusDone.current && ordersStatusDone.current.slice(0, 20).map((item, i) =>
                   <li
                     key={i}
                     className={`${styles.item} ${styles.itemDone}`}
@@ -138,7 +144,7 @@ const OrderFeed = () => {
                 В работе
               </p>
               <ul className={styles.list}>
-                {ordersPending && ordersPending.slice(0, 20).map((item, i) =>
+                {ordersStatusPending.current && ordersStatusPending.current.slice(0, 20).map((item, i) =>
                   <li
                     key={i}
                     className={styles.item}
