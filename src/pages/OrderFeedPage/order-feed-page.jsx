@@ -5,7 +5,7 @@ import { CurrencyIcon } from "../../components/UI/Icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
 import styles from "./order-feed-page.module.css";
-import { socketState, wsConnectionClosing, wsConnectionStart } from "../../store/slice/socket-slice";
+import { allOrdersState, wsConnectionClosing, wsConnectionStart } from "../../store/slice/all-orders-slice";
 
 const OrderFeed = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const OrderFeed = () => {
       };
     })
   });
-  const { data } = useSelector(socketState);
+  const { data } = useSelector(allOrdersState);
   const ordersStatusDone = React.useRef(null);
   const ordersStatusPending = React.useRef(null);
 
@@ -47,9 +47,7 @@ const OrderFeed = () => {
   const getPrice = (ingredients) => {
     const filterArray = ingredients.filter(ingredient => ingredient);
     return filterArray.reduce((acc, ingredient) => {
-      return acc + array.find(item => {
-        return item.id === ingredient;
-      }).price;
+      return acc + array.find(item => item.id === ingredient).price;
     }, 0);
   };
 

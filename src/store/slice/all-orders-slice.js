@@ -11,7 +11,7 @@ const initialState = {
   error: undefined,
 };
 
-const socketSlice = createSlice({
+const allOrdersSlice = createSlice({
   name: 'socket',
   initialState,
   reducers: {
@@ -48,6 +48,8 @@ export const {
   wsConnectionClosing,
   wsConnectionClosed,
   wsGetMessage
-} = socketSlice.actions;
-export const socketState = (state) => state.socket;
-export default socketSlice.reducer;
+} = allOrdersSlice.actions;
+export default allOrdersSlice.reducer;
+
+export const allOrdersState = (state) => state.allOrders;
+export const ordersState = (state) => state.allOrders.data;

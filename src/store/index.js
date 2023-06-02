@@ -13,17 +13,17 @@ import resetPasswordSlice from "../services/slices/reset-password-slice";
 import updateTokensSlice from "../services/slices/update-tokens-slice";
 import socketMiddleware from "./middleware/socket-middleware";
 import loggerMiddleware from "./middleware/logger-middleware";
-import socketSlice, {
+import allOrdersSlice, {
   wsConnectionClosed,
   wsConnectionClosing,
   wsConnectionError,
   wsConnectionStart,
   wsConnectionSuccess,
   wsGetMessage
-} from "./slice/socket-slice";
+} from "./slice/all-orders-slice";
 
-const wsUrlAll = "wss://norma.nomoreparties.space/orders/all";
-const wsActionsAll = {
+const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
+const wsActionsAllOrders = {
   wsInit: wsConnectionStart,
   onOpen: wsConnectionSuccess,
   onMessage: wsGetMessage,
@@ -46,10 +46,10 @@ const store = configureStore({
     forgotPassword: forgotPasswordSlice,
     resetPassword: resetPasswordSlice,
     updateTokens: updateTokensSlice,
-    socket: socketSlice,
+    allOrders: allOrdersSlice,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat([loggerMiddleware, socketMiddleware(wsUrlAll, wsActionsAll)]);
+    return getDefaultMiddleware().concat([loggerMiddleware, socketMiddleware(wsUrlAllOrders, wsActionsAllOrders)]);
   },
 });
 
