@@ -22,7 +22,7 @@ const OrderFeed = () => {
   const ordersStatusPending = React.useRef(null);
 
   React.useEffect(() => {
-    dispatch(wsConnectionStart("wss://norma.nomoreparties.space/orders/all"));
+    dispatch(wsConnectionStart());
 
     return () => {
       dispatch(wsConnectionClosing());

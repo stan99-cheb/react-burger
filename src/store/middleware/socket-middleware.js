@@ -1,42 +1,45 @@
-import { wsConnectionClosed, wsConnectionSuccess, wsGetMessage } from "../slice/socket-slice";
+const socketMiddleware = (wsUrl, wsActions) => {
+  return (store) => {
+    let ws = null;
 
+    return (next) => (action) => {
+      const { dispatch } = store;
+      const { type } = action;
+      const { wsInit, onOpen, onMessage, onClosing, onClose, onError } = wsActions;
 
-const socketMiddleware = (store) => {
-  let ws = null;
+      if (type === wsInit().type) {
+        ws = new WebSocket(wsUrl);
+      };
 
-  return (next) => (action) => {
-    const { dispatch } = store;
-    const { type, payload } = action;
+      if (type === onClosing().type) {
+        ws && ws.close(1000, "Хватит");
+        console.log('Closing WebSocket')
+      };
 
-    if (type === 'socket/wsConnectionStart') {
-      ws = new WebSocket(payload);
+      if (ws) {
+        ws.onopen = (event) => {
+          console.log('Open WebSocket', event);
+          dispatch(onOpen());
+        };
+
+        ws.onmessage = (event) => {
+          dispatch(onMessage(JSON.parse(event.data)));
+        };
+
+        ws.onclose = (event) => {
+          console.log('Close WebSocket', event);
+          dispatch(onClose());
+        };
+
+        ws.onerror = (event) => {
+          console.log('Error WebSocket', event);
+          dispatch(onError());
+        };
+      };
+
+      next(action);
     };
-
-    if (type === 'socket/wsConnectionClosing') {
-      ws && ws.close();
-      dispatch(wsConnectionClosed());
-    };
-
-    if (ws) {
-      ws.onopen = (event) => {
-        dispatch(wsConnectionSuccess());
-      };
-
-      ws.onmessage = (event) => {
-        dispatch(wsGetMessage(JSON.parse(event.data)));
-      };
-
-      ws.onclose = (event) => {
-        console.log(event);
-      };
-
-      ws.onerror = (event) => {
-        console.log('Получена ошибка');
-      };
-    };
-
-    next(action);
   };
-}
+};
 
 export default socketMiddleware;

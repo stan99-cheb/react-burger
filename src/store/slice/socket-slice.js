@@ -23,9 +23,8 @@ const socketSlice = createSlice({
       state.wsConnected = true;
       state.error = undefined;
     },
-    wsConnectionError(state, { payload }) {
+    wsConnectionError(state) {
       state.wsConnected = false;
-      state.error = payload;
     },
     wsConnectionClosing(state) {
       state.wsConnected = false;

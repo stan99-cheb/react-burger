@@ -13,7 +13,24 @@ import resetPasswordSlice from "../services/slices/reset-password-slice";
 import updateTokensSlice from "../services/slices/update-tokens-slice";
 import socketMiddleware from "./middleware/socket-middleware";
 import loggerMiddleware from "./middleware/logger-middleware";
-import socketSlice from "./slice/socket-slice";
+import socketSlice, {
+  wsConnectionClosed,
+  wsConnectionClosing,
+  wsConnectionError,
+  wsConnectionStart,
+  wsConnectionSuccess,
+  wsGetMessage
+} from "./slice/socket-slice";
+
+const wsUrlAll = "wss://norma.nomoreparties.space/orders/all";
+const wsActionsAll = {
+  wsInit: wsConnectionStart,
+  onOpen: wsConnectionSuccess,
+  onMessage: wsGetMessage,
+  onClosing: wsConnectionClosing,
+  onClose: wsConnectionClosed,
+  onError: wsConnectionError,
+};
 
 const store = configureStore({
   reducer: {
@@ -32,7 +49,7 @@ const store = configureStore({
     socket: socketSlice,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat([loggerMiddleware, socketMiddleware]);
+    return getDefaultMiddleware().concat([loggerMiddleware, socketMiddleware(wsUrlAll, wsActionsAll)]);
   },
 });
 
