@@ -1,22 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { CurrencyIcon } from "../../components/UI/Icons";
-import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { icons } from "../../utils/icons";
-import styles from "./order-feed-page.module.css";
+import { Link, useLocation } from "react-router-dom";
 import { allOrdersState, wsConnectionClosing, wsConnectionStart } from "../../store/slice/all-orders-slice";
+import styles from "./order-feed-page.module.css";
+import OrderCard from "../../components/OrderCard/order-card";
 
-const OrderFeed = () => {
+const OrderFeedPage = () => {
   const dispatch = useDispatch();
-  const array = useSelector(state => {
-    return state.ingredients.data.map(ingredient => {
-      return {
-        id: ingredient._id,
-        price: ingredient.price,
-      };
-    })
-  });
+  const location = useLocation();
   const { data } = useSelector(allOrdersState);
   const ordersStatusDone = React.useRef(null);
   const ordersStatusPending = React.useRef(null);
@@ -30,43 +21,21 @@ const OrderFeed = () => {
   }, []);
 
   React.useEffect(() => {
-    ordersStatusDone.current = [
-      ...data.orders.map(item => {
-        if (item.status === 'done') return item.number;
-        return null;
-      }).filter(item => item)
-    ];
-    ordersStatusPending.current = [
-      ...data.orders.map(item => {
-        if (item.status === 'pending') return item.number;
-        return null;
-      }).filter(item => item)
-    ];
+    if (data.orders) {
+      ordersStatusDone.current = [
+        ...data.orders.map(item => {
+          if (item.status === 'done') return item.number;
+          return null;
+        }).filter(item => item)
+      ];
+      ordersStatusPending.current = [
+        ...data.orders.map(item => {
+          if (item.status === 'pending') return item.number;
+          return null;
+        }).filter(item => item)
+      ];
+    };
   }, [data]);
-
-  const getPrice = (ingredients) => {
-    const filterArray = ingredients.filter(ingredient => ingredient);
-    return filterArray.reduce((acc, ingredient) => {
-      return acc + array.find(item => item.id === ingredient).price;
-    }, 0);
-  };
-
-  const getIngredients = (ingredients) => {
-    const filterArray = ingredients.filter(ingredient => ingredient);
-    const count = ingredients.length - 6;
-    const arrayRender = filterArray.map(ingredient =>
-      icons.find(item => item._id === ingredient));
-    return (
-      <div className={styles.orderIngredients}>
-        {count > 0 &&
-          <div className={styles.overlay}>+{count}</div>
-        }
-        {arrayRender.slice(0, 6).map((icon, i) =>
-          <img className={styles.img} src={icon.path} alt="icon" key={i} />
-        )}
-      </div>
-    );
-  };
 
   if (!data.success) return null;
 
@@ -76,40 +45,22 @@ const OrderFeed = () => {
         Лента заказов
       </h1>
       <div className={styles.container}>
-
-        <div className={styles.orders}>
-          <ul className={styles.ordersList}>
-            {data.orders.map((order, i) =>
-              <li
-                key={i}
+        <ul className={styles.ordersList}>
+          {data.orders.map((order, i) =>
+            <li
+              key={i}
+              className={styles.orderItem}
+            >
+              <Link
+                to={`${order.number}`}
+                state={{ background: location }}
+                className={styles.link}
               >
-                <Link
-                  to={`/feed/${order.number}`}
-                  className={styles.link}
-                >
-                  <article className={styles.orderCard}>
-                    <p className={styles.orderId}>
-                      #{order.number}
-                      <span className={styles.orderDate}>
-                        <FormattedDate date={new Date(`${order.createdAt}`)} />
-                      </span>
-                    </p>
-                    <div className={styles.orderName}>
-                      {order.name}
-                    </div>
-                    <div className={styles.orderComponents}>
-                      {getIngredients(order.ingredients)}
-                      <div className={styles.orderPrice}>
-                        {getPrice(order.ingredients)}
-                        <CurrencyIcon type="primary" />
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
+                <OrderCard order={order} />
+              </Link>
+            </li>
+          )}
+        </ul>
         <div className={styles.stats}>
           <div className={styles.board}>
             <div className={styles.panel}>
@@ -161,4 +112,4 @@ const OrderFeed = () => {
   );
 };
 
-export { OrderFeed };
+export { OrderFeedPage };

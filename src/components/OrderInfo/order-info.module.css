@@ -1,14 +1,5 @@
-.main {
-  width: 100vw;
-  height: calc(100vh - var(--header-height));
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .container {
-  width: 640px;
+  width: 100%;
 }
 
 .number {
@@ -19,7 +10,6 @@
   line-height: 24px;
 
   color: var(--text-primary-color);
-  text-align: center;
 }
 
 .title {
@@ -31,9 +21,9 @@
 
   color: var(--text-primary-color);
 
-  /* white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; */
+  text-overflow: ellipsis;
 }
 
 .status {

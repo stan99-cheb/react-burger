@@ -30,3 +30,11 @@ const ingredientsSlice = createSlice({
 export default ingredientsSlice.reducer;
 
 export const ingredientsState = (state) => state.ingredients;
+export const ingredientIdAndPrice = (state) => {
+  return state.ingredients.data.map(ingredient => {
+    return {
+      id: ingredient._id,
+      price: ingredient.price,
+    };
+  });
+};

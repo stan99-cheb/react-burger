@@ -1,17 +1,13 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { ingredientsState } from "../../services/slices/ingredients";
-import { ordersState } from "../../store/slice/all-orders-slice";
-import { CurrencyIcon } from "../UI/Icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
+import { CurrencyIcon } from "../UI/Icons";
+import { ORDER_TYPE } from "../../utils/prop-types";
 import styles from "./order-info.module.css";
 
-const OrderInfo = () => {
-  const { id } = useParams();
+const OrderInfo = ({ order }) => {
   const { data } = useSelector(ingredientsState);
-  const { orders } = useSelector(ordersState);
-  const order = orders.find(order => order.number === Number(id));
 
   const duplicateValues = order?.ingredients.reduce((acc, item) => {
     acc[item] = (acc[item] || 0) + 1;
@@ -35,49 +31,50 @@ const OrderInfo = () => {
           {ingredient.name}
         </p>
         <p className={styles.price}>
-          {duplicateValues[id]} x {ingredient.price}
+          {duplicateValues[id] > 1
+            ? `${duplicateValues[id]} x `
+            : ''}
+          {ingredient.price}
           <CurrencyIcon type="primary" />
         </p>
       </article>
     );
   };
 
-  if (!orders.length) return (
-    <main className={styles.main}>Нет данных</main>
-  );
-
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <p className={styles.number}>
-          #{order.number}
-        </p>
-        <h2 className={styles.title}>
-          {order.name}
-        </h2>
-        <p className={styles.status}>
-          {order.status === 'done' ? 'Выполнен' : 'В работе'}
-        </p>
-        <p className={styles.content}>
-          Состав:
-        </p>
-        <ul className={styles.ingredients}>
-          {numberOfDuplicateValues.map((id, i) =>
-            <li key={i}>
-              {getIngredient(id)}
-            </li>
-          )}
-        </ul>
-        <p className={styles.timePrice}>
-          <FormattedDate date={new Date(`${order.createdAt}`)} />
-          <span className={styles.price}>
-            {price}
-            <CurrencyIcon type="primary" />
-          </span>
-        </p>
-      </div>
-    </main>
+    <article className={styles.container}>
+      <p className={styles.number}>
+        #{order.number}
+      </p>
+      <h2 className={styles.title}>
+        {order.name}
+      </h2>
+      <p className={styles.status}>
+        {order.status === 'done' ? 'Выполнен' : 'В работе'}
+      </p>
+      <p className={styles.content}>
+        Состав:
+      </p>
+      <ul className={styles.ingredients}>
+        {numberOfDuplicateValues.map((id, i) =>
+          <li key={i}>
+            {getIngredient(id)}
+          </li>
+        )}
+      </ul>
+      <p className={styles.timePrice}>
+        <FormattedDate date={new Date(`${order.createdAt}`)} />
+        <span className={styles.price}>
+          {price}
+          <CurrencyIcon type="primary" />
+        </span>
+      </p>
+    </article>
   );
-}
+};
+
+OrderInfo.propTypes = {
+  order: ORDER_TYPE.isRequired,
+};
 
 export default OrderInfo;

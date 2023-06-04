@@ -7,32 +7,31 @@ const initialState = {
   error: undefined,
 };
 
-const allOrdersSlice = createSlice({
-  name: 'socket/allOrders',
+const wsOrderSlice = createSlice({
+  name: 'socket/order',
   initialState,
   reducers: {
-    wsConnectionStart(state) {
+    orderConnectionStart(state) {
       state.wsConnecting = true;
       state.error = undefined;
     },
-    wsConnectionSuccess(state) {
+    orderConnectionSuccess(state) {
       state.wsConnected = true;
       state.wsConnecting = false;
       state.error = undefined;
     },
-    wsConnectionError(state) {
+    orderConnectionError(state) {
       state.wsConnected = false;
     },
-    wsConnectionClosing(state) {
+    orderConnectionClosing(state) {
+      state.wsConnected = false;
+      state.error = undefined;
+    },
+    orderConnectionClosed(state) {
       state.wsConnected = false;
       state.error = undefined;
     },
-    wsConnectionClosed(state) {
-      state.wsConnected = false;
-      state.error = undefined;
-      state.data = {};
-    },
-    wsGetMessage(state, { payload }) {
+    orderGetMessage(state, { payload }) {
       state.data = payload;
       state.error = undefined;
     },
@@ -40,14 +39,14 @@ const allOrdersSlice = createSlice({
 });
 
 export const {
-  wsConnectionStart,
-  wsConnectionSuccess,
-  wsConnectionError,
-  wsConnectionClosing,
-  wsConnectionClosed,
-  wsGetMessage
-} = allOrdersSlice.actions;
-export default allOrdersSlice.reducer;
+  orderConnectionStart,
+  orderConnectionSuccess,
+  orderConnectionError,
+  orderConnectionClosing,
+  orderConnectionClosed,
+  orderGetMessage,
+} = wsOrderSlice.actions;
+export default wsOrderSlice.reducer;
 
-export const allOrdersState = (state) => state.allOrders;
-export const dataAllOrdersState = (state) => state.allOrders.data;
+export const wsOrderState = (state) => state.wsOrder;
+export const wsOrderDataState = (state) => state.wsOrder.data;

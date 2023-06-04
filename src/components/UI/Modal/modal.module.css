@@ -10,6 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 1;
 }
 
 .content {
@@ -21,9 +23,11 @@
   border-radius: 40px;
 
   background-color: #1C1C21;
+
+  position: relative;
 }
 
-.title {
+/* .title {
   font-family: var(--font-text);
   font-size: 36px;
   font-weight: 700;
@@ -31,10 +35,16 @@
   text-align: center;
 
   color: var(--text-primary-color);
-}
+} */
 
-.header {
+/* .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+} */
+
+.closeIcon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
 }

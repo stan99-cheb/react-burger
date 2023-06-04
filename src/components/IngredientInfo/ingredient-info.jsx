@@ -6,6 +6,7 @@ const IngredientInfo = ({ ingredient }) => {
 
   return (
     <article className={styles.container}>
+      <h2 className={styles.title}>Детали ингредиента</h2>
       <img className={styles.image} src={ingredient.image_large} alt={ingredient.name}></img>
       <p className={styles.name}>{ingredient.name}</p>
       <ul className={styles["caloric-contents"]}>

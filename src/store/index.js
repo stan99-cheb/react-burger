@@ -21,6 +21,14 @@ import allOrdersSlice, {
   wsConnectionSuccess,
   wsGetMessage
 } from "./slice/all-orders-slice";
+import wsOrderSlice, {
+  orderConnectionClosed,
+  orderConnectionClosing,
+  orderConnectionError,
+  orderConnectionStart,
+  orderConnectionSuccess,
+  orderGetMessage
+} from "./slice/ws-order-slice";
 
 const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
 const wsActionsAllOrders = {
@@ -30,6 +38,16 @@ const wsActionsAllOrders = {
   onClosing: wsConnectionClosing,
   onClose: wsConnectionClosed,
   onError: wsConnectionError,
+};
+
+const wsUrlOrder = "wss://norma.nomoreparties.space/orders";
+const wsActionsOrder = {
+  wsInit: orderConnectionStart,
+  onOpen: orderConnectionSuccess,
+  onMessage: orderGetMessage,
+  onClosing: orderConnectionClosing,
+  onClose: orderConnectionClosed,
+  onError: orderConnectionError,
 };
 
 const store = configureStore({
@@ -47,9 +65,14 @@ const store = configureStore({
     resetPassword: resetPasswordSlice,
     updateTokens: updateTokensSlice,
     allOrders: allOrdersSlice,
+    wsOrder: wsOrderSlice,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat([loggerMiddleware, socketMiddleware(wsUrlAllOrders, wsActionsAllOrders)]);
+    return getDefaultMiddleware().concat([
+      loggerMiddleware,
+      socketMiddleware(wsUrlAllOrders, wsActionsAllOrders),
+      socketMiddleware(wsUrlOrder, wsActionsOrder)
+    ]);
   },
 });
 
