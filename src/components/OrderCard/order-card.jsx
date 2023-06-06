@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux";
-import { ingredientIdAndPrice } from "../../services/slices/ingredients";
+import { dataIngredientsState } from "../../services/slices/ingredients";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "../UI/Icons";
-import { icons } from "../../utils/icons";
 import { ORDER_TYPE } from "../../utils/prop-types";
 import styles from "./order-card.module.css";
 
 const OrderCard = ({ order }) => {
-  const array = useSelector(ingredientIdAndPrice);
+  const array = useSelector(dataIngredientsState);
 
   const getPrice = (ingredients) => {
     const filterArray = ingredients.filter(ingredient => ingredient);
     return filterArray.reduce((acc, ingredient) => {
-      return acc + array.find(item => item.id === ingredient).price;
+      return acc + array.find(item => item._id === ingredient).price;
     }, 0);
   };
 
@@ -20,15 +19,17 @@ const OrderCard = ({ order }) => {
     const filterArray = ingredients.filter(ingredient => ingredient);
     const count = ingredients.length - 6;
     const arrayRender = filterArray.map(ingredient =>
-      icons.find(item => item._id === ingredient));
+      array.find(item => item._id === ingredient));
 
     return (
       <div className={styles.orderIngredients}>
         {count > 0 &&
           <div className={styles.overlay}>+{count}</div>
         }
-        {arrayRender.slice(0, 6).map((icon, i) =>
-          <img className={styles.img} src={icon.path} alt="icon" key={i} />
+        {arrayRender.slice(0, 6).map((ingredient, i) =>
+          <div className={styles.img}>
+            <img src={ingredient.image_mobile} alt="icon" key={i} />
+          </div>
         )}
       </div>
     );
