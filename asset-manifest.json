@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-burger/static/css/main.b5ebda5c.css",
-    "main.js": "/react-burger/static/js/main.151d5913.js",
+    "main.css": "/react-burger/static/css/main.4b24a2f7.css",
+    "main.js": "/react-burger/static/js/main.ea66bd98.js",
     "static/media/svg": "/react-burger/static/media/60d3b41abdacab0026a733d2.e07561ca22d64c3ed0f8bee9db83831c.svg",
     "static/media/JetBrainsMono-Bold.woff2": "/react-burger/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
     "static/media/JetBrainsMono-Medium.woff2": "/react-burger/static/media/JetBrainsMono-Medium.065ee491488865d52b60.woff2",
@@ -17,11 +17,11 @@
     "static/media/iceland.woff2": "/react-burger/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
     "static/media/Iceland-Regular.woff2": "/react-burger/static/media/Iceland-Regular.8720559cc9cfecae0074.woff2",
     "index.html": "/react-burger/index.html",
-    "main.b5ebda5c.css.map": "/react-burger/static/css/main.b5ebda5c.css.map",
-    "main.151d5913.js.map": "/react-burger/static/js/main.151d5913.js.map"
+    "main.4b24a2f7.css.map": "/react-burger/static/css/main.4b24a2f7.css.map",
+    "main.ea66bd98.js.map": "/react-burger/static/js/main.ea66bd98.js.map"
   },
   "entrypoints": [
-    "static/css/main.b5ebda5c.css",
-    "static/js/main.151d5913.js"
+    "static/css/main.4b24a2f7.css",
+    "static/js/main.ea66bd98.js"
   ]
 }
