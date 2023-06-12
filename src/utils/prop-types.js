@@ -15,4 +15,14 @@ const INGREDIENT_TYPE = PropTypes.shape({
   __v: PropTypes.number
 });
 
-export { INGREDIENT_TYPE };
+const ORDER_TYPE = PropTypes.shape({
+  createdAt: PropTypes.string,
+  ingredients: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string,
+  number: PropTypes.number,
+  status: PropTypes.string,
+  updatedAt: PropTypes.string,
+  _id: PropTypes.string,
+});
+
+export { INGREDIENT_TYPE, ORDER_TYPE };

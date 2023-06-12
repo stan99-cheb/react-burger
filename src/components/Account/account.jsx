@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import CustomLink from "../UI/CustomLink/custom-link";
 import { profileData } from "../../utils/constants";
 import styles from "./acoount.module.css";
@@ -7,6 +7,8 @@ import styles from "./acoount.module.css";
 const Account = () => {
   const [index, setIndex] = React.useState(0);
   const targetRefs = React.useRef([]);
+  const location = useLocation();
+  const { id } = useParams();
 
   const activeLink = ({ isActive }) =>
     isActive
@@ -19,27 +21,27 @@ const Account = () => {
     })
   }, []);
 
+  if (location.pathname === `/profile/order-history/${id}`) return (<Outlet />);
+
   return (
     <main className={styles.main}>
       <div className={styles.wrapper}>
         <ul className={styles.list}>
-          {
-            profileData.map((item, i) =>
-              <li
-                className={styles.item}
-                key={item.name}
-                onClick={() => setIndex(i)}
-                ref={element => targetRefs.current[i] = element}
+          {profileData.map((item, i) =>
+            <li
+              className={styles.item}
+              key={item.name}
+              onClick={() => setIndex(i)}
+              ref={element => targetRefs.current[i] = element}
+            >
+              <CustomLink
+                path={item.path}
+                extraStyle={activeLink}
               >
-                <CustomLink
-                  path={item.path}
-                  extraStyle={activeLink}
-                >
-                  {item.name}
-                </CustomLink>
-              </li>
-            )
-          }
+                {item.name}
+              </CustomLink>
+            </li>
+          )}
         </ul>
         <span className={styles.description}>
           {profileData[index].description}

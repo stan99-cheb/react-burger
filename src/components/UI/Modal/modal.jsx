@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import CloseIcon from "../Icons/close-icon";
 import styles from "./modal.module.css";
 
-const Modal = ({ title, closeModal, options, children }) => {
+const Modal = ({ closeModal, options, children }) => {
 
   React.useEffect(() => {
     const onEscKeydown = (evt) => {
@@ -26,20 +26,13 @@ const Modal = ({ title, closeModal, options, children }) => {
         className={styles.content}
         onClick={e => e.stopPropagation()}
       >
-        <header
-          className={styles.header}
-        >
-          <h2
-            className={styles.title}
-          >
-            {title}
-          </h2>
+        <div className={styles.closeIcon}>
           {options.closeable &&
             <CloseIcon type='primary' onClick={closeModal} />}
-        </header>
-        <main>
+        </div>
+        <div>
           {children}
-        </main>
+        </div>
       </div>
     </div>
     , document.body

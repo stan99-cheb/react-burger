@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import IngredientInfo from "../IngredientInfo/ingredient-info";
-import { ingredientsState } from "../../services/slices/ingredients";
 import Modal from "../UI/Modal/modal";
+import OrderInfo from "../OrderInfo/order-info";
 
-const ModalIngredients = () => {
+const ModalOrder = () => {
   const navigate = useNavigate();
-  const { data } = useSelector(ingredientsState);
   const { id } = useParams();
-  const ingredient = data.find(ingredient => ingredient._id === id);
+  const orders = useSelector(state => state.allOrders.data.orders || state.wsOrder.data.orders);
+  const order = orders && orders.find(order => order.number === Number(id));
 
   const closeModal = () => {
     navigate(-1);
@@ -18,14 +17,16 @@ const ModalIngredients = () => {
     closeable: true,
   };
 
+  if (!order) return null;
+
   return (
     <Modal
       closeModal={closeModal}
       options={modalOptions}
     >
-      <IngredientInfo ingredient={ingredient} />
+      <OrderInfo order={order} />
     </Modal>
-  )
+  );
 };
 
-export default ModalIngredients;
+export default ModalOrder;

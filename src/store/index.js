@@ -11,6 +11,44 @@ import registrationSlice from "../services/slices/registration-slice";
 import forgotPasswordSlice from "../services/slices/forgot-password-slice";
 import resetPasswordSlice from "../services/slices/reset-password-slice";
 import updateTokensSlice from "../services/slices/update-tokens-slice";
+import socketMiddleware from "./middleware/socket-middleware";
+import loggerMiddleware from "./middleware/logger-middleware";
+import allOrdersSlice, {
+  wsConnectionClosed,
+  wsConnectionClosing,
+  wsConnectionError,
+  wsConnectionStart,
+  wsConnectionSuccess,
+  wsGetMessage
+} from "./slice/all-orders-slice";
+import wsOrderSlice, {
+  orderConnectionClosed,
+  orderConnectionClosing,
+  orderConnectionError,
+  orderConnectionStart,
+  orderConnectionSuccess,
+  orderGetMessage
+} from "./slice/ws-order-slice";
+
+const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
+const wsActionsAllOrders = {
+  wsInit: wsConnectionStart,
+  onOpen: wsConnectionSuccess,
+  onMessage: wsGetMessage,
+  onClosing: wsConnectionClosing,
+  onClose: wsConnectionClosed,
+  onError: wsConnectionError,
+};
+
+const wsUrlOrder = "wss://norma.nomoreparties.space/orders";
+const wsActionsOrder = {
+  wsInit: orderConnectionStart,
+  onOpen: orderConnectionSuccess,
+  onMessage: orderGetMessage,
+  onClosing: orderConnectionClosing,
+  onClose: orderConnectionClosed,
+  onError: orderConnectionError,
+};
 
 const store = configureStore({
   reducer: {
@@ -26,6 +64,15 @@ const store = configureStore({
     forgotPassword: forgotPasswordSlice,
     resetPassword: resetPasswordSlice,
     updateTokens: updateTokensSlice,
+    allOrders: allOrdersSlice,
+    wsOrder: wsOrderSlice,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat([
+      loggerMiddleware,
+      socketMiddleware(wsUrlAllOrders, wsActionsAllOrders),
+      socketMiddleware(wsUrlOrder, wsActionsOrder)
+    ]);
   },
 });
 

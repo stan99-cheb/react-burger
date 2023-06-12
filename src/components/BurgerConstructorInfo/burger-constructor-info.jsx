@@ -16,7 +16,7 @@ const BurgerConstructorInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuth } = useSelector(userState);
+  const { isAuth, accessToken } = useSelector(userState);
   const burgerComponents = useSelector(burgerComponentState);
   const { status } = useSelector(orderState);
   const number = useSelector(state => {
@@ -39,7 +39,7 @@ const BurgerConstructorInfo = () => {
     const idIngredients = [...burgerComponents.ingredients.map(ingredient =>
       ingredient._id), burgerComponents.bun._id];
     if (isAuth) {
-      dispatch(getOrderNumber(idIngredients));
+      dispatch(getOrderNumber({ idIngredients, accessToken }));
       setModal(true);
     } else {
       alert('Авторизуйтесь');

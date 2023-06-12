@@ -1,0 +1,101 @@
+.container {
+  width: 100%;
+}
+
+.number {
+  margin-bottom: 40px;
+
+  font-family: var(--font-digital);
+  font-size: 28px;
+  line-height: 24px;
+
+  color: var(--text-primary-color);
+}
+
+.title {
+  margin-bottom: 12px;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+
+  color: var(--text-primary-color);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status {
+  margin-bottom: 60px;
+
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #00cccc;
+}
+
+.content {
+  margin-bottom: 24px;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+
+  color: var(--text-primary-color);
+}
+
+.ingredients {
+  margin-bottom: 40px;
+
+  max-height: 304px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+
+  list-style-type: none;
+
+  overflow-y: auto;
+}
+
+.article {
+  max-width: 600px;
+
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.name {
+  font-size: 16px;
+  line-height: 24px;
+
+  color: var(--text-primary-color);
+
+  flex: 1 1 auto;
+}
+
+.price {
+  font-family: var(--font-digital);
+  font-size: 28px;
+  line-height: 24px;
+
+  color: var(--text-primary-color);
+
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.price svg {
+  width: 22px;
+  height: 22px;
+}
+
+.timePrice {
+  color: var(--text-secondary-color);
+
+  display: flex;
+  justify-content: space-between;
+}

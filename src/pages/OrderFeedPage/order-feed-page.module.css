@@ -23,15 +23,14 @@
   column-gap: 40px;
 }
 
-.orders {
-  width: 600px;
-
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
+.link {
+  text-decoration: none;
+  color: var(--text-primary-color);
 }
 
 .ordersList {
+  width: 600px;
+
   list-style-type: none;
 
   display: flex;
@@ -41,28 +40,8 @@
   overflow-y: auto;
 }
 
-.orderCard {
-  padding: 24px;
-
-  width: 584px;
-
-  background: #1C1C21;
-  border-radius: 40px;
-
-  display: flex;
-  flex-direction: column;
-  row-gap: 24px;
-}
-
-.orderId {
-  display: flex;
-  justify-content: space-between;
-}
-
-.orderName {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.orderItem {
+  width: 580px;
 }
 
 .stats {

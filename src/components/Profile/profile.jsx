@@ -70,7 +70,7 @@ const Profile = () => {
         value={formField.password}
         onChange={e => onChange(e, 'password')}
         placeholder={'password'}
-        pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,20}$'
+        pattern='^.+$'
         minLength={4}
         maxLength={40}
         required

@@ -27,5 +27,7 @@ const ingredientsSlice = createSlice({
 });
 
 // export const {} = ingredientsSlice.actions;
-export const ingredientsState = state => state.ingredients;
 export default ingredientsSlice.reducer;
+
+export const ingredientsState = (state) => state.ingredients;
+export const dataIngredientsState = (state) => state.ingredients.data;
