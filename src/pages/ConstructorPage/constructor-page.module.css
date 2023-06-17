@@ -1,13 +1,10 @@
-.main {
-  height: calc(100vh - var(--header-height));
-
-  display: flex;
-  flex-direction: column;
+.section {
+  height: 100%;
 }
 
 .title {
-  margin: 40px auto 20px;
-  width: 1240px;
+  display: inline-block;
+  margin: 40px 0 20px;
 
   font-size: 36px;
   font-weight: 700;
@@ -17,9 +14,6 @@
 }
 
 .wrapper {
-  margin: 0 auto;
-  
-  width: 1240px;
   height: calc(100% - 100px);
 
   display: flex;

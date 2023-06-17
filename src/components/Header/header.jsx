@@ -15,42 +15,40 @@ const Header = () => {
   };
 
   return (
-    <header className={styles.header}>
-      <nav>
-        <ul className={styles.list}>
-          <li>
-            <CustomLink
-              path='/'
-              icon='BurgerIcon'
-              extraStyle={activeLink}
-            >
-              Конструктор
-            </CustomLink>
-          </li>
-          <li>
-            <CustomLink
-              path='/feed'
-              icon='ListIcon'
-              extraStyle={activeLink}
-            >
-              Лента заказов
-            </CustomLink>
-          </li>
-          <li>
-            <img className={styles.logo} src={headerLogo} alt="Header Logo" onClick={onClickLogo} />
-          </li>
-          <li>
-            <CustomLink
-              path='/profile'
-              icon='ProfileIcon'
-              extraStyle={activeLink}
-            >
-              Личный кабинет
-            </CustomLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <nav>
+      <ul className={styles.list}>
+        <li>
+          <CustomLink
+            path='/'
+            icon='BurgerIcon'
+            extraStyle={activeLink}
+          >
+            Конструктор
+          </CustomLink>
+        </li>
+        <li>
+          <CustomLink
+            path='/feed'
+            icon='ListIcon'
+            extraStyle={activeLink}
+          >
+            Лента заказов
+          </CustomLink>
+        </li>
+        <li>
+          <img className={styles.logo} src={headerLogo} alt="Header Logo" onClick={onClickLogo} />
+        </li>
+        <li>
+          <CustomLink
+            path='/profile'
+            icon='ProfileIcon'
+            extraStyle={activeLink}
+          >
+            Личный кабинет
+          </CustomLink>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
