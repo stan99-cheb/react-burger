@@ -6,11 +6,11 @@ import Order from "../Order/order";
 import { CurrencyIcon } from "../UI/Icons";
 import { burgerComponentState, resetBurgerComponents } from "../../services/slices/burger-components";
 import Button from "../UI/Button/button";
-import { getOrderNumber } from "../../services/thunk/get-order-number";
+import { getOrderNumber } from "../../store/feature/orderNumber/order-number-thunk";
 import Modal from "../UI/Modal/modal";
-import { orderState } from "../../services/slices/order";
-import Loader from "../UI/Loader/loader";
 import styles from "./burger-constructor-info.module.css";
+import { resetOrderNumber } from "../../store/feature/orderNumber/order-number-slice";
+import { numberOrderState, statusOrderState } from "../../store/feature/orderNumber/selectors";
 
 const BurgerConstructorInfo = () => {
   const dispatch = useDispatch();
@@ -18,21 +18,16 @@ const BurgerConstructorInfo = () => {
   const location = useLocation();
   const { isAuth, accessToken } = useSelector(userState);
   const burgerComponents = useSelector(burgerComponentState);
-  const { status } = useSelector(orderState);
-  const number = useSelector(state => {
-    return state.order.value.at(-1)?.number || 0;
-  });
-  const [isModal, setModal] = React.useState(false);
+  const number = useSelector(numberOrderState);
+  const status = useSelector(statusOrderState);
 
   const optionsModal = {
     closeable: true,
   };
 
   const price = React.useMemo(() => {
-    return (
-      (burgerComponents.bun ? burgerComponents.bun.price * 2 : 0) +
-      burgerComponents.ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
-    );
+    return (burgerComponents.bun ? burgerComponents.bun.price * 2 : 0) +
+      burgerComponents.ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
   }, [burgerComponents]);
 
   const makeOrder = () => {
@@ -40,7 +35,6 @@ const BurgerConstructorInfo = () => {
       ingredient._id), burgerComponents.bun._id];
     if (isAuth) {
       dispatch(getOrderNumber({ idIngredients, accessToken }));
-      setModal(true);
     } else {
       alert('Авторизуйтесь');
       navigate('/login', { state: { from: location } });
@@ -48,11 +42,9 @@ const BurgerConstructorInfo = () => {
   };
 
   const closeModal = () => {
-    setModal(false);
+    dispatch(resetOrderNumber());
     dispatch(resetBurgerComponents());
   };
-
-  if (status === 'loading') return (<Loader />);
 
   return (
     <div className={styles.info}>
@@ -67,9 +59,12 @@ const BurgerConstructorInfo = () => {
         onClick={makeOrder}
         extraClass={styles.button}
       >
-        Оформить заказ
+        {status === 'loading'
+          ? 'Loading...'
+          : 'Оформить заказ'
+        }
       </Button>
-      {isModal &&
+      {number &&
         <Modal
           closeModal={closeModal}
           options={optionsModal}

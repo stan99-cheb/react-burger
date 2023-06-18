@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import IngredientInfo from "../IngredientInfo/ingredient-info";
-import { ingredientsState } from "../../services/slices/ingredients";
+import { ingredientsState } from "../../store/feature/ingredients/ingredients-slice";
 import Modal from "../UI/Modal/modal";
 
 const ModalIngredients = () => {

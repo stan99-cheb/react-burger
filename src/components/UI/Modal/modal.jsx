@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import CloseIcon from "../Icons/close-icon";
 import styles from "./modal.module.css";
 
-const Modal = ({ closeModal, options, children }) => {
+const Modal = ({ closeModal, options = {}, children }) => {
 
   React.useEffect(() => {
     const onEscKeydown = (evt) => {
@@ -27,7 +27,7 @@ const Modal = ({ closeModal, options, children }) => {
         onClick={e => e.stopPropagation()}
       >
         <div className={styles.closeIcon}>
-          {options.closeable &&
+          {options?.closeable &&
             <CloseIcon type='primary' onClick={closeModal} />}
         </div>
         <div>

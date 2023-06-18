@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { userState } from "../services/slices/user-slice";
+import { userState } from "../../services/slices/user-slice";
 
 const ProtectedRoute = ({ children, anonymous = false }) => {
   const { isAuth } = useSelector(userState);

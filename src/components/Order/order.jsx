@@ -3,6 +3,9 @@ import styles from "./order.module.css";
 import imgDone from "../../images/done.svg";
 
 const Order = ({ number }) => {
+
+  if (!number) return null;
+
   return (
     <div className={styles.main}>
       <p className={styles.number}>

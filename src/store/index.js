@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ingredientsSlice from '../services/slices/ingredients';
+import ingredientsSlice from './feature/ingredients/ingredients-slice';
 import ingredientInfoSlice from '../services/slices/ingredients-info';
 import burgerComponentsSlice from '../services/slices/burger-components';
-import orderSlice from '../services/slices/order';
+import orderSlice from './feature/orderNumber/order-number-slice';
 import userSlice from "../services/slices/user-slice";
 import getUserSlice from "../services/slices/get-user-slice";
 import updateUserSlice from "../services/slices/update-user-slice";

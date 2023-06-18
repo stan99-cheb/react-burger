@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as api from "../../utils/api";
+import * as api from "../../../utils/api";
 
 export const getOrderNumber = createAsyncThunk(
-  'order/fetch',
+  'order/get',
   async ({ idIngredients, accessToken }, { rejectWithValue }) => {
     try {
       const response = await api.request('/orders', {

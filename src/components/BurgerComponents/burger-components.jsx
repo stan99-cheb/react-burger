@@ -20,13 +20,9 @@ const BurgerComponents = () => {
     e.dataTransfer.setData("text/plain", JSON.stringify(data));
   };
 
-  const dragEndHandler = (e) => {
-    e.dataTransfer.clearData();
-  };
+  const dragEndHandler = (e) => e.dataTransfer.clearData();
 
-  const dragOverHandler = (e) => {
-    e.preventDefault();
-  };
+  const dragOverHandler = (e) => e.preventDefault();
 
   const dropHandler = (e, dropIndex) => {
     const data = e.dataTransfer.getData("text");
@@ -39,6 +35,28 @@ const BurgerComponents = () => {
       dispatch(updateBurgerComponent(swapArray));
     };
   };
+
+  const renderedBurgerComponents = burgerComponents.ingredients.map((ingredient, index) =>
+    <div
+      className={styles.item}
+      draggable={true}
+      onDragStart={(e) => dragStartHandler(e, index)}
+      onDragEnd={dragEndHandler}
+      onDragOver={dragOverHandler}
+      onDrop={e => dropHandler(e, index)}
+      key={ingredient.uuid}
+    >
+      <span className={styles.dragIcon}>
+        <DragIcon type="primary" />
+      </span>
+      <ConstructorElement
+        name={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
+        onClick={() => deleteIngredient(ingredient._id)}
+      />
+    </div>
+  );
 
   return (
     <div className={styles.container}>
@@ -53,27 +71,7 @@ const BurgerComponents = () => {
       </div>
       {burgerComponents.ingredients.length !== 0 &&
         <div className={styles.list}>
-          {burgerComponents.ingredients.map((ingredient, index) =>
-            <div
-              className={styles.item}
-              draggable={true}
-              onDragStart={(e) => dragStartHandler(e, index)}
-              onDragEnd={e => dragEndHandler(e)}
-              onDragOver={e => dragOverHandler(e)}
-              onDrop={e => dropHandler(e, index)}
-              key={ingredient.uuid}
-            >
-              <span className={styles.dragIcon}>
-                <DragIcon type="primary" />
-              </span>
-              <ConstructorElement
-                name={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-                onClick={() => deleteIngredient(ingredient._id)}
-              />
-            </div>
-          )}
+          {renderedBurgerComponents}
         </div>
       }
       <div className={styles.bun}>

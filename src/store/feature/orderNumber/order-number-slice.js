@@ -1,27 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getOrderNumber } from "../thunk/get-order-number";
+import { getOrderNumber } from "./order-number-thunk";
 
 const initialState = {
   status: 'idle',
-  value: [],
+  number: undefined,
 };
 
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrderNumber(state) {
+      state.number = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getOrderNumber.pending, (state) => {
         state.status = 'loading';
+        state.number = undefined;
       })
       .addCase(getOrderNumber.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.status = 'idle';
-        state.value = [...state.value, {
-          number: payload.order.number,
-          date: new Date().toLocaleString(),
-        }];
+        state.number = payload.order.number;
       })
       .addCase(getOrderNumber.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -30,6 +31,5 @@ const orderSlice = createSlice({
   },
 });
 
-// export const {} = orderSlice.actions;
-export const orderState = state => state.order;
+export const { resetOrderNumber } = orderSlice.actions;
 export default orderSlice.reducer;

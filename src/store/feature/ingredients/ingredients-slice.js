@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getIngredients } from '../thunk/get-ingredients';
+import { getIngredients } from './get-ingredients-thunk';
 
 const initialState = {
   status: 'idle',
-  data: [],
+  data: undefined,
 };
 
 const ingredientsSlice = createSlice({

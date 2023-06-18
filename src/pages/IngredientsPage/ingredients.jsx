@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { ingredientsState } from "../../services/slices/ingredients";
+import { ingredientsState } from "../../store/feature/ingredients/ingredients-slice";
 import IngredientInfo from "../../components/IngredientInfo/ingredient-info";
 import styles from "./ingredients.module.css";
 

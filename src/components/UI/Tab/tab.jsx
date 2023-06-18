@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import styles from './tab.module.css';
 
 const Tab = ({ active, value, scrollClickHandler, children }) => {
+
   const onClick = () => {
     typeof scrollClickHandler === 'function' && scrollClickHandler(value);
   };

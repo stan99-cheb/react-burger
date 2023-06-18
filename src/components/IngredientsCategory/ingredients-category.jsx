@@ -19,11 +19,10 @@ const IngredientsCategory = React.forwardRef((
       threshold: [0.0, 1.0],
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback = (entries) =>
       entries.forEach((entry) => {
         entry.isIntersecting && setActiveTab(value);
       });
-    };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     observer.observe(tabsRef[value].current);
@@ -32,6 +31,17 @@ const IngredientsCategory = React.forwardRef((
       observer.disconnect()
     };
   }, [rootRef, tabsRef, value, setActiveTab]);
+
+  const renderedIngredientsCard = ingredients.map(ingredient =>
+    <Link
+      to={`ingredients/${ingredient._id}`}
+      state={{ background: location }}
+      className={styles.link}
+      key={ingredient._id}
+    >
+      <IngredientsCard ingredient={ingredient} />
+    </Link>
+  );
 
   return (
     <div
@@ -46,16 +56,7 @@ const IngredientsCategory = React.forwardRef((
       <div
         className={styles.cards}
       >
-        {ingredients.map(ingredient =>
-          <Link
-            to={`ingredients/${ingredient._id}`}
-            state={{ background: location }}
-            className={styles.link}
-            key={ingredient._id}
-          >
-            <IngredientsCard ingredient={ingredient} />
-          </Link>
-        )}
+        {renderedIngredientsCard}
       </div>
     </div>
   );

@@ -1,18 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addBurgerComponent, burgerComponentState } from "../../services/slices/burger-components";
-import { ingredientsState } from "../../services/slices/ingredients";
+import { dataIngredientsState } from "../../store/feature/ingredients/ingredients-slice";
 import BurgerComponents from "../BurgerComponents/burger-components";
 import BurgerConstructorInfo from "../BurgerConstructorInfo/burger-constructor-info";
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector(ingredientsState);
+  const data = useSelector(dataIngredientsState);
   const burgerComponents = useSelector(burgerComponentState);
 
-  const dragOverHandler = (e) => {
-    e.preventDefault();
-  };
+  const dragOverHandler = (e) => e.preventDefault();
 
   const dropHandler = (e) => {
     const result = e.dataTransfer.getData("text");
@@ -31,26 +29,20 @@ const BurgerConstructor = () => {
   return (
     <section
       className={styles.main}
-      onDragOver={e => dragOverHandler(e)}
-      onDrop={e => dropHandler(e)}
+      onDragOver={dragOverHandler}
+      onDrop={dropHandler}
     >
-      {
-        burgerComponents.bun
-          ? (
-            <>
-              <BurgerComponents />
-              <BurgerConstructorInfo />
-            </>
-          )
-          : (
-            <span
-              className={styles.empty}
-            >
-              Перенесите сюда ингредиенты
-            </span>
-          )
+      {burgerComponents.bun
+        ? (<>
+          <BurgerComponents />
+          <BurgerConstructorInfo />
+        </>)
+        : (<span
+          className={styles.empty}
+        >
+          Перенесите сюда ингредиенты
+        </span>)
       }
-
     </section>
   )
 };

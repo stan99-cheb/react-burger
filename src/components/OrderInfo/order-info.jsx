@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { ingredientsState } from "../../services/slices/ingredients";
+import { ingredientsState } from "../../store/feature/ingredients/ingredients-slice";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
 import { CurrencyIcon } from "../UI/Icons";

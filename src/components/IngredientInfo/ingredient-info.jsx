@@ -2,6 +2,7 @@ import { INGREDIENT_TYPE } from "../../utils/prop-types";
 import styles from './ingredient-info.module.css';
 
 const IngredientInfo = ({ ingredient }) => {
+  
   if (!ingredient) return null;
 
   return (
