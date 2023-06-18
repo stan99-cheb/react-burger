@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateUserThunk } from "../thunk/update-user-thunk";
+import { updateUserThunk } from "./update-user-thunk";
 
 const initialState = {
   status: 'idle',

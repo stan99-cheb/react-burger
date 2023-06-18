@@ -1,19 +1,20 @@
-.main {
-  margin-top: 120px;
-  height: calc(100vh - var(--header-height) - 120px);
-  display: flex;
-}
-
-.wrapper {
+.section {
   margin: 0 auto;
+  padding-top: 120px;
+
   width: 480px;
+
   position: relative;
 }
 
-.list {
+.wrapper {
   position: absolute;
   left: -380px;
+
   width: 320px;
+}
+
+.list {
   list-style-type: none;
 }
 
@@ -31,10 +32,6 @@
 
 .description {
   width: 320px;
-
-  position: absolute;
-  top: 272px;
-  left: -380px;
 
   font-size: 16px;
   line-height: 24px;

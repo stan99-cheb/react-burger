@@ -6,11 +6,12 @@ import { getIngredients } from './store/feature/ingredients/get-ingredients-thun
 import Loader from './components/UI/Loader/loader';
 import { useAuth } from './hooks/use-auth';
 import AppLayout from './components/Layouts/AppLayout/app-layout';
-import { ConstructorPage } from './pages';
+import { ConstructorPage, ProfilePage } from './pages';
 import './App.css'
 import IngredientInfo from './components/IngredientInfo/ingredient-info';
 import Modal from './components/UI/Modal/modal';
 import withData from './components/HOC/with-data';
+import AccountLayout from './components/Layouts/AccountLayout/account-layout';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,8 +36,11 @@ function App() {
   return (
     <>
       <Routes location={background || location}>
-        <Route path='/' element={<AppLayout />}        >
+        <Route path='/' element={<AppLayout />}>
           <Route index element={<ConstructorPage />} />
+          <Route path='profile' element={<AccountLayout />}>
+            <Route index element={<ProfilePage />} />
+          </Route>
         </Route>
       </Routes>
       {background && (

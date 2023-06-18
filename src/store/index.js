@@ -5,7 +5,7 @@ import burgerComponentsSlice from '../services/slices/burger-components';
 import orderSlice from './feature/orderNumber/order-number-slice';
 import userSlice from "../services/slices/user-slice";
 import getUserSlice from "../services/slices/get-user-slice";
-import updateUserSlice from "../services/slices/update-user-slice";
+import updateUserSlice from "./feature/user/update-user-slice";
 import loginSlice from "../services/slices/login-slice";
 import registrationSlice from "../services/slices/registration-slice";
 import forgotPasswordSlice from "../services/slices/forgot-password-slice";

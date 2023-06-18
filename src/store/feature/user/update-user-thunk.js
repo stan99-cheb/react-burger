@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../../utils/api";
-import { loginUser } from "../slices/user-slice";
+import * as api from "../../../utils/api";
+import { loginUser } from "../../../services/slices/user-slice";
 
 export const updateUserThunk = createAsyncThunk(
-  'user/updateUser',
+  'user/update',
   async ({ accessToken, formField }, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.request('/auth/user', {

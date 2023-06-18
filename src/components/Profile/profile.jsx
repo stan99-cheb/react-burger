@@ -1,54 +1,50 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormField } from "../../hooks/use-form-field";
 import Input from "../../components/UI/Input/input";
 import PasswordInput from "../../components/UI/PasswordInput/password-input";
 import { userState } from "../../services/slices/user-slice";
 import Button from "../../components/UI/Button/button";
-import { updateUserThunk } from "../../services/thunk/update-user-thunk";
+import { updateUserThunk } from "../../store/feature/user/update-user-thunk";
 import styles from "./profile.module.css";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { user, accessToken } = useSelector(userState);
-  const currentUser = React.useRef({
-    email: user.email,
-    password: '',
-    name: user.name,
-  });
-  const { isChange, formField, onChange, onReplace } = useFormField({
-    email: user.email,
-    password: '',
-    name: user.name,
-  });
-
-  const onIconClick = (name) => {
-    onReplace(name, '');
-  };
-
-  const clickCancelButton = () => {
-    Object.keys(formField).forEach(key => onReplace(key, currentUser.current[key]));
-  };
+  const name = useFormField(user.name);
+  const email = useFormField(user.email);
+  const password = useFormField();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
+    const formField = {
+      name: name.value,
+      email: email.value,
+      password: password.value
+    };
     dispatch(updateUserThunk({ accessToken, formField }));
-    onReplace('password', '');
+  };
+
+  const formResetHandler = (e) => {
+    e.preventDefault();
+    name.onChange({ target: { value: user.name } });
+    email.onChange({ target: { value: user.email } });
+    password.onChange({ target: { value: '' } });
   };
 
   return (
     <form
       className={styles.form}
       onSubmit={formSubmitHandler}
+      onReset={formResetHandler}
     >
       <Input
         type='text'
         icon='CloseIcon'
-        value={formField.name}
-        onChange={e => onChange(e, 'name')}
-        onIconClick={() => onIconClick('name')}
+        value={name.value}
+        onChange={name.onChange}
+        onIconClick={() => name.onChange({ target: { value: '' } })}
         placeholder={'name'}
-        pattern='^[\w]{1,40}$'
+        pattern='^[\w+]{1,40}$'
         minLength={1}
         maxLength={40}
         autoFocus
@@ -57,9 +53,9 @@ const Profile = () => {
       <Input
         type='email'
         icon='CloseIcon'
-        value={formField.email}
-        onChange={e => onChange(e, 'email')}
-        onIconClick={() => onIconClick('email')}
+        value={email.value}
+        onChange={email.onChange}
+        onIconClick={() => email.onChange({ target: { value: '' } })}
         placeholder={'e-mail'}
         pattern='[\w\-\.]+@[\w\-]+\.[a-z]{2,4}'
         minLength={6}
@@ -67,8 +63,8 @@ const Profile = () => {
         required
       />
       <PasswordInput
-        value={formField.password}
-        onChange={e => onChange(e, 'password')}
+        value={password.value}
+        onChange={password.onChange}
         placeholder={'password'}
         pattern='^.+$'
         minLength={4}
@@ -78,13 +74,12 @@ const Profile = () => {
       <div className={styles.wrapper_buttons}>
         <Button
           htmlType="submit"
-          disabled={!isChange}
+          disabled={!name.value || !email.value || !password.value}
         >
           Сохранить
         </Button>
         <Button
-          htmlType="button"
-          onClick={clickCancelButton}
+          htmlType="reset"
         >
           Отмена
         </Button>
@@ -93,4 +88,4 @@ const Profile = () => {
   );
 };
 
-export { Profile };
+export default Profile;
