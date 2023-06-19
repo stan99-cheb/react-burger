@@ -3,7 +3,7 @@ import ingredientsSlice from './feature/ingredients/ingredients-slice';
 import ingredientInfoSlice from '../services/slices/ingredients-info';
 import burgerComponentsSlice from '../services/slices/burger-components';
 import orderSlice from './feature/orderNumber/order-number-slice';
-import userSlice from "../services/slices/user-slice";
+import userSlice from "./feature/user/user-slice";
 import getUserSlice from "../services/slices/get-user-slice";
 import updateUserSlice from "./feature/user/update-user-slice";
 import loginSlice from "../services/slices/login-slice";

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../utils/api";
-import { loginUser } from "../slices/user-slice";
+import { loginUser } from "../../store/feature/user/user-slice";
 
 export const registrationThunk = createAsyncThunk(
 	'user/registration',

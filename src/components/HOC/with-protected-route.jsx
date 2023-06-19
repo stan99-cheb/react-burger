@@ -1,12 +1,20 @@
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { userState } from "../../services/slices/user-slice";
+import { userState } from "../../store/feature/user/user-slice";
+import { getUserThunk } from "../../store/feature/user/get-user-thunk";
 
 const ProtectedRoute = ({ children, anonymous = false }) => {
-  const { isAuth } = useSelector(userState);
-
+  const dispatch = useDispatch();
+  const { isAuth, accessToken } = useSelector(userState);
   const location = useLocation();
   const from = location.state?.from || '/';
+
+  React.useEffect(() => {
+    if (!isAuth) {
+      dispatch(getUserThunk(accessToken))
+    };
+  }, []);
 
   if (anonymous && isAuth) {
     return <Navigate to={from} />;

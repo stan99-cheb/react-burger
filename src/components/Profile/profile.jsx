@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormField } from "../../hooks/use-form-field";
 import Input from "../../components/UI/Input/input";
 import PasswordInput from "../../components/UI/PasswordInput/password-input";
-import { userState } from "../../services/slices/user-slice";
+import { userState } from "../../store/feature/user/user-slice";
 import Button from "../../components/UI/Button/button";
 import { updateUserThunk } from "../../store/feature/user/update-user-thunk";
 import styles from "./profile.module.css";

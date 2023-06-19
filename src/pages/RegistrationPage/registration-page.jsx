@@ -5,7 +5,7 @@ import { useFormField } from "../../hooks/use-form-field";
 import Input from "../../components/UI/Input/input";
 import PasswordInput from "../../components/UI/PasswordInput/password-input";
 import Button from "../../components/UI/Button/button";
-import { userState } from "../../services/slices/user-slice";
+import { userState } from "../../store/feature/user/user-slice";
 import { registrationThunk } from "../../services/thunk/registration-thunk";
 import styles from "./registration-page.module.css";
 

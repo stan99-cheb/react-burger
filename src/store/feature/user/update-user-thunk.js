@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../../utils/api";
-import { loginUser } from "../../../services/slices/user-slice";
+import { loginUser } from "./user-slice";
 
 export const updateUserThunk = createAsyncThunk(
   'user/update',

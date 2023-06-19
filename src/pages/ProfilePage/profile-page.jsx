@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "../../components/Profile/profile"
-import { userState } from "../../services/slices/user-slice";
-import { getUserThunk } from "../../services/thunk/get-user-thunk";
+import { userState } from "../../store/feature/user/user-slice";
+import { getUserThunk } from "../../store/feature/user/get-user-thunk";
 import Loader from "../../components/UI/Loader/loader";
 
 const ProfilePage = () => {

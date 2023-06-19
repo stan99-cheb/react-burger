@@ -2,7 +2,7 @@ import { ConstructorPage } from "./ConstructorPage/constructor-page";
 import { ErrorPage } from "./ErrorPage/error-page";
 import { ForgotPassword } from "./ForgotPasswordPage/forgot-password";
 import { Ingredients } from "./IngredientsPage/ingredients";
-import { Login } from "./LoginPage/login-page";
+import LoginPage from "./LoginPage/login-page";
 import { Logout } from "./LogoutPage/logout-page";
 import { OrderFeedPage } from "./OrderFeedPage/order-feed-page";
 import { OrderHistoryPage } from "./OrderHistoryPage/order-history-page";
@@ -17,7 +17,7 @@ export {
   ErrorPage,
   ForgotPassword,
   Ingredients,
-  Login,
+  LoginPage,
   Logout,
   OrderFeedPage,
   OrderHistoryPage,

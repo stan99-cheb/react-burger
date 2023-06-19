@@ -4,7 +4,7 @@ import FeedLayout from "../FeedLayout";
 import ProfileOrderLayout from "../profile-order-layout";
 import ModalIngredients from "../ModalIngredient/modal-ingredients";
 import ModalOrder from "../ModalOrder/modal-order";
-import ProtectedRoute from "../HOC/ProtectedRoute";
+import ProtectedRoute from "../HOC/with-protected-route";
 import { Account } from "../Account/account";
 import {
   ConstructorPage,

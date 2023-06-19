@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userState } from "../../services/slices/user-slice";
+import { userState } from "../../store/feature/user/user-slice";
 import Order from "../Order/order";
 import { CurrencyIcon } from "../UI/Icons";
 import { burgerComponentState, resetBurgerComponents } from "../../services/slices/burger-components";

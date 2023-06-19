@@ -1,10 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../../utils/api";
-import { loginUser } from "../slices/user-slice";
+import * as api from "../../../utils/api";
 
 export const loginThunk = createAsyncThunk(
   'user/login',
-  async (formField, { dispatch, rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await api.request('/auth/login', {
         method: 'POST',
@@ -12,11 +11,11 @@ export const loginThunk = createAsyncThunk(
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          "email": formField.email,
-          "password": formField.password,
+          "email": email,
+          "password": password,
         }),
       });
-      dispatch(loginUser(response));
+      return response;
     } catch (err) {
       return rejectWithValue(err);
     };
