@@ -12,9 +12,11 @@ const ProtectedRoute = ({ children, anonymous = false }) => {
 
   React.useEffect(() => {
     if (!isAuth) {
-      dispatch(getUserThunk(accessToken))
+      accessToken && dispatch(getUserThunk(accessToken))
     };
-  }, []);
+  }, [isAuth, accessToken, dispatch]);
+
+  if (!accessToken) return null;
 
   if (anonymous && isAuth) {
     return <Navigate to={from} />;
