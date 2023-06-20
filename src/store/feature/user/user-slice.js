@@ -44,6 +44,7 @@ const userSlice = createSlice({
       })
       .addCase(updateTokensThunk.fulfilled, (state, { payload }) => {
         state.updateTokenStatus = 'idle';
+        state.isAuth = true;
         if (payload.accessToken) state.accessToken = payload.accessToken.split('Bearer ')[1];
         if (payload.refreshToken) localStorage.setItem('refreshToken', payload.refreshToken);
       })

@@ -12,7 +12,7 @@ import Modal from './components/UI/Modal/modal';
 import withData from './components/HOC/with-data';
 import AccountLayout from './components/Layouts/AccountLayout/account-layout';
 import { updateTokensThunk } from './store/feature/user/update-tokens-thunk';
-import ProtectedRoute from './components/HOC/with-protected-route';
+import ProtectedRoute from './components/ProtectedRoute/protected-route';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,14 +38,10 @@ function App() {
       <Routes location={background || location}>
         <Route path='/' element={<AppLayout />}>
           <Route index element={<ConstructorPage />} />
-          <Route path='profile' element={<AccountLayout />}>
-            <Route index element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            } />
+          <Route path='profile' element={<ProtectedRoute><AccountLayout /></ProtectedRoute>}>
+            <Route index element={<ProfilePage />} />
           </Route>
-          <Route path='login' element={<LoginPage />} />
+          <Route path='login' element={<ProtectedRoute anonymous={true}><LoginPage /></ProtectedRoute>} />
         </Route>
       </Routes>
       {background && (
