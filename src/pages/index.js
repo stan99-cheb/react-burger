@@ -9,7 +9,7 @@ import { OrderHistoryPage } from "./OrderHistoryPage/order-history-page";
 import { OrderPage } from "./OrderPage/order-page";
 import { ProfileOrderPage } from "./ProfileOrderPage/profile-order-page";
 import { ProfilePage } from "./ProfilePage/profile-page";
-import { Registration } from "./RegistrationPage/registration-page";
+import RegistrationPage from "./RegistrationPage/registration-page";
 import { ResetPassword } from "./ResetPasswordPage/reset-password-page";
 
 export {
@@ -24,6 +24,6 @@ export {
   OrderPage,
   ProfileOrderPage,
   ProfilePage,
-  Registration,
+  RegistrationPage,
   ResetPassword,
 }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registrationThunk } from "../thunk/registration-thunk";
+import { registrationThunk } from "../../store/feature/user/registration-thunk";
 
 const initialState = {
   status: 'idle',

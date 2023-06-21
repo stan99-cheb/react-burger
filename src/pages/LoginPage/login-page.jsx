@@ -1,8 +1,6 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useFormField } from "../../hooks/use-form-field";
-import { userState } from "../../store/feature/user/user-slice";
 import Input from "../../components/UI/Input/input";
 import PasswordInput from "../../components/UI/PasswordInput/password-input";
 import Button from "../../components/UI/Button/button";
@@ -11,16 +9,8 @@ import { loginThunk } from "../../store/feature/user/login-thunk";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector(userState);
   const email = useFormField();
   const password = useFormField();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const path = location?.state?.from || '/profile';
-
-  React.useEffect(() => {
-    isAuth && navigate(path);
-  }, [isAuth, path, navigate]);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();

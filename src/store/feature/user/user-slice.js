@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk } from "./login-thunk";
 import { updateTokensThunk } from "./update-tokens-thunk";
 import { getUserThunk } from "./get-user-thunk";
+import { registrationThunk } from "./registration-thunk";
 
 const initialState = {
   loginStatus: 'idle',
   updateTokenStatus: 'idle',
   getUsetStatus: 'idle',
+  registrationStatus: 'idle',
   isAuth: false,
   user: {
     name: '',
@@ -62,6 +64,17 @@ const userSlice = createSlice({
       .addCase(getUserThunk.rejected, (state, { payload }) => {
         state.getUsetStatus = 'failed';
         console.log(payload)
+      })
+      .addCase(registrationThunk.pending, (state) => {
+        state.registrationStatus = 'loading';
+      })
+      .addCase(registrationThunk.fulfilled, (state, { payload }) => {
+        state.registrationStatus = 'idle';
+        console.log(payload);
+      })
+      .addCase(registrationThunk.rejected, (state, { payload }) => {
+        state.registrationStatus = 'failed';
+        console.log(payload);
       })
   }
 });

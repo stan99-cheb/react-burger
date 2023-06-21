@@ -1,35 +1,21 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useFormField } from "../../hooks/use-form-field";
 import Input from "../../components/UI/Input/input";
 import PasswordInput from "../../components/UI/PasswordInput/password-input";
 import Button from "../../components/UI/Button/button";
-import { userState } from "../../store/feature/user/user-slice";
-import { registrationThunk } from "../../services/thunk/registration-thunk";
+import { registrationThunk } from "../../store/feature/user/registration-thunk";
 import styles from "./registration-page.module.css";
 
-const Registration = () => {
-  const { isAuth } = useSelector(userState);
+const RegistrationPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isChange, formField, onChange, onReplace } = useFormField({
-    email: '',
-    password: '',
-    name: '',
-  });
-
-  React.useEffect(() => {
-    isAuth && navigate('/profile', { replace: true });
-  }, [isAuth, navigate]);
-
-  const onIconClick = (name) => {
-    onReplace(name, '');
-  };
+  const name = useFormField();
+  const email = useFormField();
+  const password = useFormField();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(registrationThunk(formField));
+    dispatch(registrationThunk({ name: name.value, email: email.value, password: password.value }));
   };
 
   return (
@@ -43,9 +29,9 @@ const Registration = () => {
           <Input
             type='text'
             icon='CloseIcon'
-            value={formField.name}
-            onChange={e => onChange(e, 'name')}
-            onIconClick={() => onIconClick('name')}
+            value={name.value}
+            onChange={name.onChange}
+            onIconClick={() => name.onChange({ target: { value: '' } })}
             placeholder={'name'}
             pattern='^[\w]{1,40}$'
             minLength={1}
@@ -56,9 +42,9 @@ const Registration = () => {
           <Input
             type='email'
             icon='CloseIcon'
-            value={formField.email}
-            onChange={e => onChange(e, 'email')}
-            onIconClick={() => onIconClick('email')}
+            value={email.value}
+            onChange={email.onChange}
+            onIconClick={() => email.onChange({ target: { value: '' } })}
             placeholder={'e-mail'}
             pattern='[\w\-\.]+@[\w\-]+\.[a-z]{2,4}'
             minLength={6}
@@ -66,8 +52,8 @@ const Registration = () => {
             required
           />
           <PasswordInput
-            value={formField.password}
-            onChange={e => onChange(e, 'password')}
+            value={password.value}
+            onChange={password.onChange}
             placeholder={'password'}
             pattern='^.+$'
             minLength={4}
@@ -79,7 +65,7 @@ const Registration = () => {
             size='medium'
             htmlType='submit'
             extraClass={styles.button}
-            disabled={!isChange}
+            disabled={!name.value || !email.value || !password.value}
           >
             Зарегистрироваться
           </Button>
@@ -101,4 +87,4 @@ const Registration = () => {
   );
 };
 
-export { Registration };
+export default RegistrationPage;
