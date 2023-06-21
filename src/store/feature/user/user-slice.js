@@ -4,6 +4,7 @@ import { updateTokensThunk } from "./update-tokens-thunk";
 import { getUserThunk } from "./get-user-thunk";
 import { registrationThunk } from "./registration-thunk";
 import { forgotPasswordThunk } from "./forgot-password-thunk";
+import { resetPasswordThunk } from "./reset-password-thunk";
 
 const initialState = {
   loginStatus: 'idle',
@@ -13,6 +14,9 @@ const initialState = {
 
   forgotPasswordStatus: 'idle',
   forgotPasswordResult: undefined,
+
+  resetPasswordStatus: 'idle',
+  resetPasswordResult: undefined,
 
   isAuth: false,
   user: {
@@ -87,10 +91,21 @@ const userSlice = createSlice({
       .addCase(forgotPasswordThunk.fulfilled, (state, { payload }) => {
         state.forgotPasswordStatus = 'idle';
         state.forgotPasswordResult = payload.success;
+      })
+      .addCase(forgotPasswordThunk.rejected, (state, { payload }) => {
+        state.forgotPasswordStatus = 'failed';
         console.log(payload);
       })
-      .addCase(forgotPasswordThunk.rejected, (state, {payload}) => {
-        state.forgotPasswordStatus = 'failed';
+      .addCase(resetPasswordThunk.pending, (state) => {
+        state.resetPasswordStatus = 'loading';
+      })
+      .addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
+        state.resetPasswordStatus = 'idle';
+        state.resetPasswordResult = payload.success;
+        console.log(payload);
+      })
+      .addCase(resetPasswordThunk.rejected, (state, { payload }) => {
+        state.resetPasswordStatus = 'failed';
         console.log(payload);
       })
   }

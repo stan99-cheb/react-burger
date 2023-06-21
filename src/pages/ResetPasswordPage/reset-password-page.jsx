@@ -5,42 +5,28 @@ import Input from "../../components/UI/Input/input";
 import Button from "../../components/UI/Button/button";
 import PasswordInput from "../../components/UI/PasswordInput/password-input";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { resetPasswordThunk } from "../../services/thunk/reset-password-thunk";
-import { eraseState, resetPasswordState } from "../../services/slices/reset-password-slice";
+import { resetPasswordThunk } from "../../store/feature/user/reset-password-thunk";
 import styles from './reset-password-page.module.css';
+import { userState } from "../../store/feature/user/user-slice";
 
 const ResetPasswordPage = () => {
-  const { success, message } = useSelector(resetPasswordState);
+  const { resetPasswordResult } = useSelector(userState);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { isChange, formField, onChange, onReplace } = useFormField({
-    password: '',
-    token: '',
-  });
+  const password = useFormField();
+  const token = useFormField();
   const path = location?.state?.from?.pathname || '';
 
   React.useEffect(() => {
-    return () => {
-      dispatch(eraseState());
-    };
-  }, []);
-
-  React.useEffect(() => {
     if (path !== '/forgot-password') navigate('/forgot-password');
-    if (success) {
-      message && alert(message);
+    resetPasswordResult &&
       navigate('/login', { replace: true });
-    };
-  }, [path, navigate, message, success]);
-
-  const onIconClick = (name) => {
-    onReplace(name, '');
-  };
+  }, [resetPasswordResult, navigate, path]);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(resetPasswordThunk(formField));
+    dispatch(resetPasswordThunk({ password: password.value, token: token.value }));
   };
 
   return (
@@ -52,8 +38,8 @@ const ResetPasswordPage = () => {
         >
           <h2 className={styles.title}>Восстановление пароля</h2>
           <PasswordInput
-            value={formField.password}
-            onChange={e => onChange(e, 'password')}
+            value={password.value}
+            onChange={password.onChange}
             placeholder={'Введите новый пароль'}
             pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,20}$'
             minLength={4}
@@ -64,9 +50,9 @@ const ResetPasswordPage = () => {
           <Input
             type='text'
             icon='CloseIcon'
-            value={formField.token}
-            onChange={e => onChange(e, 'token')}
-            onIconClick={() => onIconClick('token')}
+            value={token.value}
+            onChange={token.onChange}
+            onIconClick={() => token.onChange({ target: { value: '' } })}
             placeholder={'Введите код из письма'}
             pattern='[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'
             minLength={36}
@@ -78,7 +64,7 @@ const ResetPasswordPage = () => {
             size='medium'
             htmlType='submit'
             extraClass={styles.button}
-            disabled={!isChange}
+            disabled={!password.value || !token.value}
           >
             Сохранить
           </Button>
