@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { forgotPasswordThunk } from "../thunk/forgot-password-thunk";
+import { forgotPasswordThunk } from "../../store/feature/user/forgot-password-thunk";
 
 const initialState = {
   status: 'idle',

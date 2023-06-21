@@ -9,7 +9,7 @@ import { resetPasswordThunk } from "../../services/thunk/reset-password-thunk";
 import { eraseState, resetPasswordState } from "../../services/slices/reset-password-slice";
 import styles from './reset-password-page.module.css';
 
-const ResetPassword = () => {
+const ResetPasswordPage = () => {
   const { success, message } = useSelector(resetPasswordState);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -100,4 +100,4 @@ const ResetPassword = () => {
   );
 };
 
-export { ResetPassword };
+export default ResetPasswordPage;

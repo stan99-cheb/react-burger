@@ -4,40 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormField } from "../../hooks/use-form-field";
 import Input from "../../components/UI/Input/input";
 import Button from "../../components/UI/Button/button";
-import { eraseState, forgotPasswordState } from "../../services/slices/forgot-password-slice";
-import { forgotPasswordThunk } from "../../services/thunk/forgot-password-thunk";
-import styles from './forgot-password.module.css';
+import { forgotPasswordThunk } from "../../store/feature/user/forgot-password-thunk";
+import styles from './forgot-password-page.module.css';
+import { userState } from "../../store/feature/user/user-slice";
 
-const ForgotPassword = () => {
-  const { success, message } = useSelector(forgotPasswordState);
+const ForgotPasswordPage = () => {
+  const { forgotPasswordResult } = useSelector(userState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { isChange, formField, onChange, onReplace } = useFormField({
-    email: '',
-  });
-
-  const onIconClick = (name) => {
-    onReplace(name, '');
-  };
+  const email = useFormField();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(forgotPasswordThunk(formField));
+    dispatch(forgotPasswordThunk({ email: email.value }));
   };
 
   React.useEffect(() => {
-    return () => {
-      dispatch(eraseState());
-    };
-  }, []);
-
-  React.useEffect(() => {
-    if (success) {
-      message && alert(message);
+    forgotPasswordResult &&
       navigate('/reset-password', { state: { from: location } });
-    }
-  }, [success, message, navigate, location]);
+  }, [forgotPasswordResult, navigate, location]);
 
   return (
     <main className={styles.page}>
@@ -50,9 +36,9 @@ const ForgotPassword = () => {
           <Input
             type='email'
             icon='CloseIcon'
-            value={formField.email}
-            onChange={e => onChange(e, 'email')}
-            onIconClick={() => onIconClick('email')}
+            value={email.value}
+            onChange={email.onChange}
+            onIconClick={() => email.onChange({ target: { value: '' } })}
             placeholder={'e-mail'}
             pattern='[\w\-\.]+@[\w\-]+\.[a-z]{2,4}'
             minLength={6}
@@ -65,7 +51,7 @@ const ForgotPassword = () => {
             size='medium'
             htmlType='submit'
             extraClass={styles.button}
-            disabled={!isChange}
+            disabled={!email.value}
           >
             Восстановить
           </Button>
@@ -87,4 +73,4 @@ const ForgotPassword = () => {
   );
 };
 
-export { ForgotPassword };
+export default ForgotPasswordPage;

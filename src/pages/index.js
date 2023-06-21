@@ -1,6 +1,6 @@
 import { ConstructorPage } from "./ConstructorPage/constructor-page";
 import { ErrorPage } from "./ErrorPage/error-page";
-import { ForgotPassword } from "./ForgotPasswordPage/forgot-password";
+import ForgotPasswordPage from "./ForgotPasswordPage/forgot-password-page";
 import { Ingredients } from "./IngredientsPage/ingredients";
 import LoginPage from "./LoginPage/login-page";
 import { Logout } from "./LogoutPage/logout-page";
@@ -10,12 +10,12 @@ import { OrderPage } from "./OrderPage/order-page";
 import { ProfileOrderPage } from "./ProfileOrderPage/profile-order-page";
 import { ProfilePage } from "./ProfilePage/profile-page";
 import RegistrationPage from "./RegistrationPage/registration-page";
-import { ResetPassword } from "./ResetPasswordPage/reset-password-page";
+import ResetPasswordPage from "./ResetPasswordPage/reset-password-page";
 
 export {
   ConstructorPage,
   ErrorPage,
-  ForgotPassword,
+  ForgotPasswordPage,
   Ingredients,
   LoginPage,
   Logout,
@@ -25,5 +25,5 @@ export {
   ProfileOrderPage,
   ProfilePage,
   RegistrationPage,
-  ResetPassword,
+  ResetPasswordPage,
 }

@@ -3,12 +3,17 @@ import { loginThunk } from "./login-thunk";
 import { updateTokensThunk } from "./update-tokens-thunk";
 import { getUserThunk } from "./get-user-thunk";
 import { registrationThunk } from "./registration-thunk";
+import { forgotPasswordThunk } from "./forgot-password-thunk";
 
 const initialState = {
   loginStatus: 'idle',
   updateTokenStatus: 'idle',
   getUsetStatus: 'idle',
   registrationStatus: 'idle',
+
+  forgotPasswordStatus: 'idle',
+  forgotPasswordResult: undefined,
+
   isAuth: false,
   user: {
     name: '',
@@ -74,6 +79,18 @@ const userSlice = createSlice({
       })
       .addCase(registrationThunk.rejected, (state, { payload }) => {
         state.registrationStatus = 'failed';
+        console.log(payload);
+      })
+      .addCase(forgotPasswordThunk.pending, (state) => {
+        state.forgotPasswordStatus = 'loading';
+      })
+      .addCase(forgotPasswordThunk.fulfilled, (state, { payload }) => {
+        state.forgotPasswordStatus = 'idle';
+        state.forgotPasswordResult = payload.success;
+        console.log(payload);
+      })
+      .addCase(forgotPasswordThunk.rejected, (state, {payload}) => {
+        state.forgotPasswordStatus = 'failed';
         console.log(payload);
       })
   }
