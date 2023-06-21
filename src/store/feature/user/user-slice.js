@@ -6,6 +6,7 @@ import { registrationThunk } from "./registration-thunk";
 import { forgotPasswordThunk } from "./forgot-password-thunk";
 import { resetPasswordThunk } from "./reset-password-thunk";
 import { updateUserThunk } from "./update-user-thunk";
+import { logoutThunk } from "./logout-thunk";
 
 const initialState = {
   loginStatus: 'idle',
@@ -15,6 +16,7 @@ const initialState = {
   registrationStatus: 'idle',
   forgotPasswordStatus: 'idle',
   resetPasswordStatus: 'idle',
+  logoutStatus: 'idle',
   isAuth: false,
   user: {
     name: '',
@@ -117,6 +119,21 @@ const userSlice = createSlice({
       })
       .addCase(resetPasswordThunk.rejected, (state, { payload }) => {
         state.resetPasswordStatus = 'failed';
+        console.log(payload);
+      })
+
+      .addCase(logoutThunk.pending, (state) => {
+        state.logoutStatus = 'loading';
+      })
+      .addCase(logoutThunk.fulfilled, (state, { payload }) => {
+        state.logoutStatus = 'idle';
+        state.isAuth = false;
+        state.accessToken = null;
+        state.user = {};
+        localStorage.removeItem('refreshToken');
+      })
+      .addCase(logoutThunk.rejected, (state, { payload }) => {
+        state.logoutStatus = 'failed';
         console.log(payload);
       })
   }
