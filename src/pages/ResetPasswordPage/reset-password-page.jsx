@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useFormField } from "../../hooks/use-form-field";
 import Input from "../../components/UI/Input/input";
 import Button from "../../components/UI/Button/button";
@@ -7,10 +7,9 @@ import PasswordInput from "../../components/UI/PasswordInput/password-input";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { resetPasswordThunk } from "../../store/feature/user/reset-password-thunk";
 import styles from './reset-password-page.module.css';
-import { userState } from "../../store/feature/user/user-slice";
 
 const ResetPasswordPage = () => {
-  const { resetPasswordResult } = useSelector(userState);
+  const [pass, setPass] = React.useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,13 +19,13 @@ const ResetPasswordPage = () => {
 
   React.useEffect(() => {
     if (path !== '/forgot-password') navigate('/forgot-password');
-    resetPasswordResult &&
-      navigate('/login', { replace: true });
-  }, [resetPasswordResult, navigate, path]);
+    pass && navigate('/login', { replace: true });
+  }, [pass, navigate, path]);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(resetPasswordThunk({ password: password.value, token: token.value }));
+    setPass(true);
   };
 
   return (

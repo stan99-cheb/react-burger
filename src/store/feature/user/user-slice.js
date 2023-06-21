@@ -5,19 +5,16 @@ import { getUserThunk } from "./get-user-thunk";
 import { registrationThunk } from "./registration-thunk";
 import { forgotPasswordThunk } from "./forgot-password-thunk";
 import { resetPasswordThunk } from "./reset-password-thunk";
+import { updateUserThunk } from "./update-user-thunk";
 
 const initialState = {
   loginStatus: 'idle',
+  updateUserState: 'idle',
   updateTokenStatus: 'idle',
   getUsetStatus: 'idle',
   registrationStatus: 'idle',
-
   forgotPasswordStatus: 'idle',
-  forgotPasswordResult: undefined,
-
   resetPasswordStatus: 'idle',
-  resetPasswordResult: undefined,
-
   isAuth: false,
   user: {
     name: '',
@@ -36,7 +33,6 @@ const userSlice = createSlice({
         state.loginStatus = 'loading';
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.loginStatus = 'idle';
         state.isAuth = true;
         if (payload.user) state.user = payload.user;
@@ -50,6 +46,20 @@ const userSlice = createSlice({
         state.accessToken = null;
         localStorage.removeItem('refreshToken');
       })
+
+      .addCase(updateUserThunk.pending, (state) => {
+        state.updateUserState = 'loading';
+      })
+      .addCase(updateUserThunk.fulfilled, (state, { payload }) => {
+        state.updateUserState = 'idle';
+        state.user = payload.user;
+        console.log(payload);
+      })
+      .addCase(updateUserThunk.rejected, (state, { payload }) => {
+        state.updateUserState = 'failed';
+        console.log(payload);
+      })
+
       .addCase(updateTokensThunk.pending, (state) => {
         state.updateTokenStatus = 'loading';
       })
@@ -62,6 +72,7 @@ const userSlice = createSlice({
       .addCase(updateTokensThunk.rejected, (state, { payload }) => {
         state.updateTokenStatus = 'failed';
       })
+
       .addCase(getUserThunk.pending, (state) => {
         state.getUsetStatus = 'loading';
       })
@@ -74,6 +85,7 @@ const userSlice = createSlice({
         state.getUsetStatus = 'failed';
         console.log(payload)
       })
+
       .addCase(registrationThunk.pending, (state) => {
         state.registrationStatus = 'loading';
       })
@@ -85,24 +97,23 @@ const userSlice = createSlice({
         state.registrationStatus = 'failed';
         console.log(payload);
       })
+
       .addCase(forgotPasswordThunk.pending, (state) => {
         state.forgotPasswordStatus = 'loading';
       })
       .addCase(forgotPasswordThunk.fulfilled, (state, { payload }) => {
         state.forgotPasswordStatus = 'idle';
-        state.forgotPasswordResult = payload.success;
       })
       .addCase(forgotPasswordThunk.rejected, (state, { payload }) => {
         state.forgotPasswordStatus = 'failed';
         console.log(payload);
       })
+
       .addCase(resetPasswordThunk.pending, (state) => {
         state.resetPasswordStatus = 'loading';
       })
       .addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
         state.resetPasswordStatus = 'idle';
-        state.resetPasswordResult = payload.success;
-        console.log(payload);
       })
       .addCase(resetPasswordThunk.rejected, (state, { payload }) => {
         state.resetPasswordStatus = 'failed';

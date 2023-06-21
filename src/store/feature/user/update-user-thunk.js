@@ -1,10 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../../utils/api";
-import { loginUser } from "./user-slice";
 
 export const updateUserThunk = createAsyncThunk(
   'user/update',
-  async ({ accessToken, formField }, { dispatch, rejectWithValue }) => {
+  async ({ accessToken, formField }, { rejectWithValue }) => {
     try {
       const response = await api.request('/auth/user', {
         method: 'PATCH',
@@ -18,7 +17,7 @@ export const updateUserThunk = createAsyncThunk(
           "name": formField.name,
         }),
       });
-      dispatch(loginUser(response));
+      return response;
     } catch (error) {
       return rejectWithValue(error.message);
     };
