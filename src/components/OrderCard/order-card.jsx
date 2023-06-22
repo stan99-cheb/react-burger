@@ -15,25 +15,29 @@ const OrderCard = ({ order }) => {
     }, 0);
   };
 
-  const getIngredients = (ingredients) => {
+  const getIngredients = ((ingredients) => {
     const filterArray = ingredients.filter(ingredient => ingredient);
     const count = ingredients.length - 6;
-    const arrayRender = filterArray.map(ingredient =>
-      array.find(item => item._id === ingredient));
+    const arrayRender = filterArray.map(ingredient => {
+      return { ...array.find(item => item._id === ingredient), uuid: crypto.randomUUID() };
+    });
 
     return (
       <div className={styles.orderIngredients}>
         {count > 0 &&
           <div className={styles.overlay}>+{count}</div>
         }
-        {arrayRender.slice(0, 6).map((ingredient, i) =>
-          <div className={styles.img}>
-            <img src={ingredient.image_mobile} alt="icon" key={i} />
+        {arrayRender.slice(0, 6).map(ingredient =>
+          <div
+            key={ingredient.uuid}
+            className={styles.img}
+          >
+            <img src={ingredient.image_mobile} alt="icon" />
           </div>
         )}
       </div>
     );
-  };
+  });
 
   return (
     <article className={styles.orderCard}>

@@ -4,7 +4,7 @@ import ForgotPasswordPage from "./ForgotPasswordPage/forgot-password-page";
 import { Ingredients } from "./IngredientsPage/ingredients";
 import LoginPage from "./LoginPage/login-page";
 import LogoutPage from "./LogoutPage/logout-page";
-import { OrderFeedPage } from "./OrderFeedPage/order-feed-page";
+import FeedPage from "./FeedPage/feed-page";
 import { OrderHistoryPage } from "./OrderHistoryPage/order-history-page";
 import { OrderPage } from "./OrderPage/order-page";
 import { ProfileOrderPage } from "./ProfileOrderPage/profile-order-page";
@@ -19,7 +19,7 @@ export {
   Ingredients,
   LoginPage,
   LogoutPage,
-  OrderFeedPage,
+  FeedPage,
   OrderHistoryPage,
   OrderPage,
   ProfileOrderPage,
