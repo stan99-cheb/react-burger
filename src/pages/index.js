@@ -5,7 +5,7 @@ import { Ingredients } from "./IngredientsPage/ingredients";
 import LoginPage from "./LoginPage/login-page";
 import LogoutPage from "./LogoutPage/logout-page";
 import FeedPage from "./FeedPage/feed-page";
-import { OrderHistoryPage } from "./OrderHistoryPage/order-history-page";
+import OrderHistoryPage from "./OrderHistoryPage/order-history-page";
 import { OrderPage } from "./OrderPage/order-page";
 import { ProfileOrderPage } from "./ProfileOrderPage/profile-order-page";
 import { ProfilePage } from "./ProfilePage/profile-page";

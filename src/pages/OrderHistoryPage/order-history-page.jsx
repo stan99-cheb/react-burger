@@ -20,25 +20,27 @@ const OrderHistoryPage = () => {
 
   if (!orders) return null;
 
+  const renderedOrders = orders.map((order, i) =>
+    <li
+      key={i}
+    >
+      <Link
+        to={`${order.number}`}
+        state={{ background: location }}
+        className={styles.link}
+      >
+        <OrderCard order={order} />
+      </Link>
+    </li>
+  );
+
   return (
     <section className={styles.section}>
       <ul className={styles.ordersList}>
-        {orders.map((order, i) =>
-          <li
-            key={i}
-          >
-            <Link
-              to={`${order.number}`}
-              state={{ background: location }}
-              className={styles.link}
-            >
-              <OrderCard order={order} />
-            </Link>
-          </li>
-        )}
+        {renderedOrders}
       </ul>
     </section>
   );
 };
 
-export { OrderHistoryPage };
+export default OrderHistoryPage;

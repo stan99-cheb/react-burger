@@ -5,7 +5,7 @@ import { dataIngredientsState, ingredientsState } from './store/feature/ingredie
 import { getIngredients } from './store/feature/ingredients/get-ingredients-thunk';
 import Loader from './components/UI/Loader/loader';
 import AppLayout from './components/Layouts/AppLayout/app-layout';
-import { ConstructorPage, FeedPage, ForgotPasswordPage, LoginPage, LogoutPage, ProfilePage, RegistrationPage, ResetPasswordPage } from './pages';
+import { ConstructorPage, FeedPage, ForgotPasswordPage, LoginPage, LogoutPage, OrderHistoryPage, ProfilePage, RegistrationPage, ResetPasswordPage } from './pages';
 import './App.css'
 import IngredientInfo from './components/IngredientInfo/ingredient-info';
 import Modal from './components/UI/Modal/modal';
@@ -41,6 +41,7 @@ function App() {
           <Route path='feed' element={<FeedPage />} />
           <Route path='profile' element={<ProtectedRoute><AccountLayout /></ProtectedRoute>}>
             <Route index element={<ProfilePage />} />
+            <Route path='order-history' element={<OrderHistoryPage />} />
             <Route path='logout' element={<LogoutPage />} />
           </Route>
           <Route path='login' element={<ProtectedRoute anonymous={true}><LoginPage /></ProtectedRoute>} />
