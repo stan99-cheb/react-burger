@@ -10,9 +10,9 @@ import styles from "./profile.module.css";
 const Profile = () => {
   const dispatch = useDispatch();
   const { user, accessToken } = useSelector(userState);
-  const name = useFormField(user.name);
-  const email = useFormField(user.email);
-  const password = useFormField();
+  const [name, resetName] = useFormField(user.name);
+  const [email, resetEmail] = useFormField(user.email);
+  const [password, resetPassword] = useFormField('');
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -26,9 +26,9 @@ const Profile = () => {
 
   const formResetHandler = (e) => {
     e.preventDefault();
-    name.onChange({ target: { value: user.name } });
-    email.onChange({ target: { value: user.email } });
-    password.onChange({ target: { value: '' } });
+    resetName();
+    resetEmail();
+    resetPassword();
   };
 
   return (
@@ -40,8 +40,7 @@ const Profile = () => {
       <Input
         type='text'
         icon='CloseIcon'
-        value={name.value}
-        onChange={name.onChange}
+        {...name}
         onIconClick={() => name.onChange({ target: { value: '' } })}
         placeholder={'name'}
         pattern='^[\w+]{1,40}$'
@@ -53,8 +52,7 @@ const Profile = () => {
       <Input
         type='email'
         icon='CloseIcon'
-        value={email.value}
-        onChange={email.onChange}
+        {...email}
         onIconClick={() => email.onChange({ target: { value: '' } })}
         placeholder={'e-mail'}
         pattern='[\w\-\.]+@[\w\-]+\.[a-z]{2,4}'
@@ -63,8 +61,7 @@ const Profile = () => {
         required
       />
       <PasswordInput
-        value={password.value}
-        onChange={password.onChange}
+        {...password}
         placeholder={'password'}
         pattern='^.+$'
         minLength={4}

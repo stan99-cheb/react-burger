@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux";
-import { dataIngredientsState } from "../../store/feature/ingredients/ingredients-slice";
+import { ingredientsState } from "../../store/feature/ingredients/selectors";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "../UI/Icons";
 import { ORDER_TYPE } from "../../utils/prop-types";
 import styles from "./order-card.module.css";
 
 const OrderCard = ({ order }) => {
-  const array = useSelector(dataIngredientsState);
+  const allIngredients = useSelector(ingredientsState);
 
   const getPrice = (ingredients) => {
     const filterArray = ingredients.filter(ingredient => ingredient);
     return filterArray.reduce((acc, ingredient) => {
-      return acc + array.find(item => item._id === ingredient).price;
+      return acc + allIngredients.find(item => item._id === ingredient).price;
     }, 0);
   };
 
@@ -19,7 +19,7 @@ const OrderCard = ({ order }) => {
     const filterArray = ingredients.filter(ingredient => ingredient);
     const count = ingredients.length - 6;
     const arrayRender = filterArray.map(ingredient => {
-      return { ...array.find(item => item._id === ingredient), uuid: crypto.randomUUID() };
+      return { ...allIngredients.find(item => item._id === ingredient), uuid: crypto.randomUUID() };
     });
 
     return (

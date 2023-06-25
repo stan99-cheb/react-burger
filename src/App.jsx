@@ -1,23 +1,24 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useLocation, useMatch, useNavigate } from 'react-router-dom';
-import { dataIngredientsState, ingredientsState } from './store/feature/ingredients/ingredients-slice';
 import { getIngredients } from './store/feature/ingredients/get-ingredients-thunk';
 import Loader from './components/UI/Loader/loader';
 import AppLayout from './components/Layouts/AppLayout/app-layout';
-import { ConstructorPage, FeedPage, ForgotPasswordPage, LoginPage, LogoutPage, OrderHistoryPage, ProfilePage, RegistrationPage, ResetPasswordPage } from './pages';
+import { ConstructorPage, FeedPage, ForgotPasswordPage, LoginPage, LogoutPage, ProfileOrdersPages, ProfilePage, RegistrationPage, ResetPasswordPage } from './pages';
 import './App.css'
 import IngredientInfo from './components/IngredientInfo/ingredient-info';
 import Modal from './components/UI/Modal/modal';
-import withData from './components/HOC/with-data';
 import AccountLayout from './components/Layouts/AccountLayout/account-layout';
 import { updateTokensThunk } from './store/feature/user/update-tokens-thunk';
 import ProtectedRoute from './components/ProtectedRoute/protected-route';
+import { ingredientsState, statusState } from './store/feature/ingredients/selectors';
+import OrderInfo from './components/OrderInfo/order-info';
+import withIngredients from './components/HOC/with-ingredients';
 
 function App() {
   const dispatch = useDispatch();
-  const { status } = useSelector(ingredientsState);
-  const data = useSelector(dataIngredientsState);
+  const status = useSelector(statusState);
+  const ingredients = useSelector(ingredientsState);
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -39,9 +40,10 @@ function App() {
         <Route path='/' element={<AppLayout />}>
           <Route index element={<ConstructorPage />} />
           <Route path='feed' element={<FeedPage />} />
+          <Route path='feed/:number' element={<OrderInfo url='wss://norma.nomoreparties.space/orders/all' />} />
           <Route path='profile' element={<ProtectedRoute><AccountLayout /></ProtectedRoute>}>
             <Route index element={<ProfilePage />} />
-            <Route path='order-history' element={<OrderHistoryPage />} />
+            <Route path='orders' element={<ProfileOrdersPages />} />
             <Route path='logout' element={<LogoutPage />} />
           </Route>
           <Route path='login' element={<ProtectedRoute anonymous={true}><LoginPage /></ProtectedRoute>} />
@@ -59,13 +61,34 @@ function App() {
                 closeModal={closeModal}
                 options={{ closeable: true }}
               >
-                {withData(IngredientInfo)(data)(id)}
+                {withIngredients(IngredientInfo)(ingredients)(id)}
               </Modal>
             }
           />
-        </Routes >
-      )
-      }
+          <Route
+            path='feed/:number'
+            element={
+              <Modal
+                closeModal={closeModal}
+                options={{ closeable: true }}
+              >
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='profile/orders/:number'
+            element={
+              <Modal
+                closeModal={closeModal}
+                options={{ closeable: true }}
+              >
+                <OrderInfo />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </>
   );
 };

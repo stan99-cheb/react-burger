@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { ingredientsState } from "../../store/feature/ingredients/ingredients-slice";
+import { ingredientsState } from "../../store/feature/ingredients/selectors";
 import IngredientInfo from "../../components/IngredientInfo/ingredient-info";
 import styles from "./ingredients.module.css";
 
 const Ingredients = () => {
-  const { data } = useSelector(ingredientsState);
+  const ingredients = useSelector(ingredientsState);
   const { id } = useParams();
-  const ingredient = data.find(ingredient => ingredient._id === id);
+  const ingredient = ingredients.find(ingredient => ingredient._id === id);
 
   if (!ingredient) return null;
 

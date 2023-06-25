@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addBurgerComponent, burgerComponentState } from "../../services/slices/burger-components";
-import { dataIngredientsState } from "../../store/feature/ingredients/ingredients-slice";
+import { ingredientsState } from "../../store/feature/ingredients/selectors";
 import BurgerComponents from "../BurgerComponents/burger-components";
 import BurgerConstructorInfo from "../BurgerConstructorInfo/burger-constructor-info";
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const data = useSelector(dataIngredientsState);
+  const ingredients = useSelector(ingredientsState);
   const burgerComponents = useSelector(burgerComponentState);
 
   const dragOverHandler = (e) => e.preventDefault();
@@ -17,7 +17,7 @@ const BurgerConstructor = () => {
     const { type, payload } = JSON.parse(result);
     if (type === 'add') {
       e.preventDefault();
-      const burgerComponent = data.find(ingredient => ingredient._id === payload.id);
+      const burgerComponent = ingredients.find(ingredient => ingredient._id === payload.id);
       if (burgerComponent.type !== 'bun' && !burgerComponents.bun) {
         alert('Сначала добавьте булочку');
         return;

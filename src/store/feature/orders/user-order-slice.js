@@ -3,35 +3,35 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   wsConnecting: false,
   wsConnected: false,
-  data: {},
+  data: undefined,
   error: undefined,
 };
 
-const wsOrderSlice = createSlice({
-  name: 'socket/order',
+const userOrdersSlice = createSlice({
+  name: 'socket/userOrders',
   initialState,
   reducers: {
-    orderConnectionStart(state) {
+    userOrdersConnectionStart(state) {
       state.wsConnecting = true;
       state.error = undefined;
     },
-    orderConnectionSuccess(state) {
+    userOrdersConnectionSuccess(state) {
       state.wsConnected = true;
       state.wsConnecting = false;
       state.error = undefined;
     },
-    orderConnectionError(state) {
+    userOrdersConnectionError(state) {
       state.wsConnected = false;
     },
-    orderConnectionClosing(state) {
-      state.wsConnected = false;
-      state.error = undefined;
-    },
-    orderConnectionClosed(state) {
+    userOrdersConnectionClosing(state) {
       state.wsConnected = false;
       state.error = undefined;
     },
-    orderGetMessage(state, { payload }) {
+    userOrdersConnectionClosed(state) {
+      state.wsConnected = false;
+      state.error = undefined;
+    },
+    userOrdersGetMessage(state, { payload }) {
       state.data = payload;
       state.error = undefined;
     },
@@ -39,14 +39,11 @@ const wsOrderSlice = createSlice({
 });
 
 export const {
-  orderConnectionStart,
-  orderConnectionSuccess,
-  orderConnectionError,
-  orderConnectionClosing,
-  orderConnectionClosed,
-  orderGetMessage,
-} = wsOrderSlice.actions;
-export default wsOrderSlice.reducer;
-
-export const wsOrderState = (state) => state.wsOrder;
-export const wsOrderDataState = (state) => state.wsOrder.data;
+  userOrdersConnectionStart,
+  userOrdersConnectionSuccess,
+  userOrdersConnectionError,
+  userOrdersConnectionClosing,
+  userOrdersConnectionClosed,
+  userOrdersGetMessage,
+} = userOrdersSlice.actions;
+export default userOrdersSlice.reducer;

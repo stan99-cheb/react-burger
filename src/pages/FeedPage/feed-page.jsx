@@ -1,26 +1,15 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { allOrdersState, wsConnectionClosing, wsConnectionStart } from "../../store/slice/all-orders-slice";
 import OrderCard from "../../components/OrderCard/order-card";
 import styles from "./feed-page.module.css";
+import useOrders from "../../hooks/use-orders";
 
 const FeedPage = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
-  const { data } = useSelector(allOrdersState);
+  const { orders, total, totalToday } = useOrders('wss://norma.nomoreparties.space/orders/all');
 
-  React.useEffect(() => {
-    dispatch(wsConnectionStart());
+  if (!orders) return null;
 
-    return () => {
-      dispatch(wsConnectionClosing());
-    };
-  }, []);
-
-  if (!data.success) return null;
-
-  const renderedOrder = data.orders.map(order =>
+  const renderedOrder = orders.map(order =>
     <li
       key={order.number}
       className={styles.orderItem}
@@ -36,7 +25,7 @@ const FeedPage = () => {
   )
 
   const renderedOrderStatus = (status) =>
-    data.orders.map(item => {
+    orders.map(item => {
       if (item.status === status) return item.number;
       return null;
     })
@@ -82,13 +71,13 @@ const FeedPage = () => {
           <div className={styles.text}>
             Выполнено за всё время<br />
             <span className={styles.statsDigits}>
-              {data.total}
+              {total}
             </span>
           </div>
           <div className={styles.text}>
             Выполнено за сегодня<br />
             <span className={styles.statsDigits}>
-              {data.totalToday}
+              {totalToday}
             </span>
           </div>
         </div>

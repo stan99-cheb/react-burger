@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   wsConnecting: false,
   wsConnected: false,
-  data: {},
+  wsClosing: false,
+  data: undefined,
   error: undefined,
 };
 
@@ -16,19 +17,20 @@ const allOrdersSlice = createSlice({
       state.error = undefined;
     },
     wsConnectionSuccess(state) {
-      state.wsConnected = true;
       state.wsConnecting = false;
+      state.wsConnected = true;
       state.error = undefined;
     },
     wsConnectionError(state) {
       state.wsConnected = false;
     },
     wsConnectionClosing(state) {
-      state.wsConnected = false;
+      state.wsClosing = true;
       state.error = undefined;
     },
     wsConnectionClosed(state) {
       state.wsConnected = false;
+      state.wsClosing = false;
       state.error = undefined;
       state.data = {};
     },

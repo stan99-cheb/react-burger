@@ -2,8 +2,6 @@ import { INGREDIENT_TYPE } from "../../utils/prop-types";
 import styles from './ingredient-info.module.css';
 
 const IngredientInfo = ({ ingredient }) => {
-  
-  if (!ingredient) return null;
 
   return (
     <article className={styles.container}>
@@ -33,7 +31,7 @@ const IngredientInfo = ({ ingredient }) => {
 };
 
 IngredientInfo.propTypes = {
-  ingredient: INGREDIENT_TYPE,
+  item: INGREDIENT_TYPE,
 };
 
 export default IngredientInfo;

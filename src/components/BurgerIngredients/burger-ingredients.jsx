@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { TABS } from "../../utils/constants";
 import IngredientsCategory from "../IngredientsCategory/ingredients-category";
 import Tab from "../UI/Tab/tab";
-import { dataIngredientsState } from "../../store/feature/ingredients/ingredients-slice";
+import { ingredientsState } from "../../store/feature/ingredients/selectors";
 import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = () => {
-  const data = useSelector(dataIngredientsState);
+  const ingredients = useSelector(ingredientsState);
   const [activeTab, setActiveTab] = React.useState('bun');
   const rootRef = React.createRef(null);
   const tabsRef = TABS.reduce((acc, tab) => {
@@ -16,7 +16,7 @@ const BurgerIngredients = () => {
   }, {});
   const refs = [rootRef, tabsRef];
 
-  if (!data) return null;
+  if (!ingredients) return null;
 
   const scrollClickHandler = (value) =>
     tabsRef[value].current.scrollIntoView({
@@ -24,7 +24,7 @@ const BurgerIngredients = () => {
     });
 
   const getTabIngredients = (value) =>
-    data.filter(ingredient => ingredient.type === value);
+    ingredients.filter(ingredient => ingredient.type === value);
 
   const renderedTab = TABS.map(tab =>
     <Tab

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { orderConnectionClosing, orderConnectionStart, wsOrderDataState } from "../../store/slice/ws-order-slice";
+import { orderConnectionClosing, orderConnectionStart, wsOrderDataState } from "../../store/feature/orders/user-order-slice";
 import OrderInfo from "../../components/OrderInfo/order-info";
 import styles from "./profile-order-page.module.css";
 

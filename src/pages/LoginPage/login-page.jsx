@@ -9,8 +9,8 @@ import { loginThunk } from "../../store/feature/user/login-thunk";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const email = useFormField();
-  const password = useFormField();
+  const [email] = useFormField();
+  const [password] = useFormField();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -27,8 +27,7 @@ const LoginPage = () => {
         <Input
           type='email'
           icon='CloseIcon'
-          value={email.value}
-          onChange={email.onChange}
+          {...email}
           onIconClick={() => email.onChange({ target: { value: '' } })}
           placeholder={'e-mail'}
           pattern='[\w\-\.]+@[\w\-]+\.[a-z]{2,4}'
@@ -38,8 +37,7 @@ const LoginPage = () => {
           required
         />
         <PasswordInput
-          value={password.value}
-          onChange={password.onChange}
+          {...password}
           placeholder={'password'}
           pattern='^.+$'
           minLength={4}

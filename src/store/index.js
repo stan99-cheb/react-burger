@@ -19,17 +19,17 @@ import allOrdersSlice, {
   wsConnectionStart,
   wsConnectionSuccess,
   wsGetMessage
-} from "./slice/all-orders-slice";
-import wsOrderSlice, {
-  orderConnectionClosed,
-  orderConnectionClosing,
-  orderConnectionError,
-  orderConnectionStart,
-  orderConnectionSuccess,
-  orderGetMessage
-} from "./slice/ws-order-slice";
+} from "./feature/orders/all-orders-slice";
+// import userOrdersSlice, {
+//   userOrdersConnectionStart,
+//   userOrdersConnectionSuccess,
+//   userOrdersConnectionError,
+//   userOrdersConnectionClosing,
+//   userOrdersConnectionClosed,
+//   userOrdersGetMessage,
+// } from "./feature/orders/user-order-slice";
 
-const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
+// const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
 const wsActionsAllOrders = {
   wsInit: wsConnectionStart,
   onOpen: wsConnectionSuccess,
@@ -39,15 +39,15 @@ const wsActionsAllOrders = {
   onError: wsConnectionError,
 };
 
-const wsUrlOrder = "wss://norma.nomoreparties.space/orders";
-const wsActionsOrder = {
-  wsInit: orderConnectionStart,
-  onOpen: orderConnectionSuccess,
-  onMessage: orderGetMessage,
-  onClosing: orderConnectionClosing,
-  onClose: orderConnectionClosed,
-  onError: orderConnectionError,
-};
+// const wsUrlUserOrders = "wss://norma.nomoreparties.space/orders";
+// const wsActionsUserOrders = {
+//   wsInit: userOrdersConnectionStart,
+//   onOpen: userOrdersConnectionSuccess,
+//   onMessage: userOrdersGetMessage,
+//   onClosing: userOrdersConnectionClosing,
+//   onClose: userOrdersConnectionClosed,
+//   onError: userOrdersConnectionError,
+// };
 
 const store = configureStore({
   reducer: {
@@ -63,13 +63,13 @@ const store = configureStore({
     resetPassword: resetPasswordSlice,
     updateTokens: updateTokensSlice,
     allOrders: allOrdersSlice,
-    wsOrder: wsOrderSlice,
+    // userOrders: userOrdersSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
       loggerMiddleware,
-      socketMiddleware(wsUrlAllOrders, wsActionsAllOrders),
-      socketMiddleware(wsUrlOrder, wsActionsOrder)
+      socketMiddleware(wsActionsAllOrders),
+      // socketMiddleware(wsUrlUserOrders, wsActionsUserOrders)
     ]);
   },
 });

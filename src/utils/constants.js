@@ -28,7 +28,7 @@ export const profileData = [
     description: 'В этом разделе вы можете изменить свои персональные данные',
   },
   {
-    path: 'order-history',
+    path: 'orders',
     name: 'История заказов',
     description: 'В этом разделе вы можете просмотреть свою историю заказов',
   },

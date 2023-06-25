@@ -1,13 +1,19 @@
 import { useSelector } from "react-redux";
-import { ingredientsState } from "../../store/feature/ingredients/ingredients-slice";
+import { useParams } from "react-router-dom";
+import { ingredientsState } from "../../store/feature/ingredients/selectors";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { icons } from "../../utils/icons";
 import { CurrencyIcon } from "../UI/Icons";
-import { ORDER_TYPE } from "../../utils/prop-types";
 import styles from "./order-info.module.css";
+import useOrders from "../../hooks/use-orders";
 
-const OrderInfo = ({ order }) => {
-  const { data } = useSelector(ingredientsState);
+const OrderInfo = ({ url }) => {
+  const { number } = useParams();
+  const allIngredients = useSelector(ingredientsState);
+  const { orders } = useOrders(url);
+  const order = orders && orders.find(order => order.number === Number(number));
+
+  if (!order) return null;
 
   const duplicateValues = order?.ingredients.reduce((acc, item) => {
     acc[item] = (acc[item] || 0) + 1;
@@ -17,11 +23,11 @@ const OrderInfo = ({ order }) => {
   const numberOfDuplicateValues = duplicateValues && Object.keys(duplicateValues);
 
   const price = order?.ingredients.reduce((acc, ingredient) => {
-    return acc + data.find(item => item._id === ingredient).price;
+    return acc + allIngredients.find(item => item._id === ingredient).price;
   }, 0);
 
   const getIngredient = (id) => {
-    const ingredient = data.find(item => item._id === id);
+    const ingredient = allIngredients.find(item => item._id === id);
     const icon = icons.find(icon => icon._id === id);
 
     return (
@@ -71,10 +77,6 @@ const OrderInfo = ({ order }) => {
       </p>
     </article>
   );
-};
-
-OrderInfo.propTypes = {
-  order: ORDER_TYPE.isRequired,
 };
 
 export default OrderInfo;

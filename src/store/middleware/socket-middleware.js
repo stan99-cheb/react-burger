@@ -1,15 +1,15 @@
-const socketMiddleware = (wsUrl, wsActions) => {
+const socketMiddleware = (wsActions) => {
   return (store) => {
     let ws = null;
 
     return (next) => (action) => {
       const { dispatch, getState } = store;
-      const { type } = action;
+      const { type, payload } = action;
       const { wsInit, onOpen, onMessage, onClosing, onClose, onError } = wsActions;
       const { accessToken } = getState().user;
 
       if (type === wsInit().type) {
-        ws = new WebSocket(`${wsUrl}?token=${accessToken}`);
+        ws = new WebSocket(`${payload}?token=${accessToken}`);
       };
 
       if (type === onClosing().type) {
