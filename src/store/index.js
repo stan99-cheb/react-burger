@@ -20,16 +20,16 @@ import allOrdersSlice, {
   wsConnectionSuccess,
   wsGetMessage
 } from "./feature/orders/all-orders-slice";
-// import userOrdersSlice, {
-//   userOrdersConnectionStart,
-//   userOrdersConnectionSuccess,
-//   userOrdersConnectionError,
-//   userOrdersConnectionClosing,
-//   userOrdersConnectionClosed,
-//   userOrdersGetMessage,
-// } from "./feature/orders/user-order-slice";
+import userOrdersSlice, {
+  userOrdersConnectionStart,
+  userOrdersConnectionSuccess,
+  userOrdersConnectionError,
+  userOrdersConnectionClosing,
+  userOrdersConnectionClosed,
+  userOrdersGetMessage,
+} from "./feature/orders/user-order-slice";
 
-// const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
+const wsUrlAllOrders = "wss://norma.nomoreparties.space/orders/all";
 const wsActionsAllOrders = {
   wsInit: wsConnectionStart,
   onOpen: wsConnectionSuccess,
@@ -39,15 +39,15 @@ const wsActionsAllOrders = {
   onError: wsConnectionError,
 };
 
-// const wsUrlUserOrders = "wss://norma.nomoreparties.space/orders";
-// const wsActionsUserOrders = {
-//   wsInit: userOrdersConnectionStart,
-//   onOpen: userOrdersConnectionSuccess,
-//   onMessage: userOrdersGetMessage,
-//   onClosing: userOrdersConnectionClosing,
-//   onClose: userOrdersConnectionClosed,
-//   onError: userOrdersConnectionError,
-// };
+const wsUrlUserOrders = "wss://norma.nomoreparties.space/orders";
+const wsActionsUserOrders = {
+  wsInit: userOrdersConnectionStart,
+  onOpen: userOrdersConnectionSuccess,
+  onMessage: userOrdersGetMessage,
+  onClosing: userOrdersConnectionClosing,
+  onClose: userOrdersConnectionClosed,
+  onError: userOrdersConnectionError,
+};
 
 const store = configureStore({
   reducer: {
@@ -63,13 +63,13 @@ const store = configureStore({
     resetPassword: resetPasswordSlice,
     updateTokens: updateTokensSlice,
     allOrders: allOrdersSlice,
-    // userOrders: userOrdersSlice,
+    userOrders: userOrdersSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
       loggerMiddleware,
-      socketMiddleware(wsActionsAllOrders),
-      // socketMiddleware(wsUrlUserOrders, wsActionsUserOrders)
+      socketMiddleware(wsUrlAllOrders, wsActionsAllOrders),
+      socketMiddleware(wsUrlUserOrders, wsActionsUserOrders),
     ]);
   },
 });

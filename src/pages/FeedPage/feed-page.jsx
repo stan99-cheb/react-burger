@@ -2,10 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import OrderCard from "../../components/OrderCard/order-card";
 import styles from "./feed-page.module.css";
 import useOrders from "../../hooks/use-orders";
+import { ordersState } from "../../store/feature/orders/selectors";
+import { wsConnectionClosing, wsConnectionStart } from "../../store/feature/orders/all-orders-slice";
 
 const FeedPage = () => {
   const location = useLocation();
-  const { orders, total, totalToday } = useOrders('wss://norma.nomoreparties.space/orders/all');
+  const { orders, total, totalToday } = useOrders(ordersState, wsConnectionStart, wsConnectionClosing);
 
   if (!orders) return null;
 

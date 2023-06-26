@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { wsConnectionClosing, wsConnectionStart } from "../store/feature/orders/all-orders-slice";
-import { ordersState } from "../store/feature/orders/selectors";
 
-const useOrders = (url = '') => {
+const useOrders = (state, wsConnectionStart, wsConnectionClosing) => {
   const dispatch = useDispatch();
-  const { data, wsConnected } = useSelector(ordersState);
+  const { data, wsConnected } = useSelector(state);
+
+  console.log('wsConnected', wsConnected);
 
   const wsConnectedRef = React.useRef(null);
   wsConnectedRef.current = wsConnected;
@@ -14,7 +14,7 @@ const useOrders = (url = '') => {
   const location = useLocation();
 
   React.useEffect(() => {
-    !wsConnected && dispatch(wsConnectionStart(url));
+    !wsConnected && dispatch(wsConnectionStart());
 
     return () => {
       wsConnectedRef.current && !location.state && dispatch(wsConnectionClosing());

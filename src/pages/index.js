@@ -6,7 +6,6 @@ import LoginPage from "./LoginPage/login-page";
 import LogoutPage from "./LogoutPage/logout-page";
 import FeedPage from "./FeedPage/feed-page";
 import ProfileOrdersPages from "./ProfileOrdersPage/profile-orders-page";
-import { OrderPage } from "./OrderPage/order-page";
 import { ProfilePage } from "./ProfilePage/profile-page";
 import RegistrationPage from "./RegistrationPage/registration-page";
 import ResetPasswordPage from "./ResetPasswordPage/reset-password-page";
@@ -20,7 +19,6 @@ export {
   LogoutPage,
   FeedPage,
   ProfileOrdersPages,
-  OrderPage,
   ProfilePage,
   RegistrationPage,
   ResetPasswordPage,
